@@ -1,0 +1,520 @@
+<!doctype html><html lang="pt-BR"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Eleições 2026 Relatório</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<style>
+/* tokens: color, type, layout */
+:root{
+  --bg:#f6f3ec; --surface:#fffdf8; --fg:#1d1b17; --muted:#66615a; --line:#ddd6c8;
+  --flavio:#1d4690; --flavio-mid:#4a74c6; --flavio-soft:#dfe8f7;
+  --lula:#a9261f; --lula-mid:#cc4a43; --lula-soft:#f6e0de;
+  --neutral:#7d776c; --neutral-soft:#e9e4d8; --accent:#8a6d1c; --warn-bg:#fbf1d6; --warn-fg:#5b4710;
+  --serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --max:980px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14130f; --surface:#1d1b16; --fg:#efeadf; --muted:#a8a193; --line:#37332a;
+  --flavio:#5b86d6; --flavio-mid:#3d63ad; --flavio-soft:#1d2a45;
+  --lula:#e0625a; --lula-mid:#b04039; --lula-soft:#3d2220;
+  --neutral:#9a9486; --neutral-soft:#2a2720; --accent:#d4b25a; --warn-bg:#352c10; --warn-fg:#ecd68f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14130f; --surface:#1d1b16; --fg:#efeadf; --muted:#a8a193; --line:#37332a;
+  --flavio:#5b86d6; --flavio-mid:#3d63ad; --flavio-soft:#1d2a45;
+  --lula:#e0625a; --lula-mid:#b04039; --lula-soft:#3d2220;
+  --neutral:#9a9486; --neutral-soft:#2a2720; --accent:#d4b25a; --warn-bg:#352c10; --warn-fg:#ecd68f; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.55;padding-inline:16px;padding-block:28px 56px}
+.wrap{max-width:var(--max);margin-inline:auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--serif);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(30px,6vw,48px);letter-spacing:-.01em}
+h2{font-size:clamp(22px,4vw,30px);border-top:2px solid var(--fg);padding-top:12px}
+h3{font-size:18px}
+p{margin:0;text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+.kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.sub{color:var(--muted);margin-top:10px}
+section{display:flex;flex-direction:column;gap:18px;min-width:0}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.grid.g5{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+.num{font-family:var(--serif);font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
+.lbl{color:var(--muted);font-size:13px;margin-top:4px}
+.f{color:var(--flavio)} .l{color:var(--lula)}
+.duel{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.duel{grid-template-columns:1fr}}
+.duel .card{border-top:6px solid}
+.duel .a{border-top-color:var(--flavio)} .duel .b{border-top-color:var(--lula)}
+.bar{display:flex;height:34px;border-radius:6px;overflow:hidden;background:var(--neutral-soft)}
+.bar span{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.maps{display:grid;gap:22px;grid-template-columns:minmax(0,420px) minmax(0,1fr);align-items:start}
+.maps .fill{position:relative;align-self:stretch;min-height:320px}
+.maps .fill>.scroll{position:absolute;inset:0;overflow:auto}
+@media(max-width:760px){.maps{grid-template-columns:1fr}.maps .fill{min-height:0}.maps .fill>.scroll{position:static;max-height:460px}}
+svg{max-width:100%;height:auto;display:block}
+svg text{font-family:var(--sans)}
+.tile .u{font-size:15px;font-weight:600;fill:#fff}
+.tile .p{font-size:11px;fill:#fff;font-variant-numeric:tabular-nums}
+.tile.n .u,.tile.n .p{fill:var(--fg)}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{position:sticky;top:0;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--bg)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.tag{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;font-weight:600;background:var(--neutral-soft);color:var(--fg);margin-right:4px;white-space:nowrap}
+.tag.pl{background:var(--flavio-soft);color:var(--flavio)} .tag.pt{background:var(--lula-soft);color:var(--lula)}
+.hb{display:grid;grid-template-columns:minmax(96px,150px) 1fr 44px;gap:10px;align-items:center;font-size:14px;margin-block:5px}
+.hb .t{background:var(--neutral-soft);border-radius:4px;height:20px;overflow:hidden}
+.hb .t b{display:block;height:100%;background:var(--neutral);border-radius:4px}
+.hb.pl .t b{background:var(--flavio)} .hb.pt .t b{background:var(--lula)}
+.hb .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.note{background:var(--warn-bg);color:var(--warn-fg);border-radius:10px;padding:16px;font-size:14px}
+.note ul{margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.src{font-size:13px;color:var(--muted)} .src ul{padding-left:18px;margin:6px 0 0;columns:2 260px;column-gap:28px}
+.src a,.note a{color:inherit}
+.two{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.small{font-size:13px;color:var(--muted)}
+.hemis{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));align-items:start}
+.hemis>div{display:flex;flex-direction:column;gap:12px;min-width:0}
+
+details{margin-top:8px} summary{cursor:pointer;color:var(--muted);font-size:13px;font-weight:600}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+.topnav{position:sticky;top:0;z-index:10;margin:-28px -16px 0;padding:0 16px;background:var(--bg);border-bottom:1px solid var(--line)}
+.topnav>div{max-width:var(--max);margin-inline:auto;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:10px}
+.topnav>div::-webkit-scrollbar{display:none}
+.topnav a{flex:none;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:99px}
+.topnav a:hover{color:var(--fg);background:var(--neutral-soft)}
+.topnav a.on{color:var(--fg);background:var(--neutral-soft)}
+.wrap{padding-top:28px}
+.seg{display:inline-flex;align-self:flex-start;border:1px solid var(--line);border-radius:99px;padding:3px;background:var(--surface)}
+.seg{flex-wrap:wrap}
+.seg button{font:inherit;font-size:13px;font-weight:600;color:var(--muted);background:none;border:0;border-radius:99px;padding:6px 14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.obs{margin-top:0} .obs p{margin-top:8px}
+.legend.esp{flex-direction:column;gap:6px}
+.stbox h3{margin-bottom:4px} .stbox h4{font-family:var(--serif);font-size:16px;margin:0 0 8px}
+.stcols{display:grid;column-gap:22px;row-gap:0;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.stcols>div{min-width:0}
+.lb{display:grid;grid-row:span 6;grid-template-rows:subgrid;align-content:start}
+.lb>*{min-width:0;align-self:start}
+.stack{display:flex;height:22px;border-radius:6px;overflow:hidden;background:var(--neutral-soft)}
+.stack span{display:block;height:100%;border-right:1px solid var(--surface)}
+.stack span:last-child{border-right:0}
+.stleg{margin-top:8px;font-size:12.5px}
+.stleg b{color:var(--fg);font-weight:600}
+.lb .nt:not(:empty){margin-top:8px}
+@media(max-width:700px){.lb{margin-bottom:28px}}
+</style>
+
+<nav class="topnav" aria-label="Seções"><div><a href="#resumo">Resumo</a><a href="#presidente">Presidente</a><a href="#mapa">Mapa</a><a href="#governadores">Governadores</a><a href="#senado">Senado</a><a href="#camara">Câmara</a><a href="#congresso">Congresso 2027</a><a href="#estados">Estados</a><a href="#calendario">Calendário</a><a href="#ressalvas">Ressalvas</a><a href="#fontes">Fontes</a></div></nav>
+
+<div class="wrap">
+
+<header>
+  <div class="kicker">Eleições gerais · 1º turno em 04/10/2026</div>
+  <h1>Flávio e Lula vão ao 2º turno, e o PL sai das urnas como a maior força do Congresso</h1>
+  <p class="sub">Presidente, governadores, senadores e deputados federais nos 26 estados e no Distrito Federal. Apuração de 4 de outubro, compilada de veículos que citam o TSE. Dados de 05/10/2026.</p>
+</header>
+
+<section id="resumo">
+  <h2>Resumo</h2>
+  <div class="grid g5">
+    <div class="card"><div class="num">25/10</div><div class="lbl">2º turno para presidente: Flávio x Lula</div></div>
+    <div class="card"><div class="num">20 + 7</div><div class="lbl">Governadores eleitos no 1º turno + estados com 2º turno</div></div>
+    <div class="card"><div class="num">54</div><div class="lbl">Senadores eleitos (2 por UF). PL elegeu 19</div></div>
+    <div class="card"><div class="num">513</div><div class="lbl">Deputados federais. PL tem a maior bancada: 121</div></div>
+    <div class="card"><div class="num">78,92%</div><div class="lbl">Comparecimento (abstenção de 21,08%)</div></div>
+  </div>
+</section>
+
+<section id="presidente">
+  <h2>Presidente da República</h2>
+  <div class="duel">
+    <div class="card a"><div class="kicker f">PL</div><h3>Flávio Bolsonaro</h3><div class="num f">47,03%</div><div class="lbl">56.104.503 votos válidos. Venceu em 14 estados e no DF</div></div>
+    <div class="card b"><div class="kicker l">PT</div><h3>Lula</h3><div class="num l">45,15%</div><div class="lbl">53.846.396 votos válidos. Venceu em 12 estados</div></div>
+  </div>
+  <div>
+    <div class="bar" role="img" aria-label="Votos válidos: Flávio 47,03%, Lula 45,15%, demais 7,81%">
+      <span style="width:47.03%;background:var(--flavio)"></span>
+      <span style="width:45.15%;background:var(--lula)"></span>
+      <span style="width:7.81%;background:var(--neutral)"></span>
+    </div>
+    <div class="legend" style="margin-top:8px">
+      <span><i style="background:var(--flavio)"></i>Flávio 47,03%</span>
+      <span><i style="background:var(--lula)"></i>Lula 45,15%</span>
+      <span><i style="background:var(--neutral)"></i>Demais 7,81%</span>
+    </div>
+  </div>
+  <div class="scroll"><table>
+    <thead><tr><th>Candidato</th><th>Partido</th><th class="n">% votos válidos</th><th>Situação</th></tr></thead>
+    <tbody>
+      <tr><td>Flávio Bolsonaro</td><td><span class="tag pl">PL</span></td><td class="n">47,03</td><td>2º turno</td></tr>
+      <tr><td>Lula</td><td><span class="tag pt">PT</span></td><td class="n">45,15</td><td>2º turno</td></tr>
+      <tr><td>Cury</td><td><span class="tag">Avante</span></td><td class="n">2,89</td><td>Eliminado</td></tr>
+      <tr><td>Renan Santos</td><td><span class="tag">Missão</span></td><td class="n">2,24</td><td>Eliminado</td></tr>
+      <tr><td>Caiado</td><td><span class="tag">PSD</span></td><td class="n">2,18</td><td>Eliminado</td></tr>
+      <tr><td>Demais candidatos</td><td>-</td><td class="n">≈ 0,5</td><td>Eliminados</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Votos em branco: 2.300.798. Votos nulos: 3.674.249.</p>
+</section>
+
+<section id="mapa">
+  <h2>Mapa: quem liderou em cada estado</h2>
+  <p>Cada quadrado é uma UF (cartograma, não respeita a área real). O número é o percentual de votos válidos do vencedor no estado. Tom escuro indica 60% ou mais.</p>
+  <div class="maps">
+    <div>
+      <svg id="mapPres" viewBox="0 0 396 464" role="img" aria-label="Cartograma do Brasil com o candidato à Presidência mais votado em cada UF"></svg>
+      <div class="legend" style="margin-top:10px">
+        <span><i style="background:var(--flavio)"></i>Flávio 60%+</span>
+        <span><i style="background:var(--flavio-mid)"></i>Flávio menos de 60%</span>
+        <span><i style="background:var(--lula-mid)"></i>Lula menos de 60%</span>
+        <span><i style="background:var(--lula)"></i>Lula 60%+</span>
+      </div>
+      <p class="small" style="margin-top:8px">Contorno tracejado: AP, empate técnico (Lula 45,71% e Flávio 45,67%).</p>
+    </div>
+    <div class="fill"><div class="scroll"><table style="min-width:0">
+      <thead><tr><th>UF</th><th>Vencedor</th><th class="n">%</th></tr></thead>
+      <tbody id="presRows"></tbody>
+    </table></div></div>
+  </div>
+  <p><strong class="f">Flávio: 14 estados + DF</strong> (RR, RO, SC, MT, AC, PR, MS, RS, ES, GO, RJ, SP, TO, MG). Levou o Sul, o Centro-Oeste, o Sudeste e boa parte do Norte.<br><strong class="l">Lula: 12 estados</strong> (PI, BA, MA, PE, CE, SE, PB, RN, AL, PA, AM, AP). Levou os 9 estados do Nordeste e AM, PA e AP no Norte.</p>
+</section>
+
+<section id="governadores">
+  <h2>Governadores</h2>
+  <p>20 foram eleitos no 1º turno (recorde: eram 15 em 2022). Sete disputas vão ao 2º turno em 25/10: AC, AM, DF, ES, RJ, RN e TO.</p>
+  <div class="maps">
+    <div>
+      <svg id="mapGov" viewBox="0 0 396 464" role="img" aria-label="Cartograma dos governadores: eleitos no 1º turno e estados com 2º turno"></svg>
+      <div class="legend" style="margin-top:10px">
+        <span><i style="background:var(--flavio)"></i>PL</span>
+        <span><i style="background:var(--lula)"></i>PT</span>
+        <span><i style="background:var(--neutral)"></i>Outros partidos</span>
+        <span><i style="border:2px dashed var(--fg);background:transparent"></i>2º turno</span>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:8px">Eleitos no 1º turno por partido</h3>
+      <div id="govParty"></div>
+      <p class="small" style="margin-top:8px">PL 5, PSD 4, PT 3, Republicanos 3, PP 2, PSDB 1, MDB 1, Podemos 1. Dez reeleições. Raquel Lyra (PE) é a única mulher eleita no 1º turno.</p>
+    </div>
+  </div>
+  <h3>Os 20 eleitos</h3>
+  <div class="scroll"><table>
+    <thead><tr><th>UF</th><th>Governador eleito</th><th>Partido</th><th class="n">% válidos</th></tr></thead>
+    <tbody id="govRows"></tbody>
+  </table></div>
+  <h3>Os 7 segundos turnos (25/10)</h3>
+  <div class="scroll"><table>
+    <thead><tr><th>UF</th><th>1º colocado</th><th class="n">%</th><th>2º colocado</th><th class="n">%</th></tr></thead>
+    <tbody id="runRows"></tbody>
+  </table></div>
+  <p class="small">RN é o 2º turno mais apertado do país (menos de 1 ponto). DF, AC e ES começaram o 2º turno com o líder acima de 49,6%.</p>
+</section>
+
+<section id="senado">
+  <h2>Senado: 54 eleitos</h2>
+  <p>Eleição majoritária, dois por UF. O PL elegeu 19, quase o dobro da bancada que tinha. Somando os 9 senadores do partido com mandato até 2031, o PL terá 28 das 81 cadeiras a partir de 2027, mais de um terço da Casa.</p>
+  <div id="senParty"></div>
+  <div class="scroll"><table>
+    <thead><tr><th>UF</th><th>Senador 1</th><th>Senador 2</th></tr></thead>
+    <tbody id="senRows"></tbody>
+  </table></div>
+</section>
+
+<section id="camara">
+  <h2>Câmara dos Deputados: 513 eleitos</h2>
+  <p>Eleição proporcional. O PL elegeu 121, a maior bancada de um único partido desde 1988. A federação PT/PCdoB/PV vem em segundo com 88 (70 do PT).</p>
+  <div id="camBars"></div>
+  <div class="grid">
+    <div class="card"><div class="num">35,67%</div><div class="lbl">Renovação: 183 deputados de primeiro mandato (algumas manchetes citam 38,7%)</div></div>
+    <div class="card"><div class="num">58,6%</div><div class="lbl">Taxa de reeleição. 29 ex-deputados voltam à Casa</div></div>
+    <div class="card"><div class="num">91</div><div class="lbl">Mulheres eleitas, cerca de 17,7% da Câmara</div></div>
+  </div>
+  <p class="small">A lista com os nomes dos 513 deputados e o detalhamento por estado não entraram neste relatório. Consulte o painel do TSE ou a página de eleitos da Câmara.</p>
+</section>
+
+<section id="congresso">
+  <h2>Como fica o Congresso em 2027</h2>
+  <p>Cada ponto é uma cadeira, da esquerda para a direita (ordem aproximada, não oficial). Passe o mouse ou toque num ponto para ver o partido.</p>
+  <div class="seg" role="group" aria-label="Colorir cadeiras por"><button type="button" data-mode="partido" aria-pressed="true">Por partido</button><button type="button" data-mode="esp3" aria-pressed="false">Esquerda, centro e direita</button><button type="button" data-mode="esp" aria-pressed="false">Espectro detalhado</button></div>
+  <p class="small" id="specNote" hidden>Classificação aproximada, não oficial, baseada em como a imprensa costuma agrupar os partidos. Na versão de três grupos, centro-esquerda conta como esquerda e centro-direita como direita. Federações seguem o partido principal (PT/PCdoB/PV na esquerda, União/PP na centro-direita). O posicionamento de partidos de centro como PSD, MDB e Podemos varia conforme o tema e a fonte.</p>
+  <div class="hemis">
+  <div>
+  <h3>Câmara dos Deputados: 513 cadeiras</h3>
+  <svg id="hemCam" viewBox="0 0 600 330" role="img" aria-label="Plenário da Câmara com as 513 cadeiras por partido ou federação"></svg>
+  <div class="legend" id="legCam"></div>
+  </div>
+  <div>
+  <h3>Senado Federal: 81 cadeiras</h3>
+  <svg id="hemSen" viewBox="0 0 600 330" role="img" aria-label="Plenário do Senado: 54 eleitos em 2026 por partido e 27 com mandato até 2031"></svg>
+  <div class="legend" id="legSen"></div>
+  </div>
+  </div>
+  <details class="obs"><summary>Observações sobre o Senado</summary><p class="small">Tom cheio: os 54 eleitos em 2026. Tom claro: os 27 eleitos em 2022, com mandato até 2031 (números entre parênteses: eleitos agora + remanescentes). Em MG e PR as cadeiras ficam com os suplentes, porque Cleitinho e Moro foram eleitos governadores. Alan Rick (AC), Omar Aziz (AM) e Professora Dorinha (TO) disputam o 2º turno para governador; se vencerem, os suplentes assumem e a conta pode mudar.</p></details>
+</section>
+
+<section id="estados">
+  <h2>Principais estados: federais e estaduais</h2>
+  <p>Eleitos para a Câmara dos Deputados e para as assembleias de SP, RJ e DF, com votos de cada um. Contagem por partido (não por federação), feita a partir das listas. BA, RS e PR ainda não entraram: as listas de 2026 desses estados não estavam disponíveis nas fontes consultadas.</p>
+  <div id="stateBlocks" style="display:flex;flex-direction:column;gap:34px"></div>
+  <div class="note">Fontes dessas listas: Gazeta de São Paulo (federais SP, fonte única), Exame e Gazeta do Povo (federais RJ, concordam entre si), Diário do Rio e Gazeta do Povo (estaduais RJ; a votação de Índia Armelau aparece como 248.312 e 248.504), CNN Brasil (distritais DF), CNN Brasil e Metrópoles (estaduais SP, concordam entre si; o nome aparece como Franco Sardelli e Franco Sardeli), CNN Brasil, Gazeta do Povo e Estado de Minas (federais MG, concordam entre si; uma lista do Metrópoles traz 9 nomes diferentes e foi descartada), Rede 98 (estaduais MG, com votos; nomes e partidos conferidos com a DCI). Confira no painel do TSE antes de citar.</div>
+</section>
+
+<section id="calendario">
+  <h2>Calendário</h2>
+  <div class="scroll"><table>
+    <tbody>
+      <tr><td>25/10/2026</td><td>2º turno: presidente e 7 governos estaduais</td></tr>
+      <tr><td>até 18/12/2026</td><td>Diplomação dos eleitos</td></tr>
+      <tr><td>05/01/2027</td><td>Posse do presidente</td></tr>
+      <tr><td>06/01/2027</td><td>Posse dos governadores</td></tr>
+      <tr><td>01/02/2027</td><td>Posse de senadores e deputados</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="ressalvas">
+  <h2>Ressalvas sobre os dados</h2>
+  <div class="note">
+    Os números vêm de reportagens com base na apuração do TSE e não de uma base oficial única. Onde as fontes divergem, o relatório indica:
+    <ul>
+      <li>Os partidos dos 27 senadores com mandato até 2031 vêm da lista da Folha do Interior e batem com a composição de 2027 divulgada na imprensa (PL 28, PT 9, MDB 8, PP 6, União 6, Republicanos 5, PSD 5, PSB 4, Novo 3, PSDB 2, Podemos 2, PDT 1, Rede 1, sem partido 1). A própria Folha do Interior inverte Republicanos e União no seu resumo.</li>
+      <li>Votação de Lula (53.846.396, 45,15%) vem da Agência Senado com 99,97% das urnas apuradas. A de Flávio (56.104.503, 47,03%) vem de outra fonte; a Agência Senado traz 56.098.457 (47,04%) no mesmo momento.</li>
+      <li>Minas Gerais na Presidência: uma fonte traz Flávio com 48,26%, outra com cerca de 50,4%. Ele liderou nas duas, por cerca de 592 mil votos.</li>
+      <li>Partido de alguns eleitos varia por fonte: Cleitinho (MG) como Republicanos ou MDB, Moro (PR) como PL ou União, Tarcísio (SP) como Republicanos ou PL, Van Hattem (RS) como Novo. Usei a versão da maioria das fontes.</li>
+      <li>Nomes na lista de senadores de AL ("Marina JHC") e RN ("Samanda de Lula") aparecem assim em uma única fonte e merecem conferência. Em AP, o governador aparece só como "Furlan (PSD)" e a senadora como Rayssa Furlan (Podemos); confira os nomes completos no TSE.</li>
+      <li>A federação PT/PCdoB/PV aparece com 88 cadeiras no infográfico da Câmara e 82 em um texto da Agência Câmara. Usei 88.</li>
+      <li>Uma matéria citou oito 2º turnos e RJ e MG de forma incorreta. O correto, segundo a Agência Brasil, são sete (sem MG).</li>
+      <li>Percentuais por estado e de governador variam em décimos entre fontes (por exemplo BA 55,63% e 55,70%).</li>
+    </ul>
+  </div>
+</section>
+
+<section class="src" id="fontes">
+  <h2>Fontes</h2>
+  <ul>
+    <li><a href="https://www12.senado.leg.br/noticias/materias/2026/10/04/flavio-bolsonaro-e-lula-disputam-o-segundo-turno-das-eleicoes-para-presidente">Agência Senado: Flávio e Lula no 2º turno</a></li>
+    <li><a href="https://plural.jor.br/flavio-bolsonaro-e-lula-vao-ao-segundo-turno-direita-amplia-dominio-nos-estados/">Plural: resultado por estado</a></li>
+    <li><a href="https://www.gazetadopovo.com.br/eleicoes/2026/flavio-vence-lula-em-15-estados-df/">Gazeta do Povo: Flávio por estado</a></li>
+    <li><a href="https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/Seis-estados-e-o-DF-terao-segundo-turno-para-governador">Agência Brasil: 2º turno para governador</a></li>
+    <li><a href="https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/veja-quem-sao-os-novos-senadores-e-como-fica-composicao-do-senado">Agência Brasil: novos senadores</a></li>
+    <li><a href="https://www.camara.leg.br/internet/agencia/infograficos-html5/eleicoes2026/federacao.html">Câmara dos Deputados: bancadas eleitas</a></li>
+    <li><a href="https://www.cnnbrasil.com.br/eleicoes/pl-psd-e-pt-confira-quantos-governadores-cada-partido-elegeu-no-1o-turno/">CNN Brasil: governadores por partido</a></li>
+    <li><a href="https://acordadf.com.br/noticias/brasilia/20-estados-elegem-governador-no-1o-turno-veja-a-lista/">Acorda DF: governadores eleitos</a></li>
+    <li><a href="https://www.giromarilia.com.br/">Giro Marília: lista de senadores</a></li>
+    <li><a href="https://www.cnnbrasil.com.br/eleicoes/conheca-os-94-deputados-estaduais-eleitos-por-sao-paulo-em-2026/">CNN Brasil: os 94 deputados estaduais de SP</a></li>
+    <li><a href="https://www.metropoles.com/sao-paulo/alesp-veja-quem-sao-os-deputados-estaduais-eleitos-em-sao-paulo">Metrópoles: eleitos para a Alesp</a></li>
+    <li><a href="https://www.cnnbrasil.com.br/eleicoes/veja-os-53-deputados-federais-eleitos-por-minas-gerais/">CNN Brasil: os 53 deputados federais de MG</a></li>
+    <li><a href="https://rede98.com.br/eleicoes2026/veja-os-77-deputados-estaduais-eleitos-em-minas-gerais-em-2026/">Rede 98: os 77 deputados estaduais de MG</a></li>
+    <li><a href="https://www.folhadointerior.com.br/conheca-os-81-senadores-que-vao-formar-o-senado-em-2027/">Folha do Interior: os 81 senadores de 2027</a></li>
+    <li><a href="https://www.poder360.com.br/poder-eleicoes/pl-tera-a-maior-bancada-do-senado-a-partir-de-2027/">Poder360: PL terá a maior bancada do Senado</a></li>
+    <li><a href="https://www.correiodamanha.com.br/politica/2026/10/324403-pl-elege-121-deputados-e-tera-maior-bancada-da-camara-desde-a-constituicao-de-1988.html">Correio da Manhã: PL na Câmara</a></li>
+  </ul>
+</section>
+
+</div>
+
+<script>
+var UF = {
+  RR:[1,0,'Roraima'],AP:[2,0,'Amapá'],
+  AM:[1,1,'Amazonas'],PA:[2,1,'Pará'],MA:[3,1,'Maranhão'],CE:[4,1,'Ceará'],RN:[5,1,'Rio Grande do Norte'],
+  AC:[0,2,'Acre'],RO:[1,2,'Rondônia'],MT:[2,2,'Mato Grosso'],TO:[3,2,'Tocantins'],PI:[4,2,'Piauí'],PB:[5,2,'Paraíba'],
+  MS:[2,3,'Mato Grosso do Sul'],GO:[3,3,'Goiás'],BA:[4,3,'Bahia'],PE:[5,3,'Pernambuco'],
+  SP:[2,4,'São Paulo'],DF:[3,4,'Distrito Federal'],MG:[4,4,'Minas Gerais'],AL:[5,4,'Alagoas'],
+  PR:[2,5,'Paraná'],RJ:[3,5,'Rio de Janeiro'],ES:[4,5,'Espírito Santo'],SE:[5,5,'Sergipe'],
+  SC:[2,6,'Santa Catarina'],RS:[2,7,'Rio Grande do Sul']
+};
+// presidente: [vencedor F|L, % do vencedor]
+var PRES = {RR:['F',71.06],RO:['F',67.45],SC:['F',66.65],MT:['F',65.15],AC:['F',64.56],PR:['F',59.91],MS:['F',58.60],RS:['F',55.64],ES:['F',54.78],GO:['F',53.61],RJ:['F',53.01],SP:['F',51.93],DF:['F',51.31],TO:['F',50.44],MG:['F',48.26],
+  PI:['L',70.97],BA:['L',66.09],MA:['L',63.94],PE:['L',63.44],CE:['L',63.23],SE:['L',62.75],PB:['L',61.31],RN:['L',59.75],AL:['L',54.73],PA:['L',49.89],AM:['L',48.08],AP:['L',45.71]};
+// governadores eleitos: [nome, partido, %]
+var GOV = {
+  AL:['JHC','PSDB',52.19],AP:['Furlan','PSD',62.75],BA:['Jerônimo Rodrigues','PT',55.70],CE:['Elmano de Freitas','PT',53.14],
+  GO:['Daniel Vilela','MDB',59.17],MA:['Eduardo Braide','PSD',54.08],MT:['Otaviano Pivetta','Republicanos',60.77],MS:['Eduardo Riedel','PP',67.07],
+  MG:['Cleitinho Azevedo','Republicanos',55.40],PA:['Dr. Daniel','Podemos',51.40],PB:['Lucas Ribeiro','PP',64.30],PR:['Sergio Moro','PL',50.10],
+  PE:['Raquel Lyra','PSD',53.27],PI:['Rafael Fonteles','PT',70.90],RS:['Luciano Zucco','PL',58.05],RO:['Marcos Rogério','PL',56.86],
+  RR:['Arthur Henrique','PL',69.13],SC:['Jorginho Mello','PL',68.98],SP:['Tarcísio de Freitas','Republicanos',62.65],SE:['Fábio Mitidieri','PSD',59.27]
+};
+var RUN = [
+  ['AC','Mailza Assis','PP',49.76,'Alan Rick','Republicanos',32.27],
+  ['AM','Omar Aziz','PSD',40.56,'Professora Maria do Carmo','PL',24.57],
+  ['DF','Celina Leão','PP',49.93,'Leandro Grass','PT',34.47],
+  ['ES','Lorenzo Pazolini','Republicanos',49.65,'Ricardo Ferraço','MDB',34.06],
+  ['RJ','Douglas Ruas','PL',49.27,'Eduardo Paes','PSD',42.76],
+  ['RN','Allyson','União',36.94,'Cadu de Lula','PT',36.16],
+  ['TO','Professora Dorinha','União',45.52,'Vicentinho Júnior','PSDB',43.94]
+];
+var SEN = [
+  ['AC','Marcio Bittar','PL','Mara Rocha','Republicanos'],['AL','Arthur Lira','PP','Marina JHC','PSDB'],
+  ['AP','Rayssa Furlan','Podemos','Lucas Barreto','PSD'],['AM','Eduardo Braga','MDB','Plinio Valério','PSDB'],
+  ['BA','Rui Costa','PT','Jaques Wagner','PT'],['CE','Cid Gomes','PSB','Luizianne','Rede'],
+  ['DF','Michelle Bolsonaro','PL','Bia Kicis','PL'],['ES','Renato Casagrande','PSB','Evair de Melo','Republicanos'],
+  ['GO','Gustavo Gayer','PL','Gracinha Caiado','União'],['MA','Fufuca','PP','Lahesio Bonfim','Novo'],
+  ['MT','Mauro Mendes','União','Zé Medeiros','PL'],['MS','Reinaldo Azambuja','PL','Capitão Contar','PL'],
+  ['MG','Domingos Sávio','PL','Marília Campos','PT'],['PA','Helder','MDB','Chicão','União'],
+  ['PB','João Azevêdo','PSB','Veneziano','MDB'],['PR','Filipe Barros','PL','Deltan Dallagnol','Novo'],
+  ['PE','Humberto Costa','PT','Marília Arraes','PDT'],['PI','Marcelo Castro','MDB','Júlio César (Julim do Lula)','PSD'],
+  ['RJ','Carlos Portinho','PL','Carlos Jordy','PL'],['RN','Styvenson Valentim','Podemos','Samanda de Lula','PT'],
+  ['RS','Sanderson','PL','Marcel van Hattem','Novo'],['RO','Dr. Fernando Máximo','PL','Bruno Scheid','PL'],
+  ['RR','Nicoletti','PL','Teresa Surita','MDB'],['SC','Carol de Toni','PL','Carlos Bolsonaro','PL'],
+  ['SP','Guilherme Derrite','PP','André do Prado','PL'],['SE','Rogério Carvalho','PT','Delegado Alessandro','MDB'],
+  ['TO','Eduardo Gomes','PL','Alexandre Guimarães','MDB']
+];
+var CAM = [['PL',121],['PT/PCdoB/PV',88],['União/PP',87],['PSD',43],['Republicanos',41],['MDB',36],['Podemos',27],['PSB',15],['Psol/Rede',15],['PSDB/Cidadania',11],['Novo',10],['PRD/Solidariedade',7],['PDT',6],['Avante',5],['Missão',1]];
+
+function fmt(n){return n.toFixed(2).replace('.',',')}
+function tagCls(p){return p==='PL'?'pl':(p==='PT'?'pt':'')}
+function tag(p){return '<span class="tag '+tagCls(p)+'">'+p+'</span>'}
+var NS='http://www.w3.org/2000/svg', W=60, H=52, G=6;
+function drawMap(id, fn){
+  var svg=document.getElementById(id), out='';
+  Object.keys(UF).forEach(function(k){
+    var c=UF[k][0], r=UF[k][1], x=c*(W+G)+3, y=r*(H+G)+3, d=fn(k);
+    out+='<g class="tile'+(d.neutralText?' n':'')+'"><title>'+UF[k][2]+': '+d.tip+'</title>'+
+      '<rect x="'+x+'" y="'+y+'" width="'+W+'" height="'+H+'" rx="6" fill="'+d.fill+'"'+(d.dash?' stroke="var(--fg)" stroke-width="2" stroke-dasharray="4 3"':'')+'/>'+
+      '<text class="u" x="'+(x+W/2)+'" y="'+(y+22)+'" text-anchor="middle">'+k+'</text>'+
+      '<text class="p" x="'+(x+W/2)+'" y="'+(y+39)+'" text-anchor="middle">'+d.sub+'</text></g>';
+  });
+  svg.innerHTML=out;
+}
+drawMap('mapPres',function(k){
+  var p=PRES[k], f=p[0]==='F', s=p[1]>=60;
+  var fill=f?(s?'var(--flavio)':'var(--flavio-mid)'):(s?'var(--lula)':'var(--lula-mid)');
+  return {fill:fill,sub:fmt(p[1])+'%',tip:(f?'Flávio':'Lula')+' '+fmt(p[1])+'%',dash:k==='AP'};
+});
+var RUNUF={}; RUN.forEach(function(r){RUNUF[r[0]]=r});
+drawMap('mapGov',function(k){
+  if(GOV[k]){var g=GOV[k];var fill=g[1]==='PL'?'var(--flavio)':(g[1]==='PT'?'var(--lula)':'var(--neutral)');
+    return {fill:fill,sub:g[1].length>7?g[1].slice(0,6)+'.':g[1],tip:g[0]+' ('+g[1]+') '+fmt(g[2])+'%'};}
+  var r=RUNUF[k];
+  return {fill:'var(--surface)',sub:'2º turno',tip:r[1]+' x '+r[4]+' (2º turno)',dash:true,neutralText:true};
+});
+
+var pr=Object.keys(PRES).sort(function(a,b){return PRES[b][1]-PRES[a][1]}).sort(function(a,b){return (PRES[a][0]==='F'?0:1)-(PRES[b][0]==='F'?0:1)});
+document.getElementById('presRows').innerHTML=pr.map(function(k){
+  var p=PRES[k],f=p[0]==='F';
+  return '<tr><td>'+k+'</td><td><span class="tag '+(f?'pl':'pt')+'">'+(f?'Flávio':'Lula')+'</span></td><td class="n">'+fmt(p[1])+'</td></tr>';
+}).join('');
+
+function bars(el,rows,max,clsFn){
+  document.getElementById(el).innerHTML=rows.map(function(r){
+    return '<div class="hb '+clsFn(r[0])+'"><span>'+r[0]+'</span><div class="t"><b style="width:'+(r[1]/max*100)+'%"></b></div><span class="v">'+r[1]+'</span></div>';
+  }).join('');
+}
+var gp={}; Object.keys(GOV).forEach(function(k){gp[GOV[k][1]]=(gp[GOV[k][1]]||0)+1});
+var gpr=Object.keys(gp).map(function(p){return [p,gp[p]]}).sort(function(a,b){return b[1]-a[1]});
+bars('govParty',gpr,5,tagCls);
+
+document.getElementById('govRows').innerHTML=Object.keys(GOV).sort().map(function(k){
+  var g=GOV[k]; return '<tr><td>'+k+'</td><td>'+g[0]+'</td><td>'+tag(g[1])+'</td><td class="n">'+fmt(g[2])+'</td></tr>';
+}).join('');
+document.getElementById('runRows').innerHTML=RUN.map(function(r){
+  return '<tr><td>'+r[0]+'</td><td>'+r[1]+' '+tag(r[2])+'</td><td class="n">'+fmt(r[3])+'</td><td>'+r[4]+' '+tag(r[5])+'</td><td class="n">'+fmt(r[6])+'</td></tr>';
+}).join('');
+
+var sc={}; SEN.forEach(function(r){[2,4].forEach(function(i){sc[r[i]]=(sc[r[i]]||0)+1})});
+var scr=Object.keys(sc).map(function(p){return [p,sc[p]]}).sort(function(a,b){return b[1]-a[1]});
+bars('senParty',scr,19,tagCls);
+document.getElementById('senRows').innerHTML=SEN.map(function(r){
+  return '<tr><td>'+r[0]+'</td><td>'+r[1]+' '+tag(r[2])+'</td><td>'+r[3]+' '+tag(r[4])+'</td></tr>';
+}).join('');
+
+bars('camBars',CAM,121,function(p){return p==='PL'?'pl':(p==='PT/PCdoB/PV'?'pt':'')});
+var D={};
+D.SPF="Lucas Pavanato|PL|3038185;Erika Hilton|PSOL|1596357;Sâmia Bomfim|PSOL|583041;Kim Kataguiri|Missão|520025;Tabata Amaral|PSB|476352;Renato Bolsonaro|PL|379274;Sargento Nantes|PP|333375;Delegado Palumbo|Podemos|303222;Guilherme Cortez|PSOL|275434;Mauricio Neves|PP|269941;Marcio Alvino|PL|261314;Professora Luciene Cavalcante|PSOL|253742;Ana Carolina Oliveira|Podemos|246733;Baleia Rossi|MDB|238847;Luna Zarattini|PT|233725;Marina Helena|Novo|230856;Delegado Bruno Lima|Podemos|217937;Rosana Valle|PL|213748;Renata Abreu|Podemos|199073;Marcos Pereira|Republicanos|196675;Luiz Philippe de Orléans e Bragança|PL|187736;Igor Soares|PSD|181820;Guilherme Piai|Republicanos|181681;Paulo Alexandre Barbosa|PSD|168205;Felipe Becari|Podemos|162944;Thiago Surfista|PL|161970;Alencar Santana|PT|160252;Capitão Augusto|PL|153733;Jilmar Tatto|PT|152970;Celso Russomanno|Republicanos|138816;Thiago dos Reis|PT|137227;Paulo Serra|PSDB|132866;Sidney Cruz|MDB|130948;João Cury|MDB|130914;Luiz Fernando Machado|PL|129004;Arlindo Chinaglia|PT|124004;Pastor Marco Feliciano|PL|122110;Ney Santos|Republicanos|118566;Carlos Zarattini|PT|117595;Edinho Silva|PT|115287;Natália Boulos|PSOL|114549;Nilto Tatto|PT|114548;Kiko Celeguim|PT|113150;Motta|PL|112844;Juliana Cardoso|PT|111901;João Paulo Cunha|PT|109545;Rodrigo Gambale|Podemos|106900;Dra. Sandra Tadeu|PL|106470;Rui Falcão|PT|106382;Enrico Misasi|MDB|106220;Paulo Teixeira|PT|106049;Coronel Telhada|PP|104501;Alex Manente|Cidadania|102716;Orlando Morando|MDB|102085;Paulo Freire|PL|99384;Marcos Neves|PSD|98359;Jonas Donizette|PSB|97332;Miguel Lombardi|PL|96332;Saulo Pedroso|PSD|95092;Altair Moraes|Republicanos|94731;Jefferson Campos|PL|92275;Carlos Sampaio|PSD|91743;Maria Rosas|Republicanos|91689;Mario Frias|PL|91392;Delegado Paulo Bilynskyj|PL|90359;Reis|PT|90220;Moises Selerges|PT|89933;Carlos Bezerra Jr.|PSD|89407;Vitor Lippi|PSD|88462;Eleuses Paiva|PSD|88141";
+D.RJF="Dr. Luizinho|PP|213904;Rick Azevedo|PSOL|191371;Lindbergh|PT|181768;Luciano Vieira|PSDB|177887;Altineu Cortes|PL|175161;Freixo|PT|172969;Sóstenes Cavalcante|PL|170290;Rueda|União|155836;Anielle Franco|PT|149726;General Pazuello|PL|146148;Gutemberg Reis|MDB|145876;Soraya Santos|PL|141443;Aureo Ribeiro|Solidariedade|134557;Delegado Felipe Curi|PP|133626;Talíria Petrone|PSOL|122500;Manoela Peres|PL|117648;Dani Cunha|PL|116984;Daniel Soranz|PSD|107849;Julia de Castro|PL|103880;Elias Jabbour|PCdoB|103219;Diogo Balieiro Diniz|PL|102026;Renan Ferreirinha|PSD|93504;Rafael Satiê|PL|91074;Glauber Braga|PSOL|86314;Renato Cozzolino|PP|84516;Fabiano Horta|PT|82902;Chris Tonietto|PL|81966;Poubel|PL|81960;Wladimir Garotinho|PL|81797;Douglas Gomes|PL|80310;Luiz Lima|Novo|79249;Pastor Henrique Vieira|PSOL|77584;Márcio Rezende|PSD|75148;Jandira Feghali|PCdoB|74409;Leniel Borel|PP|72658;Luis Carlos Gomes|Republicanos|70331;Marcos Tavares|PDT|69438;Diego Quaqua|PT|68798;Marcio Ribeiro|PSD|67989;Thiago Gagliasso|PL|67700;Nísia Trindade|PT|67350;Jorge Miranda|PL|67298;Juninho do Pneu|PSDB|64440;Marcelo Queiroz|PSDB|58739;Bebeto|PP|52761;Talita Galhardo|PSDB|46780";
+D.RJE="Índia Armelau|PL|248504;Márcio Canella|União|197178;Renata Souza|PSOL|176871;Dani Balbi|PCdoB|169474;Guilherme Delaroli|PL|166374;Rosenverg Reis|MDB|139866;Elika Takimoto|PT|135271;Anderson Moraes|PL|129325;Costenaro|Novo|121780;Dra. Gabriela|PL|96267;Flavio Serafini|PSOL|95666;Felipinho Ravis|PP|93606;Alan Lopes|PL|93396;João Pires|PSD|90195;Verônica Lima|PT|85421;Alexandre Isquierdo Malafaia|PL|83461;Fernanda Neves|PDT|83326;Rafael Nobre|União|76706;Jair Bittencourt|PL|73722;Léo Vieira Filho|PSDB|72939;André Ceciliano|PT|70628;Nelsinho Ruas|PL|70552;Bruno Dauaire|União|69119;Marina do MST|PT|66167;Rodrigo Medeiros|PL|65530;André Correa|PSD|65188;Carlinhos BNH|PP|61724;Felipe Pampolha|PP|61589;Jorge Felippe Neto|PL|58508;Delegado Carlos Augusto|PL|58142;Marcelo Dino|PL|57982;Librelon|Republicanos|57409;Dr. Pedro Ricardo|PL|57354;Delegado Bernardo Leal|PP|57254;Claudio Caiado|PSD|56936;Gustavo Tutuca|PP|56334;Renato Miranda|PL|56329;Dani Monteiro|PSOL|55227;Guilherme Schleder|PSD|54760;Munir Neto|Solidariedade|52808;Julio Rocha|Agir|51609;Allyson Elias|PT|51145;Márcio Gualberto|PL|50804;Chico Machado|PL|50664;Vinícius Cozzolino|PSD|49353;Leandro|Republicanos|49013;Tia Ju|Republicanos|47302;Coronel Menezes|PL|46700;Rafael Picciani|União|46686;Giovani Ratinho|MDB|46380;Luciana Boiteux|PSOL|44928;Leonel de Esquerda|PT|44597;Giselle Monteiro|PL|44532;Luiz Paulo|PSD|43720;Serginho|PDT|43664;Ana Paula Mendes|PSD|43356;Yuri Moura|PSOL|43336;Zeidan|PT|43115;Poubel Filho|PL|42871;Daniel Marques|PL|42768;Adilson Pires|PT|42467;Felipe Tropa|PL|41293;Carla Machado|PSD|39208;Vantoil Martins|PSB|39179;Soldado Tobias|PRD|37969;Joyce Trindade|PSD|37088;Arthur Monteiro|Solidariedade|35844;Jari|PSB|34199;Raone Ferreira|PT|28377;Carlos Russo|DC|27447";
+D.DFF="Fábio Felix|PSOL|224224;Rafael Prudente|MDB|119427;Alberto Fraga|PL|118579;Thiago Manzoni|PL|90418;Julio Cesar|Republicanos|90092;Izalci Lucas|PL|88056;Agnelo Queiroz|PT|43542;Prof. Reginaldo Veras|PV|43179";
+D.DFD="Max Maciel|PSOL|92234;Eduardo Pedrosa|União|50833;Chico Vigilante|PT|50046;Joaquim Roriz Neto|PL|45604;Estefane Sampaio|Republicanos|45558;Múcio|PSB|42769;Gabriel Magno|PT|42331;Keka Bagno|PSOL|40569;Roosevelt Vilela|PL|39181;Robério Negreiros|Podemos|37401;Victor Jansen|PL|32120;Jaqueline Silva|MDB|31882;Rôney Nemer|PP|29926;Pepa|PP|29786;Ricardo Vale|PT|29387;Wellington Luiz|MDB|28796;Renata Daguiar|Republicanos|28172;Martins Machado|Republicanos|27541;Hermeto|MDB|26433;André Kubitschek|PL|23683;Pastor Daniel de Castro|PP|21326;João Cardoso|PL|20622;Rogerio Morro da Cruz|PSD|19603;Dayse Amarilio|PSB|15440";
+D.MGF="Nikolas Ferreira|PL|3119318;Ana Elisa|PT|524219;Duda Salabert|PSOL|229535;Reginaldo Lopes|PT|215192;Rogério Correia|PT|185912;Pinheirinho|PP|151981;Zé Vitor|PL|145006;Ana Pimentel|PT|144496;Gleide Andrade|PT|130253;Weliton Prado|PSD|129366;Paulo Guedes|PT|126974;Gleidson Azevedo|Republicanos|126248;Pedro Rousseff|PT|118567;Bruno Farias|Republicanos|113379;Miguel Ângelo|PT|110124;Diego Andrade|PSD|109445;Dandara|PT|108193;Lohanna|PV|108182;Rodrigo de Castro|União|105371;Delegado Marcelo Freitas|União|104010;Fred Costa|PRD|100082;Bella Gonçalves|PT|98750;Gilberto Abramo|Republicanos|96046;Emidinho Madeira|PL|94812;Newton Cardoso Jr.|MDB|93759;Dimas Fabiano|PP|90827;Padre João|PT|86923;Luis Tibé|Avante|86740;Rafael Simões|União|86131;Samuel Viana|União|84879;Eros Biondini|PL|81650;Vinicius Diniz|PL|80567;Leonardo Monteiro|PT|78841;André Janones|Rede|78780;Nely Aquino|Podemos|70921;Igor Santos|PL|70572;Paulo Abi-Ackel|PSDB|68795;Dr. Marcos Vinicius|PL|67371;Greyce Elias|PL|66395;Lafayette Andrada|PL|61773;Dr. Frederico|PL|60625;Caporezzo|PL|57878;Rosangela Reis|PL|57063;Marcelo Álvaro Antônio|PL|56958;Duarte Júnior|PSB|46479;Fabinho Ramalho|PL|43908;Thiago Ganem|PL|42718;Delegada Ione|PL|39275;Rodrigo Tavares|PL|37534;Lincoln Portela|PL|37162;Subtenente Gonzaga|PL|35958;Junio Amaral|PL|33762;Sargento Mello-Casal|PL|25090";
+D.MGE="Bruno Engler|PL|675932;Beatriz Cerqueira|PT|328399;Pablo Almeida|PL|227009;Eduardo Azevedo|PL|165935;Lud Falcão|Republicanos|159944;Macaé Evaristo|PT|157267;Antonio Carlos Arantes|PL|145912;Neilando Pimenta|Republicanos|125858;Elismar Prado|PSD|113243;Chiara Biondini|PL|112817;Enes Candido|PSD|105260;Iza Lourença|PSOL|104524;Sargento Rodrigues|PL|103311;João Magalhães|PSD|102469;Doorgal Andrada|PP|100333;Duarte Bechir|PSD|97817;Grego da Fundação|União|96385;Gustavo Valadares|PSD|93956;Adriano Alvarenga|PP|93559;Lucas Lasmar|Rede|93290;Maria Clara Marra|PSDB|91436;Noraldino Junior|PSB|89480;Leninha|PT|87647;Adriana Souza|PT|85316;Rodrigo Lopes|União|82823;Gil Pereira|PSD|80733;Delegado Christiano Xavier|PSD|79871;Betinho Pinto Coelho|União|79539;Dra. Laís Santiago|PDT|79016;Mauro Tramonte|Republicanos|78922;Vittorio Medioli|PL|77931;Nayara Rocha|PP|77412;Ulysses Gomes|PT|77015;Carlos Henrique|Republicanos|76133;Ana Paula Siqueira|PT|76125;Carol Caram|Avante|75869;Raul Belem|PSD|74546;Cristiano Silveira|PT|73305;Tito Torres|PSD|72256;Delegada Sheila|PL|70171;João do Social|Avante|69329;Ricardo Campos|PT|68926;Ugleno Alves|PL|66001;Zé Guilherme|PP|65652;Dr. Maurício|Novo|64692;Roberta Lopes|PL|63840;Marcelo Heitor|PL|63738;Alê Portela|PL|63095;Zé Laviola|Novo|62939;Vitorio Junior|PP|62235;Marquinho Lemos|PT|62032;Betão|PT|61835;Andréia de Jesus|PT|61253;Gustavo Santana|PL|60293;Anderson Lima|PL|59870;Daniel Sucupira|PT|59769;Leleco Pimentel|PT|59497;Roberto Andrade|PRD|59125;Tony Carlos|PSDB|56546;Dr. Jean Freire|PT|56442;Denerval Germano|PL|54552;Marli Ribeiro|PL|53729;Luizinho|PT|53586;Mário Henrique Caixa|PV|53501;Coronel Henrique|PL|52948;Fabão|PV|52940;Rodrigo Cadeirante|Podemos|50949;Heleno do Hospital|PSDB|46224;Amanda Teixeira Dias|PL|45156;Luiz Paulo|PSB|45108;Samuel Caires|PL|42962;Marilia Amaral|PL|42874;Juca Bahia|PRD|41155;Pedro Luiz|PL|40876;Flávia Borja|Podemos|39658;Fernando Breno|PRD|36648;Cabo Gregorio Silva|Democrata|32872";
+D.SPEL="Eduarda Campopiano|PL|1956238;Eduardo Suplicy|PT|654627;Sofia Favero|PSOL|407773;Carlos Giannazi|PSOL|367861;Paula da Bancada Feminista|PSOL|326190;Giovanni Sanches|PL|235363;Rogerio Lins|Podemos|229928;Tenente Coimbra|PL|198342;Rafa Minato|Missão|185582;Danilo Joan|PP|182839;Thomaz Henrique|PL|178164;Ediane Maria|PSOL|170844;Luiza Erundina|PSOL|169567;Delegado Olim|PP|163918;Rodrigo Ashiuchi|PL|162562;Monica das Pretas|PSOL|159100;Itamar Borges|MDB|159058;Bruna Furlan|Republicanos|157381;Marcos Damasio|PL|156691;Dani Alonso|PL|155574;Regina Nunes|MDB|154966;Duda Hidalgo|PT|154953;Sargento Castro|PP|143422;Professora Bebel|PT|142001;Conte Lopes|PL|139225;Felipe Sertanejo|PL|138277;Rogerio Nogueira|PSD|137335;Telhadinha - Capitão Telhada|PP|134006;Ana Carolina Serra|PSDB|132881;Mariana Conti|PSOL|126344;Delegada Graciela|PL|125624;Dr. Edson da Paiol|Podemos|124394;Alex Madureira|PL|122704;Leonardo Grandini|PT|122158;Danilo Campetti|Republicanos|119904;Barros Munhoz|PSD|116413;Emídio|PT|108275;Paulo Mansur|PL|107073;Rafael Saraiva|União|105174;Rodrigo Mar|PT|104820;Enio Tatto|PT|102892;Reinaldo Alguz|MDB|101946;Marta Costa|PSD|100083;Caio França|PSB|99840;Franco Sardelli|PL|98375;Douglas Garcia|União|97410;Paulo Fiorilo|PT|96370;Danilo Balas|PL|96188;Luiz Fernando|PT|94901;Débora Camilo|PSOL|94895;Leticia Aguiar|PL|94832;Donato|PT|94779;Carla Morando|PSD|94596;Ricardo Madalena|PL|94319;Leandro Basson|Podemos|90934;Pardini|PSD|89558;Rogério Franco|PL|89156;Analice Fernandes|PSD|88784;Delegado Mesquita|PP|87918;Valdomiro Lopes|PSB|86893;Thammy Miranda|PSD|85619;Bruno Zambelli|PL|82946;Ely Santos|Republicanos|82559;Léo Oliveira|MDB|82508;Thainara Faria|PT|81485;Mauro Bragato|PSD|79157;Marina Bragante|PSB|78957;Coronel Paganotto|PL|77703;Solange Freitas|União|77524;João Paulo|PL|76371;Camila Godoi|União|74733;Caruso|MDB|74480;Kaka do Autismo|Podemos|74365;Barba|PT|74115;Rafael Silva Jr|PSD|74043;Rodrigo Moraes|PL|73787;Rômulo|PT|73648;Renata Sene|Republicanos|73526;Marcolino|PT|72574;João Paulo Rillo|PT|72486;Lucas Bove|PL|71263;Capitão Mosart|PL|70997;Ana Perugini|PT|70737;Sebastião Santos|Republicanos|68118;Fabio Faria de Sá|Podemos|68055;Lisboa|PL|67413;Henrique Krigner|Novo|66512;Gilmaci Santos|Republicanos|66474;Isaac Antunes|PL|61953;Fabiana Bolsonaro|PL|61183;Thiago Auricchio|PL|59942;Keit Lima|PSOL|58984;Atila Jacomussi|PRD|54065;Ricardo França|Podemos|53644";
+D.SPE=[["PL",27],["PT (federação)",16],["PSD",9],["União/PP (federação)",9],["PSOL/Rede (federação)",9],["Podemos",6],["Republicanos",6],["MDB",5],["PSB",3],["Novo",1],["PRD (federação)",1],["PSDB/Cidadania (federação)",1],["Missão",1]];
+
+function parse(s){return s.split(';').map(function(x){var a=x.split('|');return [a[0],a[1],+a[2]]})}
+function fmtN(n){return n.toLocaleString('pt-BR')}
+function countParty(l){var c={};l.forEach(function(r){c[r[1]]=(c[r[1]]||0)+1});return Object.keys(c).map(function(k){return [k,c[k]]}).sort(function(a,b){return b[1]-a[1]})}
+var PCOL={PL:'var(--flavio)',PT:'var(--lula)',PSOL:'#7b2d8e',PSB:'#e8743b',PDT:'#d6336c',MDB:'#2e8b57',PSDB:'#2b9fd8',PSD:'#8a6d3b',Podemos:'#00a99d','União':'#6c7a89',PP:'#8795a1',Republicanos:'#3b6fb6',Novo:'#f0a500','Missão':'#9b59b6',PCdoB:'#e05d44',PV:'#5aa02c',Cidadania:'#5dade2',Solidariedade:'#a0522d',PRD:'#b97a57',Agir:'#c9a227',DC:'#7f8c8d'};
+function stackHTML(rows){var t=rows.reduce(function(s,r){return s+r[1]},0);
+  return '<div><div class="stack" role="img" aria-label="'+rows.map(function(r){return r[0]+' '+r[1]}).join(', ')+'">'+rows.map(function(r){return '<span title="'+r[0]+': '+r[1]+'" style="width:'+(r[1]/t*100)+'%;background:'+(PCOL[r[0]]||'var(--neutral)')+'"></span>'}).join('')+'</div>'+
+  '<div class="legend stleg">'+rows.map(function(r){return '<span><i style="background:'+(PCOL[r[0]]||'var(--neutral)')+'"></i>'+r[0]+' <b>'+r[1]+'</b></span>'}).join('')+'</div></div>'}
+function barsHTML(rows){var mx=rows[0][1];return rows.map(function(r){var cl=tagCls(r[0]);return '<div class="hb '+cl+'"><span>'+r[0]+'</span><div class="t"><b style="width:'+(r[1]/mx*100)+'%"></b></div><span class="v">'+r[1]+'</span></div>'}).join('')}
+function tbl(l,from,to,withPos){return '<div class="scroll"><table style="min-width:0"><thead><tr><th class="n">#</th><th>Eleito</th><th>Partido</th><th class="n">Votos</th></tr></thead><tbody>'+l.slice(from,to).map(function(r,i){return '<tr><td class="n">'+(from+i+1)+'</td><td>'+r[0]+'</td><td>'+tag(r[1])+'</td><td class="n">'+fmtN(r[2])+'</td></tr>'}).join('')+'</tbody></table></div>'}
+function listBlock(title,l,total,note){
+  return '<div class="lb"><h4>'+title+' ('+total+')</h4>'+stackHTML(countParty(l))+'<div class="nt">'+(note||'')+'</div>'+
+   '<p class="small" style="margin-block:12px 6px">10 mais votados</p>'+tbl(l,0,10)+
+   (l.length>10?'<details><summary>Ver todos os '+l.length+' eleitos</summary>'+tbl(l,10,l.length)+'</details>':'<div></div>')+'</div>'}
+var MGFl=parse(D.MGF),MGEl=parse(D.MGE),SPEl=parse(D.SPEL),SPFl=parse(D.SPF),RJFl=parse(D.RJF),RJEl=parse(D.RJE),DFFl=parse(D.DFF),DFDl=parse(D.DFD);
+var blocks='';
+blocks+='<div class="stbox"><h3>São Paulo</h3><div class="stcols">'+listBlock('Deputados federais',SPFl,70,'<p class="small">Lucas Pavanato (PL) fez 3.038.185 votos, a maior votação do estado.</p>')+
+ listBlock('Deputados estaduais, Alesp',SPEl,94,'<p class="small">Eduarda Campopiano (PL) fez 1.956.238 votos, a maior votação para a Alesp.</p>')+'</div></div>';
+blocks+='<div class="stbox"><h3>Rio de Janeiro</h3><div class="stcols">'+listBlock('Deputados federais',RJFl,46)+listBlock('Deputados estaduais, Alerj',RJEl,70)+'</div></div>';
+blocks+='<div class="stbox"><h3>Distrito Federal</h3><div class="stcols">'+listBlock('Deputados federais',DFFl,8,'<p class="small">Fábio Felix teve a maior votação da história do DF para o cargo. Nenhuma mulher eleita.</p>')+listBlock('Deputados distritais, CLDF',DFDl,24)+'</div></div>';
+blocks+='<div class="stbox"><h3>Minas Gerais</h3><div class="stcols">'+listBlock('Deputados federais',MGFl,53,'<p class="small">Nikolas Ferreira (PL) fez 3.119.318 votos, a maior votação do país. O PL elegeu 21 e a federação PT/PCdoB/PV, 13.</p>')+listBlock('Deputados estaduais, ALMG',MGEl,77,'<p class="small">Bruno Engler (PL) foi o mais votado, com 675.932 votos. São 53 reeleitos, 24 novos e 20 mulheres (recorde).</p>')+'</div></div>';
+document.getElementById('stateBlocks').innerHTML=blocks;
+
+// espectro: classificação aproximada, como a imprensa costuma agrupar os partidos
+var SPEC={E:['Esquerda','#b2182b'],CE:['Centro-esquerda','#ef8a62'],C:['Centro','#d9b44a'],CD:['Centro-direita','#67a9cf'],D:['Direita','#2166ac'],SP:['Sem partido','#b9b3a6']};
+var SPEC_ORDER=['E','CE','C','CD','D','SP'];
+// versão simplificada: esquerda (E + CE), centro (C), direita (CD + D)
+SPEC.E3=['Esquerda','#b2182b'];SPEC.C3=['Centro','#d9b44a'];SPEC.D3=['Direita','#2166ac'];
+var MAP3={E:'E3',CE:'E3',C:'C3',CD:'D3',D:'D3',SP:'SP'}, SPEC_ORDER3=['E3','C3','D3','SP'];
+// grupos: [nome, cadeiras novas, cor, espectro, cadeiras com mandato até 2031 (opcional)]
+function hemi(svgId,legId,groups,total,rows,mode){
+  var cx=300,cy=300,r0=110,r1=278,dr=(r1-r0)/(rows-1),rs=[],sum=0,i;
+  for(i=0;i<rows;i++){var r=r0+i*dr;rs.push(r);sum+=r}
+  var cnt=rs.map(function(r){return Math.round(total*r/sum)}),diff=total-cnt.reduce(function(a,b){return a+b},0);
+  cnt[rows-1]+=diff;
+  var seats=[];
+  rs.forEach(function(r,ri){var n=cnt[ri];for(var k=0;k<n;k++){var a=Math.PI-(Math.PI*k/(n-1));seats.push({a:a,r:r,x:cx+r*Math.cos(a),y:cy-r*Math.sin(a)})}});
+  var size=Math.min(dr*0.42,(Math.PI*r0/cnt[0])*0.46), out='',idx=0, esp=mode==='esp'||mode==='esp3';
+  var kf=function(g){return mode==='esp3'?MAP3[g[3]]:g[3]};
+  var tot=function(g){return g[1]+(g[4]||0)};
+  seats.sort(function(p,q){return (q.a-p.a)||(p.r-q.r)});
+  groups.forEach(function(g){
+    var mine=seats.slice(idx,idx+tot(g)).sort(function(p,q){return p.r-q.r});idx+=tot(g);
+    var fill=esp?SPEC[kf(g)][1]:g[2];
+    mine.forEach(function(s,k){var old=k<(g[4]||0);
+      out+='<circle cx="'+s.x.toFixed(1)+'" cy="'+s.y.toFixed(1)+'" r="'+size.toFixed(1)+'" fill="'+fill+'"'+(old?' fill-opacity=".42"':'')+'><title>'+(g[5]?g[5]+' · ':'')+g[0]+' · '+SPEC[kf(g)][0]+(g[4]!==undefined?(old?' · mandato até 2031':' · eleito em 2026'):'')+'</title></circle>'});
+  });
+  out+='<text x="300" y="268" text-anchor="middle" style="font-family:var(--serif);font-size:44px;font-weight:700;fill:var(--fg)">'+total+'</text><text x="300" y="292" text-anchor="middle" style="font-size:13px;fill:var(--muted)">cadeiras</text>';
+  document.getElementById(svgId).innerHTML=out;
+  var split=function(g){return g[4]&&g[1]?' <span style="opacity:.75">('+g[1]+' + '+g[4]+')</span>':''};
+  var items;
+  if(esp){items=(mode==='esp3'?SPEC_ORDER3:SPEC_ORDER).map(function(k){var gs=groups.filter(function(g){return kf(g)===k}).sort(function(p,q){return tot(q)-tot(p)});
+      return {k:k,gs:gs,n:gs.reduce(function(s,g){return s+tot(g)},0)}}).filter(function(o){return o.n}).sort(function(p,q){return q.n-p.n}).map(function(o){
+      return '<span><i style="background:'+SPEC[o.k][1]+'"></i><strong style="color:var(--fg)">'+SPEC[o.k][0]+' '+o.n+'</strong> ('+o.gs.map(function(g){return g[5]||g[0]+' '+tot(g)}).join(', ')+')</span>'});}
+  else items=groups.slice().sort(function(p,q){return tot(q)-tot(p)}).map(function(g){return '<span><i style="background:'+g[2]+'"></i>'+g[0]+(g[5]?' ('+g[5]+')':'')+' '+tot(g)+split(g)+'</span>'});
+  var leg=document.getElementById(legId);leg.innerHTML=items.join('');leg.classList.toggle('esp',esp);
+}
+var CAMG=[
+ ['PSOL/Rede',15,'#7b2d8e','E'],['PT/PCdoB/PV',88,'#c0392b','E'],['PSB',15,'#e8743b','CE'],['PDT',6,'#d6336c','CE'],['MDB',36,'#2e8b57','C'],['PSDB/Cidadania',11,'#2b9fd8','C'],
+ ['PSD',43,'#8a6d3b','C'],['Avante',5,'#b5a642','C'],['Podemos',27,'#00a99d','CD'],['União/PP',87,'#6c7a89','CD'],['PRD/Solidariedade',7,'#a0522d','CD'],
+ ['Republicanos',41,'#3b6fb6','CD'],['Novo',10,'#f0a500','D'],['Missão',1,'#9b59b6','D'],['PL',121,'#1d3f8f','D']];
+var SENG=[
+ ['Rede',1,'#7b2d8e','E',0],['PT',6,'#c0392b','E',3],['PSB',3,'#e8743b','CE',1],['PDT',1,'#d6336c','CE',0],['MDB',7,'#2e8b57','C',1],['PSDB',2,'#2b9fd8','C',0],['PSD',2,'#8a6d3b','C',3],
+ ['Podemos',2,'#00a99d','CD',0],['União',3,'#6c7a89','CD',3],['PP',3,'#8795a1','CD',3],['Republicanos',2,'#3b6fb6','CD',3],['Sem partido',0,'#b9b3a6','SP',1,'Romário, RJ'],['Novo',3,'#f0a500','D',0],['PL',19,'#1d3f8f','D',9]];
+function drawCongress(mode){
+  hemi('hemCam','legCam',CAMG,513,12,mode);
+  hemi('hemSen','legSen',SENG,81,4,mode);
+  document.querySelectorAll('.seg button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.mode===mode)});
+  document.getElementById('specNote').hidden=mode==='partido';
+}
+document.querySelectorAll('.seg button').forEach(function(b){b.addEventListener('click',function(){drawCongress(b.dataset.mode)})});
+drawCongress('partido');
+// destaca a aba da seção visível
+var navLinks={};document.querySelectorAll('.topnav a').forEach(function(a){navLinks[a.getAttribute('href').slice(1)]=a});
+if('IntersectionObserver' in window){var navIO=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;
+  Object.keys(navLinks).forEach(function(k){navLinks[k].classList.remove('on')});
+  var a=navLinks[e.target.id];if(a){a.classList.add('on');var n=a.parentNode;n.scrollLeft=a.offsetLeft-n.offsetLeft-n.clientWidth/2+a.offsetWidth/2}})},{rootMargin:'-30% 0px -60% 0px'});
+  document.querySelectorAll('section[id]').forEach(function(s){navIO.observe(s)})}
+</script>
+
+</body></html>
