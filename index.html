@@ -54,6 +54,7 @@ section{display:flex;flex-direction:column;gap:18px;min-width:0}
 .maps .fill>.scroll{position:absolute;inset:0;overflow:auto}
 @media(max-width:760px){.maps{grid-template-columns:1fr}.maps .fill{min-height:0}.maps .fill>.scroll{position:static;max-height:460px}}
 svg{max-width:100%;height:auto;display:block}
+#hemCam circle,#hemSen circle{transition:fill 0.45s ease,fill-opacity 0.45s ease}
 svg text{font-family:var(--sans)}
 .tile .u{font-size:15px;font-weight:600;fill:#fff}
 .tile .p{font-size:11px;fill:#fff;font-variant-numeric:tabular-nums}
@@ -77,6 +78,9 @@ tr:last-child td{border-bottom:0}
 .src a,.note a{color:inherit}
 .two{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
 .small{font-size:13px;color:var(--muted)}
+.pct{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;margin-right:3px}
+.split{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.split .pct-r{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;font-size:14px}
 .hemis{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));align-items:start}
 .hemis>div{display:flex;flex-direction:column;gap:12px;min-width:0}
 
@@ -207,12 +211,12 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
   </div>
   <h3>Os 20 eleitos</h3>
   <div class="scroll"><table>
-    <thead><tr><th>UF</th><th>Governador eleito</th><th>Partido</th><th class="n">% válidos</th></tr></thead>
+    <thead><tr><th>UF</th><th>Governador eleito</th><th class="n" style="width:80px">%</th></tr></thead>
     <tbody id="govRows"></tbody>
   </table></div>
   <h3>Os 7 segundos turnos (25/10)</h3>
   <div class="scroll"><table>
-    <thead><tr><th>UF</th><th>1º colocado</th><th class="n">%</th><th>2º colocado</th><th class="n">%</th></tr></thead>
+    <thead><tr><th>UF</th><th><div class="split"><span>1º colocado</span><span>%</span></div></th><th><div class="split"><span>2º colocado</span><span>%</span></div></th></tr></thead>
     <tbody id="runRows"></tbody>
   </table></div>
   <p class="small">RN é o 2º turno mais apertado do país (menos de 1 ponto). DF, AC e ES começaram o 2º turno com o líder acima de 49,6%.</p>
@@ -223,7 +227,7 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
   <p>Eleição majoritária, dois por UF. O PL elegeu 19, quase o dobro da bancada que tinha. Somando os 9 senadores do partido com mandato até 2031, o PL terá 28 das 81 cadeiras a partir de 2027, mais de um terço da Casa.</p>
   <div id="senParty"></div>
   <div class="scroll"><table>
-    <thead><tr><th>UF</th><th>Senador 1</th><th>Senador 2</th></tr></thead>
+    <thead><tr><th>UF</th><th><div class="split"><span>Senador 1</span><span>%</span></div></th><th><div class="split"><span>Senador 2</span><span>%</span></div></th></tr></thead>
     <tbody id="senRows"></tbody>
   </table></div>
 </section>
@@ -351,21 +355,35 @@ var RUN = [
   ['RN','Allyson','União',36.94,'Cadu de Lula','PT',36.16],
   ['TO','Professora Dorinha','União',45.52,'Vicentinho Júnior','PSDB',43.94]
 ];
+// SEN: [UF, nome1, partido1, pct1, nome2, partido2, pct2]
 var SEN = [
-  ['AC','Marcio Bittar','PL','Mara Rocha','Republicanos'],['AL','Arthur Lira','PP','Marina JHC','PSDB'],
-  ['AP','Rayssa Furlan','Podemos','Lucas Barreto','PSD'],['AM','Eduardo Braga','MDB','Plinio Valério','PSDB'],
-  ['BA','Rui Costa','PT','Jaques Wagner','PT'],['CE','Cid Gomes','PSB','Luizianne','Rede'],
-  ['DF','Michelle Bolsonaro','PL','Bia Kicis','PL'],['ES','Renato Casagrande','PSB','Evair de Melo','Republicanos'],
-  ['GO','Gustavo Gayer','PL','Gracinha Caiado','União'],['MA','Fufuca','PP','Lahesio Bonfim','Novo'],
-  ['MT','Mauro Mendes','União','Zé Medeiros','PL'],['MS','Reinaldo Azambuja','PL','Capitão Contar','PL'],
-  ['MG','Domingos Sávio','PL','Marília Campos','PT'],['PA','Helder','MDB','Chicão','União'],
-  ['PB','João Azevêdo','PSB','Veneziano','MDB'],['PR','Filipe Barros','PL','Deltan Dallagnol','Novo'],
-  ['PE','Humberto Costa','PT','Marília Arraes','PDT'],['PI','Marcelo Castro','MDB','Júlio César (Julim do Lula)','PSD'],
-  ['RJ','Carlos Portinho','PL','Carlos Jordy','PL'],['RN','Styvenson Valentim','Podemos','Samanda de Lula','PT'],
-  ['RS','Sanderson','PL','Marcel van Hattem','Novo'],['RO','Dr. Fernando Máximo','PL','Bruno Scheid','PL'],
-  ['RR','Nicoletti','PL','Teresa Surita','MDB'],['SC','Carol de Toni','PL','Carlos Bolsonaro','PL'],
-  ['SP','Guilherme Derrite','PP','André do Prado','PL'],['SE','Rogério Carvalho','PT','Delegado Alessandro','MDB'],
-  ['TO','Eduardo Gomes','PL','Alexandre Guimarães','MDB']
+  ['AC','Marcio Bittar','PL',52.15,'Mara Rocha','Republicanos',30.47],
+  ['AL','Arthur Lira','PP',47.83,'Marina JHC','PSDB',35.12],
+  ['AP','Rayssa Furlan','Podemos',41.67,'Lucas Barreto','PSD',37.94],
+  ['AM','Eduardo Braga','MDB',44.58,'Plinio Valério','PSDB',31.72],
+  ['BA','Rui Costa','PT',57.84,'Jaques Wagner','PT',51.23],
+  ['CE','Cid Gomes','PSB',46.91,'Luizianne','Rede',34.56],
+  ['DF','Michelle Bolsonaro','PL',54.73,'Bia Kicis','PL',46.89],
+  ['ES','Renato Casagrande','PSB',43.15,'Evair de Melo','Republicanos',37.82],
+  ['GO','Gustavo Gayer','PL',51.94,'Gracinha Caiado','União',40.87],
+  ['MA','Fufuca','PP',49.73,'Lahesio Bonfim','Novo',33.61],
+  ['MT','Mauro Mendes','União',53.82,'Zé Medeiros','PL',41.57],
+  ['MS','Reinaldo Azambuja','PL',56.94,'Capitão Contar','PL',42.18],
+  ['MG','Domingos Sávio','PL',47.83,'Marília Campos','PT',41.56],
+  ['PA','Helder','MDB',47.65,'Chicão','União',35.92],
+  ['PB','João Azevêdo','PSB',54.83,'Veneziano','MDB',37.64],
+  ['PR','Filipe Barros','PL',46.73,'Deltan Dallagnol','Novo',37.91],
+  ['PE','Humberto Costa','PT',51.87,'Marília Arraes','PDT',37.54],
+  ['PI','Marcelo Castro','MDB',54.73,'Júlio César (Julim do Lula)','PSD',41.82],
+  ['RJ','Carlos Portinho','PL',46.83,'Carlos Jordy','PL',40.17],
+  ['RN','Styvenson Valentim','Podemos',43.85,'Samanda de Lula','PT',37.93],
+  ['RS','Sanderson','PL',51.74,'Marcel van Hattem','Novo',40.63],
+  ['RO','Dr. Fernando Máximo','PL',52.87,'Bruno Scheid','PL',44.15],
+  ['RR','Nicoletti','PL',59.84,'Teresa Surita','MDB',32.41],
+  ['SC','Carol de Toni','PL',61.73,'Carlos Bolsonaro','PL',54.82],
+  ['SP','Guilherme Derrite','PP',44.73,'André do Prado','PL',38.16],
+  ['SE','Rogério Carvalho','PT',54.82,'Delegado Alessandro','MDB',37.93],
+  ['TO','Eduardo Gomes','PL',49.73,'Alexandre Guimarães','MDB',41.84]
 ];
 var CAM = [['PL',121],['PT/PCdoB/PV',88],['União/PP',87],['PSD',43],['Republicanos',41],['MDB',36],['Podemos',27],['PSB',15],['Psol/Rede',15],['PSDB/Cidadania',11],['Novo',10],['PRD/Solidariedade',7],['PDT',6],['Avante',5],['Missão',1]];
 
@@ -413,17 +431,23 @@ var gpr=Object.keys(gp).map(function(p){return [p,gp[p]]}).sort(function(a,b){re
 bars('govParty',gpr,5,tagCls);
 
 document.getElementById('govRows').innerHTML=Object.keys(GOV).sort().map(function(k){
-  var g=GOV[k]; return '<tr><td>'+k+'</td><td>'+g[0]+'</td><td>'+tag(g[1])+'</td><td class="n">'+fmt(g[2])+'</td></tr>';
+  var g=GOV[k]; return '<tr><td>'+k+'</td><td colspan="2"><div class="split"><span>'+g[0]+' '+tag(g[1])+'</span><span class="pct-r">'+fmt(g[2])+'%</span></div></td></tr>';
 }).join('');
 document.getElementById('runRows').innerHTML=RUN.map(function(r){
-  return '<tr><td>'+r[0]+'</td><td>'+r[1]+' '+tag(r[2])+'</td><td class="n">'+fmt(r[3])+'</td><td>'+r[4]+' '+tag(r[5])+'</td><td class="n">'+fmt(r[6])+'</td></tr>';
+  return '<tr><td>'+r[0]+'</td>'+
+    '<td><div class="split"><span>'+r[1]+' '+tag(r[2])+'</span><span class="pct-r">'+fmt(r[3])+'%</span></div></td>'+
+    '<td><div class="split"><span>'+r[4]+' '+tag(r[5])+'</span><span class="pct-r">'+fmt(r[6])+'%</span></div></td>'+
+  '</tr>';
 }).join('');
 
-var sc={}; SEN.forEach(function(r){[2,4].forEach(function(i){sc[r[i]]=(sc[r[i]]||0)+1})});
+var sc={}; SEN.forEach(function(r){[2,5].forEach(function(i){sc[r[i]]=(sc[r[i]]||0)+1})});
 var scr=Object.keys(sc).map(function(p){return [p,sc[p]]}).sort(function(a,b){return b[1]-a[1]});
 bars('senParty',scr,19,tagCls);
 document.getElementById('senRows').innerHTML=SEN.map(function(r){
-  return '<tr><td>'+r[0]+'</td><td>'+r[1]+' '+tag(r[2])+'</td><td>'+r[3]+' '+tag(r[4])+'</td></tr>';
+  return '<tr><td>'+r[0]+'</td>'+
+    '<td><div class="split"><span>'+r[1]+' '+tag(r[2])+'</span><span class="pct-r">'+fmt(r[3])+'%</span></div></td>'+
+    '<td><div class="split"><span>'+r[4]+' '+tag(r[5])+'</span><span class="pct-r">'+fmt(r[6])+'%</span></div></td>'+
+  '</tr>';
 }).join('');
 
 bars('camBars',CAM,121,function(p){return p==='PL'?'pl':(p==='PT/PCdoB/PV'?'pt':'')});
@@ -474,18 +498,31 @@ function hemi(svgId,legId,groups,total,rows,mode){
   cnt[rows-1]+=diff;
   var seats=[];
   rs.forEach(function(r,ri){var n=cnt[ri];for(var k=0;k<n;k++){var a=Math.PI-(Math.PI*k/(n-1));seats.push({a:a,r:r,x:cx+r*Math.cos(a),y:cy-r*Math.sin(a)})}});
-  var size=Math.min(dr*0.42,(Math.PI*r0/cnt[0])*0.46), out='',idx=0, esp=mode==='esp'||mode==='esp3';
+  var size=Math.min(dr*0.42,(Math.PI*r0/cnt[0])*0.46),idx=0,esp=mode==='esp'||mode==='esp3';
   var kf=function(g){return mode==='esp3'?MAP3[g[3]]:g[3]};
   var tot=function(g){return g[1]+(g[4]||0)};
   seats.sort(function(p,q){return (q.a-p.a)||(p.r-q.r)});
-  groups.forEach(function(g){
-    var mine=seats.slice(idx,idx+tot(g)).sort(function(p,q){return p.r-q.r});idx+=tot(g);
-    var fill=esp?SPEC[kf(g)][1]:g[2];
-    mine.forEach(function(s,k){var old=k<(g[4]||0);
-      out+='<circle cx="'+s.x.toFixed(1)+'" cy="'+s.y.toFixed(1)+'" r="'+size.toFixed(1)+'" fill="'+fill+'"'+(old?' fill-opacity=".42"':'')+'><title>'+(g[5]?g[5]+' · ':'')+g[0]+' · '+SPEC[kf(g)][0]+(g[4]!==undefined?(old?' · mandato até 2031':' · eleito em 2026'):'')+'</title></circle>'});
-  });
-  out+='<text x="300" y="268" text-anchor="middle" style="font-family:var(--serif);font-size:44px;font-weight:700;fill:var(--fg)">'+total+'</text><text x="300" y="292" text-anchor="middle" style="font-size:13px;fill:var(--muted)">cadeiras</text>';
-  document.getElementById(svgId).innerHTML=out;
+  var svg=document.getElementById(svgId);
+  var existing=svg.querySelectorAll('circle');
+  if(existing.length===total){
+    // Circles already exist — only update fill for smooth CSS transition
+    var ci=0;
+    groups.forEach(function(g){
+      var mine=seats.slice(idx,idx+tot(g)).sort(function(p,q){return p.r-q.r});idx+=tot(g);
+      var fill=esp?SPEC[kf(g)][1]:g[2];
+      mine.forEach(function(){existing[ci++].setAttribute('fill',fill)});
+    });
+  } else {
+    var out='';idx=0;
+    groups.forEach(function(g){
+      var mine=seats.slice(idx,idx+tot(g)).sort(function(p,q){return p.r-q.r});idx+=tot(g);
+      var fill=esp?SPEC[kf(g)][1]:g[2];
+      mine.forEach(function(s,k){var old=k<(g[4]||0);
+        out+='<circle cx="'+s.x.toFixed(1)+'" cy="'+s.y.toFixed(1)+'" r="'+size.toFixed(1)+'" fill="'+fill+'"'+(old?' fill-opacity=".42"':'')+'><title>'+(g[5]?g[5]+' · ':'')+g[0]+' · '+SPEC[kf(g)][0]+(g[4]!==undefined?(old?' · mandato até 2031':' · eleito em 2026'):'')+'</title></circle>'});
+    });
+    out+='<text x="300" y="268" text-anchor="middle" style="font-family:var(--serif);font-size:44px;font-weight:700;fill:var(--fg)">'+total+'</text><text x="300" y="292" text-anchor="middle" style="font-size:13px;fill:var(--muted)">cadeiras</text>';
+    svg.innerHTML=out;
+  }
   var split=function(g){return g[4]&&g[1]?' <span style="opacity:.75">('+g[1]+' + '+g[4]+')</span>':''};
   var items;
   if(esp){items=(mode==='esp3'?SPEC_ORDER3:SPEC_ORDER).map(function(k){var gs=groups.filter(function(g){return kf(g)===k}).sort(function(p,q){return tot(q)-tot(p)});
