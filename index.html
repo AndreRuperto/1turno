@@ -150,7 +150,7 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
   <h2>Resumo</h2>
   <p>Flávio Bolsonaro (PL) e Lula (PT) disputam o 2º turno para presidente em 25 de outubro.</p>
   <div class="grid">
-    <div class="card"><div class="num">20</div><div class="lbl">Governadores eleitos no 1º turno. Os outros 7 estados vão ao 2º turno</div></div>
+    <div class="card"><div class="num">21</div><div class="lbl">Governadores eleitos no 1º turno. Os outros 6 estados vão ao 2º turno</div></div>
     <div class="card"><div class="num">19</div><div class="lbl">Senadores do PL eleitos, das 54 vagas em disputa</div></div>
     <div class="card"><div class="num">121</div><div class="lbl">Deputados federais do PL, a maior bancada da Câmara</div></div>
     <div class="card"><div class="num">21,08%</div><div class="lbl">Abstenção (comparecimento de 78,92%)</div></div>
@@ -213,7 +213,7 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
 
 <section id="governadores">
   <h2>Governadores</h2>
-  <p>20 foram eleitos no 1º turno (recorde: eram 15 em 2022). Sete disputas vão ao 2º turno em 25/10: AC, AM, DF, ES, RJ, RN e TO.</p>
+  <p>21 foram eleitos no 1º turno (recorde). Seis disputas vão ao 2º turno em 25/10: AC, AM, DF, ES, RN e TO. O RJ, que iria ao 2º turno, teve Douglas Ruas (PL) declarado eleito após redistribuição de votos com a retirada de recurso de Garotinho — atingindo 50,88%.</p>
   <div class="maps">
     <div>
       <svg id="mapGov" viewBox="0 0 396 464" role="img" aria-label="Cartograma dos governadores: eleitos no 1º turno e estados com 2º turno"></svg>
@@ -227,20 +227,20 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     <div>
       <h3 style="margin-bottom:8px">Eleitos no 1º turno por partido</h3>
       <div id="govParty"></div>
-      <p class="small" style="margin-top:8px">PL 5, PSD 4, PT 3, Republicanos 3, PP 2, PSDB 1, MDB 1, Podemos 1. Dez reeleições. Raquel Lyra (PE) é a única mulher eleita no 1º turno.</p>
+      <p class="small" style="margin-top:8px">PL 6, PSD 4, PT 3, Republicanos 3, PP 2, PSDB 1, MDB 1, Podemos 1. Dez reeleições. Raquel Lyra (PE) é a única mulher eleita no 1º turno.</p>
     </div>
   </div>
-  <h3>Os 20 eleitos</h3>
+  <h3>Os 21 eleitos</h3>
   <div class="scroll"><table id="govTable">
     <thead><tr><th class="sort" data-col="uf" aria-sort="ascending">UF</th><th class="sort" data-col="nome">Governador eleito</th><th class="sort n" data-col="pct" style="width:80px">%</th></tr></thead>
     <tbody id="govRows"></tbody>
   </table></div>
-  <h3>Os 7 segundos turnos (25/10)</h3>
+  <h3>Os 6 segundos turnos (25/10)</h3>
   <div class="scroll"><table id="runTable">
     <thead><tr><th class="sort" aria-sort="ascending">UF</th><th class="sort"><div class="split"><span>1º colocado</span><span>%</span></div></th><th class="sort"><div class="split"><span>2º colocado</span><span>%</span></div></th></tr></thead>
     <tbody id="runRows"></tbody>
   </table></div>
-  <p class="small">RN é o 2º turno mais apertado do país (menos de 1 ponto). DF, AC e ES começaram o 2º turno com o líder acima de 49,6%.</p>
+  <p class="small">RN é o 2º turno mais apertado do país (menos de 1 ponto). DF, AC e ES começaram com o líder acima de 49,6%. O RJ foi retirado do 2º turno após redistribuição de votos com a desistência de recurso de Garotinho.</p>
 </section>
 
 <section id="senado">
@@ -364,7 +364,7 @@ var GOV = {
   AL:['JHC','PSDB',52.19],AP:['Furlan','PSD',62.75],BA:['Jerônimo Rodrigues','PT',55.70],CE:['Elmano de Freitas','PT',53.14],
   GO:['Daniel Vilela','MDB',59.17],MA:['Eduardo Braide','PSD',54.08],MT:['Otaviano Pivetta','Republicanos',60.77],MS:['Eduardo Riedel','PP',67.07],
   MG:['Cleitinho Azevedo','Republicanos',55.40],PA:['Dr. Daniel','Podemos',51.40],PB:['Lucas Ribeiro','PP',64.30],PR:['Sergio Moro','PL',50.10],
-  PE:['Raquel Lyra','PSD',53.27],PI:['Rafael Fonteles','PT',70.90],RS:['Luciano Zucco','PL',58.05],RO:['Marcos Rogério','PL',56.86],
+  PE:['Raquel Lyra','PSD',53.27],PI:['Rafael Fonteles','PT',70.90],RJ:['Douglas Ruas','PL',50.88],RS:['Luciano Zucco','PL',58.05],RO:['Marcos Rogério','PL',56.86],
   RR:['Arthur Henrique','PL',69.13],SC:['Jorginho Mello','PL',68.98],SP:['Tarcísio de Freitas','Republicanos',62.65],SE:['Fábio Mitidieri','PSD',59.27]
 };
 var RUN = [
@@ -372,7 +372,6 @@ var RUN = [
   ['AM','Omar Aziz','PSD',40.56,'Professora Maria do Carmo','PL',24.57],
   ['DF','Celina Leão','PP',49.93,'Leandro Grass','PT',34.47],
   ['ES','Lorenzo Pazolini','Republicanos',49.65,'Ricardo Ferraço','MDB',34.06],
-  ['RJ','Douglas Ruas','PL',49.27,'Eduardo Paes','PSD',42.76],
   ['RN','Allyson','União',36.94,'Cadu de Lula','PT',36.16],
   ['TO','Professora Dorinha','União',45.52,'Vicentinho Júnior','PSDB',43.94]
 ];
