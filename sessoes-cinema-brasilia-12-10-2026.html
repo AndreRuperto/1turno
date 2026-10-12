@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<title>Sessões de cinema em Brasília</title>
+<style>
+  @page { size: A4; margin: 12mm 14mm 16mm;
+           @bottom-center { content: "Fonte: AdoroCinema. Horários sujeitos a alteração, confirme no app da rede."; font-family: Inter, sans-serif;
+                             font-size: 8pt; color: #7a7a88; } }
+  @page :first { margin: 0; @bottom-center { content: none; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Inter, "DejaVu Sans", sans-serif; color: #16161d;
+          -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .capa { width: 210mm; height: 297mm; background: #0f0f14; color: #fff;
+           padding: 28mm 22mm; display: flex; flex-direction: column;
+           page-break-after: always; position: relative; overflow: hidden; }
+  .capa::before { content: ""; position: absolute; right: -60mm; top: -60mm;
+                   width: 180mm; height: 180mm; border-radius: 50%;
+                   background: radial-gradient(circle, #f5b72a55, transparent 70%); }
+  .capa .selo { font-size: 10pt; letter-spacing: .25em; text-transform: uppercase;
+                 color: #f5b72a; font-weight: 600; }
+  .capa h1 { font-family: "Inter Display", Inter, sans-serif; font-size: 46pt;
+              line-height: 1.02; font-weight: 800; margin: 10mm 0 8mm; letter-spacing: -.02em; }
+  .capa h1 span { color: #f5b72a; }
+  .capa .data { font-size: 16pt; color: #c9c9d4; font-weight: 500; }
+  .capa ul { list-style: none; padding: 0; margin: auto 0 0; border-top: 1px solid #ffffff22; }
+  .capa li { display: flex; align-items: center; gap: 4mm; padding: 3.2mm 0;
+              border-bottom: 1px solid #ffffff22; font-size: 13pt; font-weight: 600; }
+  .capa li em { margin-left: auto; font-style: normal; font-weight: 400; color: #9a9aa8; font-size: 11pt; }
+  .capa .dot { width: 3mm; height: 3mm; border-radius: 50%; }
+  .capa .rodape-capa { margin-top: 8mm; font-size: 8.5pt; color: #8a8a98; }
+
+  .shop { break-inside: avoid; margin-bottom: 6mm; border-radius: 4mm; overflow: hidden;
+           border: 1px solid #e6e6ee; }
+  .shop header { background: #0f0f14; color: #fff; padding: 3.5mm 6mm;
+                  display: flex; justify-content: space-between; align-items: center;
+                  border-left: 2.5mm solid var(--cor); }
+  .shop h2 { margin: 0; font-family: "Inter Display", Inter, sans-serif;
+              font-size: 19pt; font-weight: 700; letter-spacing: -.01em; }
+  .rede { display: inline-block; margin-top: 1.5mm; background: var(--cor); color: #fff;
+           font-size: 8pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+           padding: .8mm 2.5mm; border-radius: 1mm; }
+  .contagem { text-align: right; font-size: 9pt; color: #a9a9b6; line-height: 1.5; }
+  .lista { padding: 1mm 6mm; }
+  .filme { display: flex; align-items: center; gap: 4.5mm; padding: 2mm 0;
+            border-bottom: 1px solid #efeff4; break-inside: avoid; }
+  .filme:last-child { border-bottom: 0; }
+  .poster { width: 12mm; height: 17.5mm; object-fit: cover; border-radius: 1.2mm;
+             box-shadow: 0 .6mm 1.6mm #0003; flex: none; background: #aaa; }
+  .nome { font-weight: 700; font-size: 11.5pt; margin-bottom: 1.6mm; }
+  .horarios { display: flex; flex-wrap: wrap; gap: 1.6mm; }
+  .pill { display: inline-flex; align-items: center; gap: 1.4mm; font-weight: 600;
+           font-size: 10pt; font-variant-numeric: tabular-nums;
+           border: 1px solid #d9d9e3; border-radius: 1.6mm; padding: .9mm 2.4mm; background: #fafafc; }
+  .tag { font-size: 6.5pt; font-weight: 700; letter-spacing: .06em;
+          padding: .3mm 1.2mm; border-radius: .8mm; color: #fff; }
+  .tag-leg { background: #3a3a46; }
+  .tag-dub { background: #c98a00; }
+
+  .legenda { font-size: 8.5pt; color: #6a6a78; margin: 0 0 5mm; display: flex; gap: 5mm; align-items: center; }
+</style></head>
+<body>
+  <div class="capa">
+    <div class="selo">Programação de hoje</div>
+    <h1>Sessões de cinema em Brasília, <span>a partir das 20h</span></h1>
+    <div class="data">Segunda-feira, 12 de outubro de 2026</div>
+    <ul><li><span class="dot" style="background:#1f4fd1"></span>Pátio Brasil<em>Kinoplex</em></li><li><span class="dot" style="background:#1f4fd1"></span>Boulevard Shopping<em>Kinoplex</em></li><li><span class="dot" style="background:#1f4fd1"></span>ParkShopping<em>Kinoplex</em></li><li><span class="dot" style="background:#d4202c"></span>Pier 21<em>Cinemark</em></li><li><span class="dot" style="background:#d4202c"></span>Iguatemi Brasília<em>Cinemark</em></li><li><span class="dot" style="background:#7a3fb8"></span>Liberty Mall<em>Cine Cultura</em></li></ul>
+    <div class="rodape-capa">Fonte: AdoroCinema. Horários sujeitos a alteração, confirme no app da rede.</div>
+  </div>
+
+  <p class="legenda">
+    <span><span class="tag tag-dub">DUB</span> dublado</span>
+    <span><span class="tag tag-leg">LEG</span> legendado</span>
+    <span>Sem marcação: filme nacional</span>
+  </p>
+  
+    <section class="shop" style="--cor:#1f4fd1">
+      <header>
+        <div>
+          <h2>Pátio Brasil</h2>
+          <span class="rede">Kinoplex</span>
+        </div>
+        <div class="contagem">5 filmes<br>5 sessões</div>
+      </header>
+      <div class="lista">
+      <div class="filme">
+        <img class="poster" src="posters/se-eu-fosse-voce-3-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Se Eu Fosse Você 3</div>
+          <div class="horarios"><span class="pill">20:30</span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/minha-melhor-amiga-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Minha Melhor Amiga</div>
+          <div class="horarios"><span class="pill">20:45</span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/outra-mamae-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Outra Mamãe</div>
+          <div class="horarios"><span class="pill">21:00<span class="tag tag-dub">DUB</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/resident-evil-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Resident Evil</div>
+          <div class="horarios"><span class="pill">21:10<span class="tag tag-dub">DUB</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/verity-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Verity</div>
+          <div class="horarios"><span class="pill">21:20<span class="tag tag-dub">DUB</span></span></div>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section class="shop" style="--cor:#1f4fd1">
+      <header>
+        <div>
+          <h2>Boulevard Shopping</h2>
+          <span class="rede">Kinoplex</span>
+        </div>
+        <div class="contagem">4 filmes<br>4 sessões</div>
+      </header>
+      <div class="lista">
+      <div class="filme">
+        <img class="poster" src="posters/se-eu-fosse-voce-3-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Se Eu Fosse Você 3</div>
+          <div class="horarios"><span class="pill">20:30</span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/coracao-selvagem-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Coração Selvagem</div>
+          <div class="horarios"><span class="pill">20:50<span class="tag tag-dub">DUB</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/verity-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Verity</div>
+          <div class="horarios"><span class="pill">21:00<span class="tag tag-dub">DUB</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/outra-mamae-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Outra Mamãe</div>
+          <div class="horarios"><span class="pill">21:20<span class="tag tag-leg">LEG</span></span></div>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section class="shop" style="--cor:#1f4fd1">
+      <header>
+        <div>
+          <h2>ParkShopping</h2>
+          <span class="rede">Kinoplex</span>
+        </div>
+        <div class="contagem">8 filmes<br>11 sessões</div>
+      </header>
+      <div class="lista">
+      <div class="filme">
+        <img class="poster" src="posters/se-eu-fosse-voce-3-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Se Eu Fosse Você 3</div>
+          <div class="horarios"><span class="pill">20:30</span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/minha-melhor-amiga-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Minha Melhor Amiga</div>
+          <div class="horarios"><span class="pill">20:30</span><span class="pill">21:20</span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/a-odisseia-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">A Odisseia</div>
+          <div class="horarios"><span class="pill">20:30<span class="tag tag-leg">LEG</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/verity-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Verity</div>
+          <div class="horarios"><span class="pill">20:30<span class="tag tag-leg">LEG</span></span><span class="pill">21:00<span class="tag tag-dub">DUB</span></span><span class="pill">21:30<span class="tag tag-leg">LEG</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/homem-aranha-um-novo-dia-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Homem-Aranha: Um Novo Dia</div>
+          <div class="horarios"><span class="pill">20:40<span class="tag tag-dub">DUB</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/hope-o-primeiro-impacto-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Hope: O Primeiro Impacto</div>
+          <div class="horarios"><span class="pill">21:00<span class="tag tag-dub">DUB</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/resident-evil-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Resident Evil</div>
+          <div class="horarios"><span class="pill">21:20<span class="tag tag-leg">LEG</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/outra-mamae-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Outra Mamãe</div>
+          <div class="horarios"><span class="pill">21:30<span class="tag tag-leg">LEG</span></span></div>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section class="shop" style="--cor:#d4202c">
+      <header>
+        <div>
+          <h2>Pier 21</h2>
+          <span class="rede">Cinemark</span>
+        </div>
+        <div class="contagem">7 filmes<br>17 sessões</div>
+      </header>
+      <div class="lista">
+      <div class="filme">
+        <img class="poster" src="posters/verity-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Verity</div>
+          <div class="horarios"><span class="pill">20:00<span class="tag tag-leg">LEG</span></span><span class="pill">22:10<span class="tag tag-leg">LEG</span></span><span class="pill">22:40<span class="tag tag-leg">LEG</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/um-tio-quase-perfeito-3-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Um Tio Quase Perfeito 3</div>
+          <div class="horarios"><span class="pill">20:05</span><span class="pill">22:25</span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/se-eu-fosse-voce-3-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Se Eu Fosse Você 3</div>
+          <div class="horarios"><span class="pill">20:10</span><span class="pill">20:40</span><span class="pill">21:20</span><span class="pill">21:50</span><span class="pill">22:20</span><span class="pill">22:50</span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/outra-mamae-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Outra Mamãe</div>
+          <div class="horarios"><span class="pill">21:00<span class="tag tag-leg">LEG</span></span><span class="pill">21:30<span class="tag tag-leg">LEG</span></span><span class="pill">22:00<span class="tag tag-dub">DUB</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/minha-melhor-amiga-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Minha Melhor Amiga</div>
+          <div class="horarios"><span class="pill">21:10</span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/the-fox-sisters-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">The Fox Sisters</div>
+          <div class="horarios"><span class="pill">21:40<span class="tag tag-leg">LEG</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/hope-o-primeiro-impacto-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Hope: O Primeiro Impacto</div>
+          <div class="horarios"><span class="pill">21:45<span class="tag tag-leg">LEG</span></span></div>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section class="shop" style="--cor:#d4202c">
+      <header>
+        <div>
+          <h2>Iguatemi Brasília</h2>
+          <span class="rede">Cinemark</span>
+        </div>
+        <div class="contagem">4 filmes<br>6 sessões</div>
+      </header>
+      <div class="lista">
+      <div class="filme">
+        <img class="poster" src="posters/verity-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Verity</div>
+          <div class="horarios"><span class="pill">20:30<span class="tag tag-leg">LEG</span></span><span class="pill">21:00<span class="tag tag-leg">LEG</span></span><span class="pill">22:15<span class="tag tag-leg">LEG</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/se-eu-fosse-voce-3-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Se Eu Fosse Você 3</div>
+          <div class="horarios"><span class="pill">21:20</span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/minha-melhor-amiga-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Minha Melhor Amiga</div>
+          <div class="horarios"><span class="pill">21:55</span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/outra-mamae-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Outra Mamãe</div>
+          <div class="horarios"><span class="pill">22:30<span class="tag tag-leg">LEG</span></span></div>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section class="shop" style="--cor:#7a3fb8">
+      <header>
+        <div>
+          <h2>Liberty Mall</h2>
+          <span class="rede">Cine Cultura</span>
+        </div>
+        <div class="contagem">3 filmes<br>3 sessões</div>
+      </header>
+      <div class="lista">
+      <div class="filme">
+        <img class="poster" src="posters/tres-vezes-adeus-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Três Vezes Adeus</div>
+          <div class="horarios"><span class="pill">20:00<span class="tag tag-leg">LEG</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/ran-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Ran</div>
+          <div class="horarios"><span class="pill">20:10<span class="tag tag-leg">LEG</span></span></div>
+        </div>
+      </div>
+      <div class="filme">
+        <img class="poster" src="posters/verity-placeholder.png" alt="">
+        <div class="info">
+          <div class="nome">Verity</div>
+          <div class="horarios"><span class="pill">20:45<span class="tag tag-leg">LEG</span></span></div>
+        </div>
+      </div>
+      </div>
+    </section>
+</body></html>
