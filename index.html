@@ -501,7 +501,7 @@ var PLINKS={
 'Alexandre Guimarães':BASE+'to/senador/alexandre-guimaraes-sen-to-2026-270002548344'
 };
 var ICON='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
-function tseLink(nome){var url=PLINKS[nome]||('https://divulgacandcontas.tse.jus.br/divulga/#/pesquisar/candidatos/2026?nome='+encodeURIComponent(nome));return '<a class="tse" href="'+url+'" target="_blank" rel="noopener" title="Ver perfil de '+nome+'" aria-label="Ver perfil de '+nome+'">'+ICON+'</a>';}
+function tseLink(nome){var url=PLINKS[nome]||('https://www.google.com/search?q='+encodeURIComponent(nome+' eleições 2026 TSE candidato'));return '<a class="tse" href="'+url+'" target="_blank" rel="noopener" title="Ver perfil de '+nome+'" aria-label="Ver perfil de '+nome+'">'+ICON+'</a>';}
 function fmt(n){return n.toFixed(2).replace('.',',')}
 function tagCls(p){return p==='PL'?'pl':(p==='PT'?'pt':'')}
 function tag(p){return '<span class="tag '+tagCls(p)+'">'+p+'</span>'}
