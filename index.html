@@ -501,7 +501,25 @@ var PLINKS={
 'Alexandre Guimarães':BASE+'to/senador/alexandre-guimaraes-sen-to-2026-270002548344'
 };
 var ICON='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
-function tseLink(nome){var url=PLINKS[nome]||('https://www.google.com/search?q='+encodeURIComponent(nome+' eleições 2026 TSE candidato'));return '<a class="tse" href="'+url+'" target="_blank" rel="noopener" title="Ver perfil de '+nome+'" aria-label="Ver perfil de '+nome+'">'+ICON+'</a>';}
+var TSE_REGIONS={AC:'NORTE',AM:'NORTE',AP:'NORTE',PA:'NORTE',RO:'NORTE',RR:'NORTE',TO:'NORTE',AL:'NORDESTE',BA:'NORDESTE',CE:'NORDESTE',MA:'NORDESTE',PB:'NORDESTE',PE:'NORDESTE',PI:'NORDESTE',RN:'NORDESTE',SE:'NORDESTE',DF:'CENTRO-OESTE',GO:'CENTRO-OESTE',MS:'CENTRO-OESTE',MT:'CENTRO-OESTE',ES:'SUDESTE',MG:'SUDESTE',RJ:'SUDESTE',SP:'SUDESTE',PR:'SUL',RS:'SUL',SC:'SUL',BR:'BR'};
+var TSE_CARGO={presidente:1,governador:3,senador:5};
+var TSE_ELEICAO='20322002026';
+function tseLink(nome){
+  var mp=PLINKS[nome],url;
+  if(mp){
+    var path=mp.replace('https://meuspoliticos.com.br/eleicoes/2026/','');
+    var parts=path.split('/');
+    var uf=parts[0].toUpperCase();
+    var office=parts[1];
+    var candId=parts[2].split('-').pop();
+    var region=TSE_REGIONS[uf]||'BR';
+    var cargo=TSE_CARGO[office]||5;
+    url='https://divulgacandcontas.tse.jus.br/divulga/#/candidato/'+region+'/'+uf+'/'+TSE_ELEICAO+'/'+candId+'/2026/'+cargo;
+  } else {
+    url='https://www.google.com/search?q='+encodeURIComponent(nome+' eleições 2026 TSE candidato');
+  }
+  return '<a class="tse" href="'+url+'" target="_blank" rel="noopener" title="Ver perfil de '+nome+'" aria-label="Ver perfil de '+nome+'">'+ICON+'</a>';
+}
 function fmt(n){return n.toFixed(2).replace('.',',')}
 function tagCls(p){return p==='PL'?'pl':(p==='PT'?'pt':'')}
 function tag(p){return '<span class="tag '+tagCls(p)+'">'+p+'</span>'}
