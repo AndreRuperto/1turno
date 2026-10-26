@@ -172,7 +172,22 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     <div class="card"><div class="num">−30%</div><div class="lbl">Queda nos votos brancos e nulos</div></div>
   </div>
 </section>
-<section id="presidente"></section>
+<section id="presidente">
+  <h2>O mapa do 2º turno</h2>
+  <p>Lula venceu em 13 estados — os nove do Nordeste, mais Amazonas, Pará, Amapá e Minas Gerais. Flávio Bolsonaro foi maioria em 14 unidades da federação: todos os estados do Sul, Centro-Oeste e Distrito Federal, além de quatro do Norte (RR, RO, AC, TO) e três do Sudeste (SP, RJ, ES). A disputa mais apertada foi em Minas Gerais, onde Lula virou com 50,43% — único estado a trocar de lado entre os turnos.</p>
+  <div class="maps">
+    <svg id="mapPres2" viewBox="0 0 399 470" role="img" aria-label="Cartograma do 2º turno presidencial"></svg>
+    <div class="fill"><div class="scroll">
+      <table id="presTable2"><thead><tr><th class="sort">UF</th><th class="sort">Vencedor</th><th class="sort n">%</th></tr></thead><tbody id="presRows2"></tbody></table>
+    </div></div>
+  </div>
+  <div class="legend">
+    <span><i style="background:var(--flavio)"></i>Flávio Bolsonaro (PL)</span>
+    <span><i style="background:var(--lula)"></i>Lula (PT)</span>
+    <span>Tons mais escuros = acima de 60%</span>
+  </div>
+  <div class="note">Minas Gerais foi o único estado que trocou de lado. No 1º turno, Flávio tinha 48,26% contra 43,33% de Lula — uma vantagem de quase 5 pontos. No 2º turno, Lula virou com 50,43% contra 49,57%, uma diferença de apenas 109.313 votos.</div>
+</section>
 <section id="mapa"></section>
 <section id="comparacao"></section>
 <section id="mobilizacao"></section>
@@ -180,4 +195,74 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
 <section id="ressalvas"></section>
 <section id="fontes"></section>
 
-</div></body></html>
+</div>
+<script>
+var UF = {
+  RR:[1,0,'Roraima'],AP:[2,0,'Amapá'],
+  AM:[1,1,'Amazonas'],PA:[2,1,'Pará'],MA:[3,1,'Maranhão'],CE:[4,1,'Ceará'],RN:[5,1,'Rio Grande do Norte'],
+  AC:[0,2,'Acre'],RO:[1,2,'Rondônia'],MT:[2,2,'Mato Grosso'],TO:[3,2,'Tocantins'],PI:[4,2,'Piauí'],PB:[5,2,'Paraíba'],
+  MS:[2,3,'Mato Grosso do Sul'],GO:[3,3,'Goiás'],BA:[4,3,'Bahia'],PE:[5,3,'Pernambuco'],
+  SP:[2,4,'São Paulo'],DF:[3,4,'Distrito Federal'],MG:[4,4,'Minas Gerais'],AL:[5,4,'Alagoas'],
+  PR:[2,5,'Paraná'],RJ:[3,5,'Rio de Janeiro'],ES:[4,5,'Espírito Santo'],SE:[5,5,'Sergipe'],
+  SC:[2,6,'Santa Catarina'],RS:[2,7,'Rio Grande do Sul']
+};
+
+var PRES2 = {
+  RR:['F',72.45],RO:['F',69.61],SC:['F',69.42],AC:['F',66.56],MT:['F',66.07],PR:['F',62.58],MS:['F',59.60],GO:['F',59.65],RS:['F',57.84],ES:['F',56.37],DF:['F',54.25],SP:['F',53.85],RJ:['F',53.10],TO:['F',51.33],
+  PI:['L',75.81],BA:['L',71.29],SE:['L',69.53],MA:['L',69.51],PE:['L',69.18],CE:['L',68.92],PB:['L',67.46],RN:['L',65.72],AL:['L',60.77],PA:['L',55.00],AM:['L',54.02],AP:['L',52.88],MG:['L',50.43]
+};
+
+function fmt(n){return n.toFixed(2).replace('.',',')}
+
+var NS='http://www.w3.org/2000/svg', W=60, H=52, G=6;
+function drawMap(id, fn){
+  var svg=document.getElementById(id), out='';
+  Object.keys(UF).forEach(function(k){
+    var c=UF[k][0], r=UF[k][1], x=c*(W+G)+3, y=r*(H+G)+3, d=fn(k);
+    out+='<g class="tile'+(d.neutralText?' n':'')+'"><title>'+UF[k][2]+': '+d.tip+'</title>'+
+      '<rect x="'+x+'" y="'+y+'" width="'+W+'" height="'+H+'" rx="6" fill="'+d.fill+'"'+(d.dash?' stroke="var(--fg)" stroke-width="2" stroke-dasharray="4 3"':'')+'/>'+
+      '<text class="u" x="'+(x+W/2)+'" y="'+(y+22)+'" text-anchor="middle">'+k+'</text>'+
+      '<text class="p" x="'+(x+W/2)+'" y="'+(y+39)+'" text-anchor="middle">'+d.sub+'</text></g>';
+  });
+  svg.innerHTML=out;
+}
+
+drawMap('mapPres2',function(k){
+  var p=PRES2[k], f=p[0]==='F', s=p[1]>=60;
+  var fill=f?(s?'var(--flavio)':'var(--flavio-mid)'):(s?'var(--lula)':'var(--lula-mid)');
+  return {fill:fill,sub:fmt(p[1])+'%',tip:(f?'Flávio':'Lula')+' '+fmt(p[1])+'%'};
+});
+
+function makeSortable(table){
+  var tbody=table.querySelector('tbody');
+  if(!tbody)return;
+  table.querySelectorAll('thead th.sort').forEach(function(th){
+    th.addEventListener('click',function(){
+      var asc=th.getAttribute('aria-sort')!=='ascending';
+      table.querySelectorAll('thead th').forEach(function(t){t.removeAttribute('aria-sort')});
+      th.setAttribute('aria-sort',asc?'ascending':'descending');
+      var ci=Array.from(th.parentNode.children).indexOf(th);
+      var isNum=th.classList.contains('n');
+      var rows=Array.from(tbody.querySelectorAll('tr'));
+      rows.sort(function(a,b){
+        var ac=a.cells[ci],bc=b.cells[ci];
+        var av=ac?(ac.dataset.sort!==undefined?ac.dataset.sort:ac.textContent.trim()):'';
+        var bv=bc?(bc.dataset.sort!==undefined?bc.dataset.sort:bc.textContent.trim()):'';
+        if(isNum){av=parseFloat(String(av).replace(',','.'))||0;bv=parseFloat(String(bv).replace(',','.'))||0;}
+        var r=av>bv?1:av<bv?-1:0;
+        return asc?r:-r;
+      });
+      rows.forEach(function(r){tbody.appendChild(r)});
+    });
+  });
+}
+
+var PRES_NAMES={'F':'Flávio Bolsonaro','L':'Lula'};
+var pr2=Object.keys(PRES2).sort(function(a,b){return PRES2[b][1]-PRES2[a][1]}).sort(function(a,b){return (PRES2[a][0]==='F'?0:1)-(PRES2[b][0]==='F'?0:1)});
+document.getElementById('presRows2').innerHTML=pr2.map(function(k){
+  var p=PRES2[k],f=p[0]==='F',nome=PRES_NAMES[p[0]];
+  return '<tr><td>'+k+'</td><td data-sort="'+nome+'"><span class="tag '+(f?'pl':'pt')+'">'+nome+'</span></td><td class="n" data-sort="'+p[1]+'">'+fmt(p[1])+'%</td></tr>';
+}).join('');
+makeSortable(document.getElementById('presTable2'));
+</script>
+</body></html>
