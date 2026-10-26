@@ -723,7 +723,8 @@ CRESC.sort(function(a,b){return (b[2]-b[1])-(a[2]-a[1])});
 document.getElementById('crescRows').innerHTML=CRESC.map(function(r){
   var cresc=(r[2]-r[1]).toFixed(2);
   var v=r[3]==='L'?'Lula':'Flávio';
-  return '<tr><td>'+r[0]+'</td><td class="n" data-sort="'+r[1]+'">'+fmt(r[1])+'%</td><td class="n" data-sort="'+r[2]+'">'+fmt(r[2])+'%</td><td class="n" data-sort="'+cresc+'"><strong style="color:'+(parseFloat(cresc)>=7?'var(--lula)':'var(--fg)')+'">+'+cresc.replace('.',',')+'</strong> pp</td><td data-sort="'+v+'"><span class="tag '+(r[3]==='L'?'pt':'pl')+'">'+v+'</span></td></tr>';
+  var c=parseFloat(cresc),op=Math.min(1,Math.max(0.3,c/9.3));
+  return '<tr><td>'+r[0]+'</td><td class="n" data-sort="'+r[1]+'">'+fmt(r[1])+'%</td><td class="n" data-sort="'+r[2]+'">'+fmt(r[2])+'%</td><td class="n" data-sort="'+cresc+'"><strong style="color:var(--lula);opacity:'+op.toFixed(2)+'">+'+cresc.replace('.',',')+'</strong> pp</td><td data-sort="'+v+'"><span class="tag '+(r[3]==='L'?'pt':'pl')+'">'+v+'</span></td></tr>';
 }).join('');
 makeSortable(document.getElementById('crescTable'));
 
