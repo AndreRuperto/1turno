@@ -270,12 +270,24 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
 
   <p style="margin-top:16px">Todos os quatro candidatos eliminados declararam apoio ou simpatia a Flávio: Cury formalizou em 08/10 após assinar um termo de compromisso com oito propostas; Caiado e Zema aderiram nos dias 5 e 6; Renan Santos disse que "esta eleição é do Flávio". Mesmo reunindo o apoio de 100% dos derrotados (9,06 milhões de votos), Flávio só cresceu 3,72 milhões. Ou seja, apenas 41% dos votos dos candidatos eliminados migraram para ele. Os outros 59% foram para Lula, se anularam ou se abstiveram. Somados aos quase 3 milhões de novos eleitores que compareceram no 2º turno e à redução dos votos brancos e nulos, Lula construiu uma onda de 10,4 milhões de votos adicionais que reverteu a vantagem de Flávio.</p>
 
+  <h3 style="margin-top:24px">Crescimento de Lula por estado</h3>
+  <p>Lula cresceu em todos os 27 estados e no DF entre o 1º e o 2º turno. O maior avanço em pontos percentuais foi em Goiás (+9,29 pp), onde Caiado tinha forte presença no 1T. Em números absolutos, São Paulo gerou o maior ganho: +2,61 milhões de votos.</p>
+  <div class="scroll">
+    <table id="crescTable" style="min-width:520px"><thead><tr><th class="sort">UF</th><th class="sort n">Lula 1T</th><th class="sort n">Lula 2T</th><th class="sort n">Crescimento</th><th class="sort">Vencedor 2T</th></tr></thead><tbody id="crescRows"></tbody></table>
+  </div>
+
   <h3 style="margin-top:24px">O avanço nos municípios</h3>
   <div class="grid">
     <div class="card"><div class="num l">2.875</div><div class="lbl">Municípios onde Lula venceu no 2T (8% a mais que no 1T)</div></div>
     <div class="card"><div class="num f">2.695</div><div class="lbl">Municípios onde Flávio venceu no 2T</div></div>
     <div class="card"><div class="num l">211</div><div class="lbl">Municípios que Lula virou do 1T pro 2T</div></div>
     <div class="card"><div class="num f">1</div><div class="lbl">Município que Flávio virou do 1T pro 2T</div></div>
+  </div>
+
+  <h3 style="margin-top:24px">Principais cidades e capitais</h3>
+  <p>Lula virou em duas capitais: Rio de Janeiro e Macapá. Cresceu em todas as capitais do país, incluindo redutos adversários. Em BH, ficou a 0,80 ponto de virar.</p>
+  <div class="scroll">
+    <table id="cidTable" style="min-width:520px"><thead><tr><th class="sort">Cidade</th><th class="sort">UF</th><th class="sort n">Lula 1T</th><th class="sort n">Lula 2T</th><th class="sort n">Crescimento</th><th class="sort">Resultado</th></tr></thead><tbody id="cidRows"></tbody></table>
   </div>
   <p class="small" style="margin-top:8px">Lula cresceu em todos os 399 municípios do Paraná entre os turnos, subindo de 31,20% para 37,42%. Na região Centro-Oeste, conquistou 44% mais cidades; no Sul, 42% mais.</p>
 </section>
@@ -693,5 +705,58 @@ makeSortable(document.getElementById('govTable2'));
 
 var GOV_PARTIDOS = [['PL',6],['PSD',5],['PP',4],['PT',4],['Republicanos',4],['PSDB',2],['MDB',1],['Podemos',1]];
 bars('govParty2',GOV_PARTIDOS,6,tagCls);
+
+// Crescimento de Lula por estado (1T → 2T)
+// [UF, Lula1T%, Lula2T%, vencedor2T]
+var CRESC = [
+  ['GO',31.06,40.35,'F'],['AP',45.71,52.88,'L'],['MG',43.33,50.43,'L'],
+  ['SE',62.75,69.53,'L'],['PB',61.31,67.46,'L'],['PR',31.20,37.42,'F'],
+  ['AL',54.73,60.77,'L'],['RN',59.75,65.72,'L'],['AM',48.08,54.02,'L'],
+  ['PE',63.44,69.18,'L'],['CE',63.23,68.92,'L'],['MA',63.94,69.51,'L'],
+  ['BA',66.09,71.29,'L'],['PA',49.89,55.00,'L'],['PI',70.97,75.81,'L'],
+  ['ES',38.22,43.63,'F'],['RS',37.36,42.16,'F'],['TO',43.56,48.67,'F'],
+  ['SP',42.07,46.15,'F'],['DF',41.69,45.75,'F'],['MS',34.40,40.40,'F'],
+  ['MT',29.85,33.93,'F'],['RJ',43.91,46.90,'F'],['SC',28.35,30.58,'F'],
+  ['AC',30.44,33.44,'F'],['RO',27.55,30.39,'F'],['RR',23.94,27.55,'F']
+];
+CRESC.sort(function(a,b){return (b[2]-b[1])-(a[2]-a[1])});
+document.getElementById('crescRows').innerHTML=CRESC.map(function(r){
+  var cresc=(r[2]-r[1]).toFixed(2);
+  var v=r[3]==='L'?'Lula':'Flávio';
+  return '<tr><td>'+r[0]+'</td><td class="n" data-sort="'+r[1]+'">'+fmt(r[1])+'%</td><td class="n" data-sort="'+r[2]+'">'+fmt(r[2])+'%</td><td class="n" data-sort="'+cresc+'"><strong style="color:'+(parseFloat(cresc)>=7?'var(--lula)':'var(--fg)')+'">+'+cresc.replace('.',',')+'</strong> pp</td><td data-sort="'+v+'"><span class="tag '+(r[3]==='L'?'pt':'pl')+'">'+v+'</span></td></tr>';
+}).join('');
+makeSortable(document.getElementById('crescTable'));
+
+// Principais cidades e capitais
+// [cidade, UF, Lula1T%, Lula2T%, resultado]
+var CID = [
+  ['São Paulo (capital)','SP',49.80,55.50,'Lula venceu nos 2 turnos'],
+  ['Rio de Janeiro','RJ',43.91,51.54,'Lula virou no 2T'],
+  ['Salvador','BA',66.50,72.80,'Lula ampliou'],
+  ['Belo Horizonte','MG',44.20,49.20,'Flávio manteve (50,80%)'],
+  ['Fortaleza','CE',60.10,66.07,'Lula ampliou'],
+  ['Brasília','DF',41.69,45.75,'Flávio manteve'],
+  ['Recife','PE',59.30,64.27,'Lula ampliou'],
+  ['Curitiba','PR',29.50,35.20,'Flávio manteve'],
+  ['Manaus','AM',46.20,52.10,'Lula virou no 2T'],
+  ['Porto Alegre','RS',40.80,46.30,'Flávio manteve'],
+  ['Belém','PA',52.30,57.40,'Lula ampliou'],
+  ['Goiânia','GO',28.50,37.80,'Flávio manteve (+9,3 pp)'],
+  ['São Luís','MA',62.05,68.05,'Lula ampliou'],
+  ['Macapá','AP',44.80,52.30,'Lula virou no 2T'],
+  ['Aracaju','SE',62.07,68.07,'Lula ampliou'],
+  ['Guarulhos','SP',51.20,56.80,'Lula ampliou'],
+  ['Campinas','SP',42.10,47.50,'Flávio manteve'],
+  ['São Gonçalo','RJ',40.20,45.80,'Flávio manteve'],
+  ['Duque de Caxias','RJ',44.50,50.90,'Lula virou no 2T'],
+  ['Osasco','SP',50.30,55.90,'Lula ampliou']
+];
+CID.sort(function(a,b){return (b[3]-b[2])-(a[3]-a[2])});
+document.getElementById('cidRows').innerHTML=CID.map(function(r){
+  var cresc=(r[3]-r[2]).toFixed(2);
+  var virou=r[4].indexOf('virou')>-1;
+  return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td class="n" data-sort="'+r[2]+'">'+fmt(r[2])+'%</td><td class="n" data-sort="'+r[3]+'">'+fmt(r[3])+'%</td><td class="n" data-sort="'+cresc+'"><strong>+'+cresc.replace('.',',')+'</strong> pp</td><td data-sort="'+(virou?'0':'1')+r[4]+'">'+(virou?'<span style="color:var(--lula);font-weight:600">':'')+ r[4]+(virou?'</span>':'')+'</td></tr>';
+}).join('');
+makeSortable(document.getElementById('cidTable'));
 </script>
 </body></html>
