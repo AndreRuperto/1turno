@@ -144,6 +144,7 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
   <div class="kicker">Eleições gerais · 2º turno em 25/10/2026</div>
   <h1>Lula vira e é reeleito: a primeira virada de turno da história democrática</h1>
   <p class="sub">Presidente e governadores nos 6 estados com 2º turno. Apuração de 25 de outubro, compilada de veículos que citam o TSE. Dados de 26/10/2026.</p>
+  <p class="small" style="margin-top:8px">→ <a href="index.html">Resultados do 1º turno (04/10/2026)</a></p>
 </header>
 
 <section id="resumo">
@@ -222,8 +223,43 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
   <p>Com os resultados do 2º turno, oito partidos comandam os 27 governos estaduais. O PL lidera com seis governadores, seguido por PSD (5), PP (4), PT (4) e Republicanos (4).</p>
   <div id="govParty2"></div>
 </section>
-<section id="ressalvas"></section>
-<section id="fontes"></section>
+<section id="ressalvas">
+  <h2>Ressalvas</h2>
+  <div class="note">
+    <p><strong>Este relatório compila dados de veículos que citam o TSE.</strong></p>
+    <ul>
+      <li>Percentuais são de <strong>votos válidos</strong> (excluindo brancos e nulos), salvo indicação contrária.</li>
+      <li>Arredondamentos podem gerar diferenças de ±0,1 p.p. entre fontes.</li>
+      <li>Dados de abstenção, brancos e nulos referem-se ao total de eleitores aptos.</li>
+      <li>Votos absolutos de Tocantins são aproximados (~545 mil e ~301 mil).</li>
+      <li>Para os resultados do 1º turno, consulte a <a href="index.html">página do 1º turno</a>.</li>
+    </ul>
+  </div>
+</section>
+<section id="fontes">
+  <h2>Fontes</h2>
+  <div class="src">
+    <p>Dados compilados a partir de:</p>
+    <ul>
+      <li><a href="https://www.tre-sp.jus.br/comunicacao/noticias/2026/Outubro/eleicoes-2026-lula-e-reeleito-presidente-da-republica-confira-resultado-do-2o-turno-em-sp">TRE-SP: resultado do 2º turno</a></li>
+      <li><a href="https://www.cnnbrasil.com.br/internacional/eleicoes-2026-exterior-boletins-urna-flavio-lula/">CNN Brasil: resultados por estado</a></li>
+      <li><a href="https://www.gazetadopovo.com.br/eleicoes/2026/segundo-turno-presidente-mapa-votacao-por-estado/">Gazeta do Povo: mapa do 2º turno</a></li>
+      <li><a href="https://jovempan.com.br/politica/segundo-turno-seis-governadores-eleitos-2026/">Jovem Pan: governadores eleitos</a></li>
+      <li><a href="https://www.metropoles.com/brasil/no-2o-turno-lula-ganhou-em-13-estados-flavio-bolsonaro-venceu-em-14">Metrópoles: estados por candidato</a></li>
+      <li><a href="https://www.infomoney.com.br/politica/ao-vivo-eleicoes-segundo-turno-2026/">InfoMoney: resultado nos estados</a></li>
+      <li><a href="https://forbes.com.br/geral/2026/10/eleicoes-2026-governadores-eleitos-no-2o-turno-nos-5-estados-e-no-df/">Forbes: governadores do 2º turno</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/2026_Brazilian_general_election">Wikipedia: 2026 Brazilian general election</a></li>
+      <li><a href="https://www.otempo.com.br/eleicoes/2026/analises/mapa-dos-votos">O Tempo: mapa dos votos</a></li>
+      <li><a href="https://revistaoeste.com/politica/confira-os-numeros-do-2o-turno-com-100-da-apuracao-concluida/">Revista Oeste: números finais</a></li>
+      <li><a href="https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/pl-psd-pt-e-republicanos-tem-15-governadores-eleitos">Agência Brasil: governadores por partido</a></li>
+      <li><a href="https://www.opovo.com.br/noticias/politica/eleicoes/2026/10/26/veja-sete-motivos-que-levaram-lula-a-virada-historica-e-reeleicao.html">O Povo: motivos da virada</a></li>
+    </ul>
+  </div>
+</section>
+
+<footer class="small" style="text-align:center;padding-top:28px;border-top:1px solid var(--line)">
+  <p>Projeto <strong>1turno</strong> · <a href="https://github.com/AndreRuperto/1turno">GitHub</a> · Dados compilados em 26/10/2026</p>
+</footer>
 
 </div>
 <script>
@@ -303,6 +339,44 @@ function bars(el,rows,max,clsFn){
   }).join('');
 }
 
+var BASE='https://meuspoliticos.com.br/eleicoes/2026/';
+var PLINKS={
+'Mailza Assis':BASE+'ac/governador/mailza-assis-gov-ac-2026-10002544107',
+'Alan Rick':BASE+'ac/governador/alan-rick-gov-ac-2026-10002532492',
+'Omar Aziz':BASE+'am/governador/omar-aziz-gov-am-2026-40002532272',
+'Profa Maria do Carmo':BASE+'am/governador/professora-maria-do-carmo-gov-am-2026-40002541626',
+'Celina Leão':BASE+'df/governador/celina-leao-gov-df-2026-70002553055',
+'Leandro Grass':BASE+'df/governador/leandro-grass-gov-df-2026-70002552496',
+'Lorenzo Pazolini':BASE+'es/governador/lorenzo-pazolini-gov-es-2026-80002552682',
+'Ricardo Ferraço':BASE+'es/governador/ricardo-ferraco-gov-es-2026-80002552172',
+'Allyson':BASE+'rn/governador/allyson-gov-rn-2026-200002535255',
+'Cadu de Lula':BASE+'rn/governador/cadu-de-lula-gov-rn-2026-200002534001',
+'Profa Dorinha':BASE+'to/governador/professora-dorinha-gov-to-2026-270002544599',
+'Vicentinho Júnior':BASE+'to/governador/vicentinho-junior-gov-to-2026-270002544544',
+'Flávio Bolsonaro':BASE+'br/presidente/flavio-bolsonaro-pres-br-2026-280002551544',
+'Lula':BASE+'br/presidente/lula-pres-br-2026-280002542548'
+};
+var ICON='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+var TSE_REGIONS={AC:'NORTE',AM:'NORTE',AP:'NORTE',PA:'NORTE',RO:'NORTE',RR:'NORTE',TO:'NORTE',AL:'NORDESTE',BA:'NORDESTE',CE:'NORDESTE',MA:'NORDESTE',PB:'NORDESTE',PE:'NORDESTE',PI:'NORDESTE',RN:'NORDESTE',SE:'NORDESTE',DF:'CENTRO-OESTE',GO:'CENTRO-OESTE',MS:'CENTRO-OESTE',MT:'CENTRO-OESTE',ES:'SUDESTE',MG:'SUDESTE',RJ:'SUDESTE',SP:'SUDESTE',PR:'SUL',RS:'SUL',SC:'SUL',BR:'BR'};
+var TSE_CARGO={presidente:1,governador:3,senador:5};
+var TSE_ELEICAO='20322002026';
+function tseLink(nome){
+  var mp=PLINKS[nome],url;
+  if(mp){
+    var path=mp.replace('https://meuspoliticos.com.br/eleicoes/2026/','');
+    var parts=path.split('/');
+    var uf=parts[0].toUpperCase();
+    var office=parts[1];
+    var candId=parts[2].split('-').pop();
+    var region=TSE_REGIONS[uf]||'BR';
+    var cargo=TSE_CARGO[office]||5;
+    url='https://divulgacandcontas.tse.jus.br/divulga/#/candidato/'+region+'/'+uf+'/'+TSE_ELEICAO+'/'+candId+'/2026/'+cargo;
+  } else {
+    url='https://www.google.com/search?q='+encodeURIComponent(nome+' eleições 2026 TSE candidato');
+  }
+  return '<a class="tse" href="'+url+'" target="_blank" rel="noopener" title="Ver perfil de '+nome+'" aria-label="Ver perfil de '+nome+'">'+ICON+'</a>';
+}
+
 var GOV2 = [
   ['AC','Mailza Assis','PP',66.21,'Alan Rick','Republicanos',33.79],
   ['AM','Omar Aziz','PSD',61.42,'Profa Maria do Carmo','PL',38.58],
@@ -312,7 +386,7 @@ var GOV2 = [
   ['TO','Vicentinho Júnior','PSDB',64.52,'Profa Dorinha','União',35.48]
 ];
 document.getElementById('govRows2').innerHTML=GOV2.map(function(r){
-  return '<tr><td>'+r[0]+'</td><td data-sort="'+r[1]+'">'+r[1]+'</td><td data-sort="'+r[2]+'">'+tag(r[2])+'</td><td class="n" data-sort="'+r[3]+'">'+fmt(r[3])+'%</td><td data-sort="'+r[4]+'">'+r[4]+'</td><td data-sort="'+r[5]+'">'+tag(r[5])+'</td><td class="n" data-sort="'+r[6]+'">'+fmt(r[6])+'%</td></tr>';
+  return '<tr><td>'+r[0]+'</td><td data-sort="'+r[1]+'">'+r[1]+tseLink(r[1])+'</td><td data-sort="'+r[2]+'">'+tag(r[2])+'</td><td class="n" data-sort="'+r[3]+'">'+fmt(r[3])+'%</td><td data-sort="'+r[4]+'">'+r[4]+tseLink(r[4])+'</td><td data-sort="'+r[5]+'">'+tag(r[5])+'</td><td class="n" data-sort="'+r[6]+'">'+fmt(r[6])+'%</td></tr>';
 }).join('');
 makeSortable(document.getElementById('govTable2'));
 
