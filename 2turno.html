@@ -212,7 +212,16 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     <div class="card"><div class="num">+3 milhões</div><div class="lbl">Eleitores a mais no 2º turno</div></div>
   </div>
 </section>
-<section id="governadores"></section>
+<section id="governadores">
+  <h2>Seis governadores definidos no 2º turno</h2>
+  <p>Cinco estados e o Distrito Federal definiram seus governadores no segundo turno. O PP foi o grande vencedor da etapa final, saindo de dois para quatro governos com as vitórias de Mailza Assis no Acre e Celina Leão no DF. No Rio Grande do Norte, Cadu de Lula (PT) venceu com a menor margem entre todas as disputas: apenas 32.625 votos de diferença, ou 1,54 ponto percentual.</p>
+  <div class="scroll">
+    <table id="govTable2"><thead><tr><th class="sort">UF</th><th class="sort">Eleito</th><th class="sort">Partido</th><th class="sort n">%</th><th class="sort">Derrotado</th><th class="sort">Partido</th><th class="sort n">%</th></tr></thead><tbody id="govRows2"></tbody></table>
+  </div>
+  <h3>Governadores por partido</h3>
+  <p>Com os resultados do 2º turno, oito partidos comandam os 27 governos estaduais. O PL lidera com seis governadores, seguido por PSD (5), PP (4), PT (4) e Republicanos (4).</p>
+  <div id="govParty2"></div>
+</section>
 <section id="ressalvas"></section>
 <section id="fontes"></section>
 
@@ -285,5 +294,29 @@ document.getElementById('presRows2').innerHTML=pr2.map(function(k){
   return '<tr><td>'+k+'</td><td data-sort="'+nome+'"><span class="tag '+(f?'pl':'pt')+'">'+nome+'</span></td><td class="n" data-sort="'+p[1]+'">'+fmt(p[1])+'%</td></tr>';
 }).join('');
 makeSortable(document.getElementById('presTable2'));
+
+function tagCls(p){var m={PL:'pl',PT:'pt'};return m[p]||''}
+function tag(p){return '<span class="tag '+tagCls(p)+'">'+p+'</span>'}
+function bars(el,rows,max,clsFn){
+  document.getElementById(el).innerHTML=rows.map(function(r){
+    return '<div class="hb '+clsFn(r[0])+'"><span>'+r[0]+'</span><div class="t"><b style="width:'+(r[1]/max*100)+'%"></b></div><span class="v">'+r[1]+'</span></div>';
+  }).join('');
+}
+
+var GOV2 = [
+  ['AC','Mailza Assis','PP',66.21,'Alan Rick','Republicanos',33.79],
+  ['AM','Omar Aziz','PSD',61.42,'Profa Maria do Carmo','PL',38.58],
+  ['DF','Celina Leão','PP',57.18,'Leandro Grass','PT',42.82],
+  ['ES','Lorenzo Pazolini','Republicanos',52.17,'Ricardo Ferraço','MDB',47.83],
+  ['RN','Cadu de Lula','PT',50.77,'Allyson','União',49.23],
+  ['TO','Vicentinho Júnior','PSDB',64.52,'Profa Dorinha','União',35.48]
+];
+document.getElementById('govRows2').innerHTML=GOV2.map(function(r){
+  return '<tr><td>'+r[0]+'</td><td data-sort="'+r[1]+'">'+r[1]+'</td><td data-sort="'+r[2]+'">'+tag(r[2])+'</td><td class="n" data-sort="'+r[3]+'">'+fmt(r[3])+'%</td><td data-sort="'+r[4]+'">'+r[4]+'</td><td data-sort="'+r[5]+'">'+tag(r[5])+'</td><td class="n" data-sort="'+r[6]+'">'+fmt(r[6])+'%</td></tr>';
+}).join('');
+makeSortable(document.getElementById('govTable2'));
+
+var GOV_PARTIDOS = [['PL',6],['PSD',5],['PP',4],['PT',4],['Republicanos',4],['PSDB',2],['MDB',1],['Podemos',1]];
+bars('govParty2',GOV_PARTIDOS,6,tagCls);
 </script>
 </body></html>
