@@ -97,8 +97,9 @@ th.sort[aria-sort="descending"]::after{content:' ↓';opacity:1}
 .hemis{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));align-items:start}
 .hemis>div{display:flex;flex-direction:column;gap:12px;min-width:0}
 
-section>details{display:flex;flex-direction:column;gap:18px}
-details>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
+section>details>*+*{margin-top:18px}
+section>details>summary+*{margin-top:18px}
+details>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;margin:0}
 details>summary::-webkit-details-marker{display:none}
 details>summary::marker{display:none;content:''}
 details>summary h2{margin:0;flex:1}
