@@ -134,9 +134,18 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-light{display:none}:root:not([data-theme="light"]) .logo-dark{display:block}}
 :root[data-theme="dark"] .logo-light{display:none}
 :root[data-theme="dark"] .logo-dark{display:block}
+.tl{position:relative;padding-left:28px;border-left:3px solid var(--line);margin-left:8px}
+.tl-item{position:relative;padding-bottom:28px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:'';position:absolute;left:-34px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--neutral);border:3px solid var(--bg)}
+.tl-final::before{background:var(--lula);width:15px;height:15px;left:-35px;top:4px}
+.tl-date{font-family:var(--serif);font-weight:700;font-size:16px;margin-bottom:4px}
+.tl-tag{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-left:6px}
+.tl-body{font-size:14px;line-height:1.6;color:var(--fg)}
+.tl-body strong{color:var(--fg)}
 </style>
 
-<nav class="topnav" aria-label="Seções"><div><a href="#" class="nav-brand" aria-label="2turno"><img class="logo-light" src="1turno/logo/1turno-horizontal-claro.svg" alt="1turno" height="22"><img class="logo-dark" src="1turno/logo/1turno-horizontal-escuro.svg" alt="" height="22"></a><div class="nav-links"><a href="#resumo">Resumo</a><a href="#presidente">Presidente</a><a href="#mapa">Mapa</a><a href="#comparacao">Comparação</a><a href="#mobilizacao">Mobilização</a><a href="#governadores">Governadores</a><a href="#ressalvas">Ressalvas</a><a href="#fontes">Fontes</a><a href="index.html">← 1º turno</a></div></div></nav>
+<nav class="topnav" aria-label="Seções"><div><a href="#" class="nav-brand" aria-label="2turno"><img class="logo-light" src="1turno/logo/1turno-horizontal-claro.svg" alt="1turno" height="22"><img class="logo-dark" src="1turno/logo/1turno-horizontal-escuro.svg" alt="" height="22"></a><div class="nav-links"><a href="#resumo">Resumo</a><a href="#presidente">Presidente</a><a href="#mapa">Mapa</a><a href="#comparacao">Comparação</a><a href="#mobilizacao">Mobilização</a><a href="#governadores">Governadores</a><a href="#timeline">Timeline</a><a href="#ressalvas">Ressalvas</a><a href="#fontes">Fontes</a><a href="index.html">← 1º turno</a></div></div></nav>
 
 <div class="wrap">
 
@@ -223,6 +232,121 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
   <p>Com os resultados do 2º turno, oito partidos comandam os 27 governos estaduais. O PL lidera com seis governadores, seguido por PSD (5), PP (4), PT (4) e Republicanos (4).</p>
   <div id="govParty2"></div>
 </section>
+
+<section id="timeline">
+  <h2>21 dias que viraram a eleição</h2>
+  <p>Entre o 1º turno (4 de outubro) e o 2º turno (25 de outubro), uma sequência de movimentos políticos, debates, pesquisas e medidas de governo redefiniu a corrida presidencial. Esta cronologia registra os fatos que marcaram a campanha mais disputada desde a redemocratização.</p>
+
+  <div class="tl">
+
+  <div class="tl-item">
+    <div class="tl-date">4 out <span class="tl-tag">domingo</span></div>
+    <div class="tl-body">
+      <strong>1º turno.</strong> Flávio Bolsonaro (PL) lidera com 47,03% dos votos válidos (56,1 milhões); Lula (PT) fica em 2º com 45,16% (53,9 milhões) — uma diferença de 2,2 milhões de votos. Seis estados e o DF vão ao 2º turno para governador. É a primeira vez que um presidente concorrendo à reeleição perde o 1º turno.
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-date">5 out <span class="tl-tag">segunda</span></div>
+    <div class="tl-body">
+      <strong>Início da campanha do 2º turno.</strong> Romeu Zema (Novo), que obteve 0,27% no 1º turno, indica apoio a Flávio Bolsonaro nas redes sociais, dizendo "Onde o PT estiver, nós estaremos contra". Lula inicia reorganização da comunicação digital.
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-date">6 out <span class="tl-tag">terça</span></div>
+    <div class="tl-body">
+      <strong>Caiado e Zema formalizam apoio a Flávio.</strong> Ronaldo Caiado (União), 5º lugar no 1º turno com 2,18%, formaliza adesão em Goiânia e apresenta documento com propostas sobre segurança, saúde e inteligência artificial. Tarcísio (Republicanos), reeleito governador de SP, já apoiava Flávio desde o início.
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-date">7–8 out</div>
+    <div class="tl-body">
+      <strong>Nordeste entra na campanha.</strong> Lideranças do PT no Nordeste assumem postos de comando: o senador Camilo Santana (CE), o senador eleito Rui Costa (BA) e o governador Rafael Fonteles (PI) passam a coordenar a campanha de Lula. O canal de WhatsApp "Exército do Lula", administrado pelo deputado André Janones, ultrapassa 4,2 milhões de seguidores.
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-date">9 out <span class="tl-tag">quinta</span></div>
+    <div class="tl-body">
+      <strong>Propaganda eleitoral gratuita.</strong> Começa o horário gratuito no rádio e na TV para o 2º turno (até 23 de outubro). Sete candidatos a governador em 2º turno declaram apoio a Flávio; três apoiam Lula.
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-date">11 out <span class="tl-tag">sábado</span></div>
+    <div class="tl-body">
+      <strong>Primeiro debate cancelado.</strong> O confronto previsto é cancelado por incompatibilidade de agenda dos candidatos. Campanha de Lula intensifica presença digital, com foco em desconstruir propostas de Flávio.
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-date">12 out <span class="tl-tag">domingo</span></div>
+    <div class="tl-body">
+      <strong>Onda de desinformação.</strong> Processos sobre propaganda digital quase triplicam em relação a eleições anteriores. Cerca de 60% dos conteúdos verificados são deepfakes — vídeos e imagens manipulados por IA — e a maioria não sinaliza uso da tecnologia.
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-date">14 out <span class="tl-tag">terça</span></div>
+    <div class="tl-body">
+      <strong>Primeira pesquisa do 2º turno.</strong> Quaest/TV Globo mostra Flávio 51% × Lula 49% em votos válidos — empate técnico dentro da margem de erro. A campanha petista ainda corre atrás do prejuízo.
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-date">15 out <span class="tl-tag">quarta</span></div>
+    <div class="tl-body">
+      <strong>Debate SBT e TSE ouve a Meta.</strong> Primeiro debate televisivo do 2º turno, promovido pelo SBT + pool de veículos. No mesmo dia, Datafolha divulga pesquisa e o TSE reúne representantes da Meta para debater o uso de IA e fake news nas plataformas.
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-date">16–17 out</div>
+    <div class="tl-body">
+      <strong>Flávio na Paulista e a questão Jair.</strong> Flávio Bolsonaro participa de ato na Avenida Paulista e declara que seu pai, Jair Bolsonaro — condenado a 27 anos e 3 meses de prisão por tentativa de golpe de Estado, em prisão domiciliar — colocará a faixa presidencial nele. O ministro Alexandre de Moraes autoriza visita de Flávio ao pai, mas proíbe qualquer uso político-eleitoral da visita.
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-date">18 out <span class="tl-tag">sábado</span></div>
+    <div class="tl-body">
+      <strong>Debate Band.</strong> Realizado às 20h na sede da emissora em São Paulo. Troca intensa de acusações sobre economia, endividamento e segurança pública. Flávio questiona gastos do governo; Lula responde com dados de emprego e crescimento.
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-date">19–20 out</div>
+    <div class="tl-body">
+      <strong>Pacote eleitoral de Lula.</strong> O governo anuncia reajuste de 15% no Bolsa Família (recompondo inflação desde 2023) e antecipa os pagamentos de outubro. No Congresso, é aprovada a PEC do fim da escala 6×1 e o aumento do limite do MEI. Lula também anuncia o "Pé-de-Meia universitário" — R$ 700/mês para estudantes de universidades públicas e bolsistas do ProUni.
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-date">21 out <span class="tl-tag">terça</span></div>
+    <div class="tl-body">
+      <strong>Bolsa Família antecipado.</strong> Todos os pagamentos de outubro do programa são concluídos — quatro dias antes do 2º turno. A aprovação do governo está em 47%, com 49% de desaprovação.
+    </div>
+  </div>
+
+  <div class="tl-item">
+    <div class="tl-date">23 out <span class="tl-tag">sexta</span></div>
+    <div class="tl-body">
+      <strong>Último debate: TV Globo.</strong> Realizado após o Jornal Nacional, nos estúdios da Globo no Rio, com mediação de César Tralli. Duas horas de confronto sobre economia, saúde, segurança, programas sociais e infraestrutura. Lula diz que Flávio "é jovem, não conhece o Brasil, não sabe o que é trabalhar e só sabe mentir". Último ato de campanha antes do silêncio eleitoral.
+    </div>
+  </div>
+
+  <div class="tl-item tl-final">
+    <div class="tl-date">25 out <span class="tl-tag">domingo</span></div>
+    <div class="tl-body">
+      <strong>2º turno: Lula é reeleito.</strong> Com 51,79% dos votos válidos (64.256.232 votos), Lula reverte a desvantagem de 2,2 milhões e vence por 4,43 milhões. Minas Gerais é o único estado que vira. É a primeira virada de turno da história democrática brasileira. Seis governadores são eleitos no mesmo dia.
+    </div>
+  </div>
+
+  </div>
+</section>
+
 <section id="ressalvas">
   <h2>Ressalvas</h2>
   <div class="note">
