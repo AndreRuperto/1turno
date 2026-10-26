@@ -97,7 +97,13 @@ th.sort[aria-sort="descending"]::after{content:' ↓';opacity:1}
 .hemis{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));align-items:start}
 .hemis>div{display:flex;flex-direction:column;gap:12px;min-width:0}
 
-details{margin-top:8px} summary{cursor:pointer;color:var(--muted);font-size:13px;font-weight:600}
+details{margin-top:0} details>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
+details>summary::-webkit-details-marker{display:none}
+details>summary::marker{display:none;content:''}
+details>summary h2{margin:0;flex:1}
+details>summary::after{content:'B2';font-size:12px;color:var(--muted);transition:transform .2s}
+details:not([open])>summary::after{transform:rotate(180deg)}
+details:not([open])>summary h2{border-bottom:1px dashed var(--line);padding-bottom:8px}
 html{scroll-behavior:smooth;scroll-padding-top:64px}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 .topnav{position:sticky;top:0;z-index:10;margin:-28px -16px 0;padding:0 16px;background:var(--bg);border-bottom:1px solid var(--line)}
@@ -184,7 +190,7 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
 </section>
 
 <section id="presidente">
-  <h2>O mapa do 2º turno</h2>
+  <details open><summary><h2>O mapa do 2º turno</h2></summary>
   <p>Lula venceu em 13 estados: os nove do Nordeste, mais Amazonas, Pará, Amapá e Minas Gerais. Flávio Bolsonaro foi maioria em 14 unidades da federação: todos os estados do Sul, Centro-Oeste e Distrito Federal, além de quatro do Norte (RR, RO, AC, TO) e três do Sudeste (SP, RJ, ES). A disputa mais apertada foi em Minas Gerais, onde Lula virou com 50,43%, único estado a trocar de lado entre os turnos.</p>
   <div class="maps">
     <svg id="mapPres2" viewBox="0 0 399 470" role="img" aria-label="Cartograma do 2º turno presidencial"></svg>
@@ -198,10 +204,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     <span>Tons mais escuros = acima de 60%</span>
   </div>
   <div class="note">Minas Gerais foi o único estado que trocou de lado. No 1º turno, Flávio tinha 48,26% contra 43,33% de Lula, uma vantagem de quase 5 pontos. No 2º turno, Lula virou com 50,43% contra 49,57%, uma diferença de apenas 109.313 votos.</div>
-</section>
+</details></section>
 
 <section id="exterior">
-  <h2>O voto no exterior</h2>
+  <details open><summary><h2>O voto no exterior</h2></summary>
   <p>Quase 1 milhão de brasileiros residentes no exterior votaram para presidente. Lula venceu no agregado com 53,86% dos votos, liderando em 62 países. Flávio venceu em 39, com destaque para EUA, Japão e Israel.</p>
 
   <div class="duel">
@@ -222,10 +228,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     </tbody></table>
   </div>
   <p class="small" style="margin-top:8px">No exterior, eleitores votam apenas para presidente. Flávio dominou nos EUA (62,65%), Japão (80,08%) e Israel (80,81%). Lula liderou na Europa e na maioria dos países da América Latina.</p>
-</section>
+</details></section>
 
 <section id="comparacao">
-  <h2>Do 1º ao 2º turno: como Lula reverteu 2,2 milhões de votos</h2>
+  <details open><summary><h2>Do 1º ao 2º turno: como Lula reverteu 2,2 milhões de votos</h2></summary>
   <p>No primeiro turno, Flávio Bolsonaro liderou com 45,16% (53.879.538 votos) contra 42,07% de Lula (50.197.616 votos), uma vantagem de 2,2 milhões. Três semanas depois, Lula somou 64.256.232 votos (51,79%), um salto de 10,4 milhões. Flávio cresceu 3,6 milhões, chegando a 59.826.041 (48,21%). A margem se inverteu para 4,43 milhões a favor do petista.</p>
   <p>O Nordeste foi o motor da virada. A vantagem regional de Lula saltou de 11,1 milhões para 13,65 milhões de votos. No mapa, os 13 estados que Lula venceu são os mesmos que deram a vitória ao PT em 2022, com uma troca: em 2026, Lula perdeu Tocantins mas conquistou o Amapá.</p>
   <div class="grid g5">
@@ -235,10 +241,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     <div class="card"><h3>Sudeste</h3><div class="num f">Flávio 52,76%</div><div class="lbl">Lula virou só em MG</div></div>
     <div class="card"><h3>Sul</h3><div class="num f">Flávio 62,58%</div><div class="lbl">Flávio venceu nos 3 estados</div></div>
   </div>
-</section>
+</details></section>
 
 <section id="transferencia">
-  <h2>Para onde foram os votos: a aritmética da virada</h2>
+  <details open><summary><h2>Para onde foram os votos: a aritmética da virada</h2></summary>
   <p>Entre o 1º e o 2º turno, 14,1 milhões de votos válidos foram redistribuídos. Eles vieram de duas fontes: os 9,06 milhões de eleitores que votaram em candidatos eliminados (Cury, Renan, Caiado e Zema) e os 4,8 milhões de votos válidos adicionais gerados pelo aumento do comparecimento e pela queda nos brancos e nulos. A forma como esses votos se dividiram explica a virada.</p>
 
   <h3>Os candidatos eliminados e seus apoios</h3>
@@ -304,10 +310,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     <table id="cidTable" style="min-width:780px"><thead><tr><th class="sort">Cidade</th><th class="sort">UF</th><th class="sort n">Lula 1T</th><th class="sort n">Lula 2T</th><th class="sort n">Lula +</th><th class="sort n">Flávio 1T</th><th class="sort n">Flávio 2T</th><th class="sort n">Flávio +</th><th class="sort">Resultado</th></tr></thead><tbody id="cidRows"></tbody></table>
   </div>
   <p class="small" style="margin-top:8px">Lula cresceu em todos os 399 municípios do Paraná entre os turnos, subindo de 31,20% para 37,42%. Na região Centro-Oeste, conquistou 44% mais cidades; no Sul, 42% mais.</p>
-</section>
+</details></section>
 
 <section id="mobilizacao">
-  <h2>A mobilização que decidiu a eleição</h2>
+  <details open><summary><h2>A mobilização que decidiu a eleição</h2></summary>
   <p>O segundo turno registrou a menor abstenção desde 2006: 19,22% dos eleitores aptos não compareceram, contra 21,08% do primeiro turno. Quase três milhões de brasileiros a mais foram às urnas, elevando o comparecimento de 125,2 milhões para 128,2 milhões.</p>
   <p>Os votos brancos e nulos também caíram. Juntos, somaram 4.153.791, uma queda de 30% em relação ao primeiro turno. Com mais gente votando e menos votos desperdiçados, o universo de votos válidos cresceu 4,78 milhões. A forma como esses votos se distribuíram, massivamente para Lula no Nordeste e entre os novos eleitores, foi o fator decisivo.</p>
   <div class="grid">
@@ -316,10 +322,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     <div class="card"><div class="num">2,93% → 2,12%</div><div class="lbl">Votos nulos</div></div>
     <div class="card"><div class="num">+3 milhões</div><div class="lbl">Eleitores a mais no 2º turno</div></div>
   </div>
-</section>
+</details></section>
 
 <section id="perfil">
-  <h2>O perfil do voto</h2>
+  <details open><summary><h2>O perfil do voto</h2></summary>
   <div class="note">
     <p><strong>Atenção: estes dados são de pesquisa eleitoral, não do resultado das urnas.</strong> No Brasil, o voto é secreto e a urna eletrônica não registra dados demográficos. Recortes por gênero, idade, escolaridade e renda só existem via pesquisas amostrais.</p>
   </div>
@@ -365,10 +371,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     </tbody></table>
   </div>
   <p class="small" style="margin-top:8px">Fonte: DataTrends/Poder360, 2.000 entrevistados, 7 a 9/10/2026, margem ±2,19 pp, confiança 95%. Registro TSE. Entrevistas telefônicas automatizadas (URA), ponderadas por UF, sexo, idade, escolaridade e renda.</p>
-</section>
+</details></section>
 
 <section id="2022vs2026">
-  <h2>2022 vs 2026: duas eleições, dois Bolsonaros</h2>
+  <details open><summary><h2>2022 vs 2026: duas eleições, dois Bolsonaros</h2></summary>
   <p>Em 2022, Lula derrotou Jair Bolsonaro com a menor margem da história: 1,8 ponto percentual (2,1 milhões de votos). Em 2026, contra Flávio Bolsonaro, a margem foi de 3,58 pontos (4,43 milhões), mas a virada do 1T para o 2T foi inédita.</p>
 
   <div class="scroll">
@@ -388,10 +394,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
   <div class="note" style="margin-top:16px">
     <p><strong>Mesmos 13 estados, mapa diferente.</strong> Lula manteve os 9 do Nordeste + AM, PA e MG em ambas as eleições. A troca: em 2022 venceu em TO, em 2026 perdeu TO mas ganhou AP.</p>
   </div>
-</section>
+</details></section>
 
 <section id="governadores">
-  <h2>Seis governadores definidos no 2º turno</h2>
+  <details open><summary><h2>Seis governadores definidos no 2º turno</h2></summary>
   <p>Cinco estados e o Distrito Federal definiram seus governadores no segundo turno. O PP foi o grande vencedor da etapa final, saindo de dois para quatro governos com as vitórias de Mailza Assis no Acre e Celina Leão no DF. No Rio Grande do Norte, Cadu de Lula (PT) venceu com a menor margem entre todas as disputas: apenas 32.625 votos de diferença, ou 1,54 ponto percentual.</p>
   <div class="scroll">
     <table id="govTable2"><thead><tr><th class="sort">UF</th><th class="sort">Eleito</th><th class="sort">Partido</th><th class="sort n">%</th><th class="sort">Derrotado</th><th class="sort">Partido</th><th class="sort n">%</th></tr></thead><tbody id="govRows2"></tbody></table>
@@ -399,10 +405,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
   <h3>Governadores por partido</h3>
   <p>Com os resultados do 2º turno, oito partidos comandam os 27 governos estaduais. O PL lidera com seis governadores, seguido por PSD (5), PP (4), PT (4) e Republicanos (4).</p>
   <div id="govParty2"></div>
-</section>
+</details></section>
 
 <section id="govmapa">
-  <h2>Mapa final: os 27 governadores</h2>
+  <details open><summary><h2>Mapa final: os 27 governadores</h2></summary>
   <p>Após os dois turnos, oito partidos comandam os governos estaduais. O PL lidera com 6 governadores, seguido por PSD (5), PP (4), PT (4) e Republicanos (4).</p>
   <div class="maps">
     <svg id="mapGov2" viewBox="0 0 399 470" role="img" aria-label="Cartograma de governadores eleitos"></svg>
@@ -415,10 +421,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     <span><i style="background:var(--lula)"></i>PT</span>
     <span><i style="background:var(--neutral)"></i>Outros partidos</span>
   </div>
-</section>
+</details></section>
 
 <section id="timeline">
-  <h2>21 dias que viraram a eleição</h2>
+  <details open><summary><h2>21 dias que viraram a eleição</h2></summary>
   <p>Entre o 1º turno (4 de outubro) e o 2º turno (25 de outubro), uma sequência de movimentos políticos, debates, pesquisas e medidas de governo redefiniu a corrida presidencial. Esta cronologia registra os fatos que marcaram a campanha mais disputada desde a redemocratização.</p>
 
   <div class="tl">
@@ -648,10 +654,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
   </div>
 
   </div>
-</section>
+</details></section>
 
 <section id="juridico">
-  <h2>A contestação e a questão jurídica</h2>
+  <details open><summary><h2>A contestação e a questão jurídica</h2></summary>
   <p>Horas após a confirmação do resultado, Flávio Bolsonaro anunciou que pediria a anulação das eleições. O argumento central: a prorrogação de duas horas determinada pelo ministro Cristiano Zanin (STF) teria violado a isonomia eleitoral, já que centenas de seções já haviam encerrado e lacrado as urnas quando a decisão foi proferida.</p>
 
   <h3>Os argumentos da contestação</h3>
@@ -676,10 +682,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     </div>
   </div>
   <p class="small" style="margin-top:12px">Até o fechamento deste relatório (26/10/2026), o pedido formal de anulação ainda não havia sido protocolado no TSE.</p>
-</section>
+</details></section>
 
 <section id="futuro">
-  <h2>O que vem pela frente</h2>
+  <details open><summary><h2>O que vem pela frente</h2></summary>
   <p>Lula inicia seu quarto mandato em janeiro de 2027 diante de um cenário complexo: um Congresso com maioria conservadora, dívida pública em 82,9% do PIB, quatro vagas para indicar ao STF e sanções econômicas dos EUA.</p>
 
   <div class="grid">
@@ -700,10 +706,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
       <div class="lbl">Brasil enfrenta sanções econômicas dos EUA desde 2025. A relação com Washington será um dos maiores desafios diplomáticos do novo mandato.</div>
     </div>
   </div>
-</section>
+</details></section>
 
 <section id="calendario2">
-  <h2>Calendário pós-eleição</h2>
+  <details open><summary><h2>Calendário pós-eleição</h2></summary>
   <div class="scroll">
     <table style="min-width:0"><thead><tr><th>Data</th><th>Evento</th></tr></thead>
     <tbody>
@@ -717,10 +723,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
     </tbody></table>
   </div>
   <p class="small" style="margin-top:8px">As datas de posse seguem a Emenda Constitucional nº 111, que alterou o calendário tradicional de 1º de janeiro.</p>
-</section>
+</details></section>
 
 <section id="ressalvas">
-  <h2>Ressalvas</h2>
+  <details open><summary><h2>Ressalvas</h2></summary>
   <div class="note">
     <p><strong>Este relatório compila dados de veículos que citam o TSE.</strong></p>
     <ul>
@@ -731,10 +737,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
       <li>Para os resultados do 1º turno, consulte a <a href="index.html">página do 1º turno</a>.</li>
     </ul>
   </div>
-</section>
+</details></section>
 
 <section id="fontes">
-  <h2>Fontes</h2>
+  <details open><summary><h2>Fontes</h2></summary>
   <div class="src">
     <p>Dados compilados a partir de:</p>
     <ul>
@@ -752,7 +758,7 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
       <li><a href="https://www.opovo.com.br/noticias/politica/eleicoes/2026/10/26/veja-sete-motivos-que-levaram-lula-a-virada-historica-e-reeleicao.html">O Povo: motivos da virada</a></li>
     </ul>
   </div>
-</section>
+</details></section>
 <footer class="small" style="text-align:center;padding-top:28px;border-top:1px solid var(--line)">
   <p>Projeto <strong>1turno</strong> · <a href="https://github.com/AndreRuperto/1turno">GitHub</a> · Dados compilados em 26/10/2026</p>
 </footer>
