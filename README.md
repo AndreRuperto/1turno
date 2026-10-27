@@ -1,6 +1,6 @@
-# 1turno
+# turnos
 
-**Relatório interativo dos resultados do 1º turno das Eleições Gerais brasileiras de 2026.**
+**Relatórios interativos dos resultados das Eleições Gerais brasileiras de 2026.**
 
 🔗 [1turno.up.railway.app](https://1turno.up.railway.app)
 
@@ -8,7 +8,7 @@
 
 ## O que é
 
-Um documento estático de jornalismo de dados cobrindo o 1º turno de 4 de outubro de 2026 — presidente, governadores, senadores e deputados federais dos 26 estados e do Distrito Federal.
+Dois documentos estáticos de jornalismo de dados cobrindo os dois turnos das eleições de outubro de 2026 — presidente, governadores, senadores e deputados federais nos 26 estados e no Distrito Federal.
 
 Sem framework, sem opinião, sem paywall. Só os números que importam.
 
@@ -16,12 +16,20 @@ Sem framework, sem opinião, sem paywall. Só os números que importam.
 
 ## O que tem
 
+### 1º turno (`index.html`)
 - **Presidência** — resultado nacional, mapa por UF (cartograma), tabela de candidatos
 - **Governadores** — 20 eleitos no 1º turno + 7 disputas para o 2º turno
 - **Senado** — 54 eleitos, composição completa de 2027 (81 cadeiras)
 - **Câmara** — 513 deputados por partido, hemiciclo interativo
 - **Congresso 2027** — hemiciclos com 3 modos: por partido, espectro detalhado, esquerda/centro/direita
 - **Estados** — listas de deputados federais e estaduais de SP, RJ, DF e MG com votações individuais
+
+### 2º turno (`2turno.html`)
+- **Presidente** — resultado nacional, mapa por UF, comparação entre turnos
+- **Governadores** — 6 disputas decididas no 2º turno
+- **Timeline** — cronologia da campanha e resultado
+
+### Comum
 - **Tabelas ordenáveis** — clique em qualquer coluna para ordenar por nome, UF ou %
 - **Links diretos** — cada candidato tem link para o perfil no TSE via meuspoliticos.com.br
 - **Dark mode** — segue a preferência do sistema
@@ -45,7 +53,7 @@ Sem dependências externas (exceto fontes do Google Fonts)
 Deploy: Railway
 ```
 
-Tudo em um único arquivo `index.html`. Sem build step, sem bundler, sem framework.
+Duas páginas HTML com CSS compartilhado. Sem build step, sem bundler, sem framework.
 
 Os gráficos (cartogramas, hemiciclos, barras) são gerados em SVG e HTML via JavaScript puro.
 
@@ -54,12 +62,17 @@ Os gráficos (cartogramas, hemiciclos, barras) são gerados em SVG e HTML via Ja
 ## Estrutura
 
 ```
-1turno/
-├── index.html          # O relatório completo
-├── 1turno/
-│   ├── favicon/        # SVG, PNG 16/32/48/64/180/512, ICO
-│   ├── logo/           # Horizontal claro/escuro/preto (SVG + PNG)
-│   └── simbolo/        # Ícone isolado claro/escuro/preto (SVG + PNG)
+turnos/
+├── index.html            # 1º turno
+├── 2turno.html           # 2º turno
+├── css/
+│   └── shared.css        # Design tokens, layout, componentes comuns
+├── assets/
+│   ├── favicon/          # SVG, PNG 16/32/48/64/180/512, ICO
+│   ├── logo/             # Horizontal claro/escuro/preto (SVG + PNG)
+│   ├── simbolo/          # Ícone isolado claro/escuro/preto (SVG + PNG)
+│   └── 1turno/           # Brand kit "1turno" (favicon, logo, símbolo)
+├── docs/
 └── README.md
 ```
 

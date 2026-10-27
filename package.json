@@ -1,0 +1,7 @@
+{
+  "name": "turnos",
+  "private": true,
+  "scripts": {
+    "start": "npx serve ."
+  }
+}
