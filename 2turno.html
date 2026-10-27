@@ -27,15 +27,30 @@
 .tl-body strong{color:var(--fg)}
 </style>
 
-<nav class="topnav" aria-label="Seções"><div><a href="#" class="nav-brand" aria-label="turnos"><img class="logo-light" src="assets/logo/turnos-horizontal-claro.svg" alt="turnos" height="22"><img class="logo-dark" src="assets/logo/turnos-horizontal-escuro.svg" alt="" height="22"></a><button class="nav-arr nav-arr-l" aria-label="Anterior" hidden>‹</button><div class="nav-links"><a href="#resumo">Resumo</a><a href="#presidente">Mapa</a><a href="#exterior">Exterior</a><a href="#comparacao">Comparação</a><a href="#transferencia">Transferência</a><a href="#mobilizacao">Mobilização</a><a href="#perfil">Perfil</a><a href="#2022vs2026">2022 vs 2026</a><a href="#governadores">Governadores</a><a href="#govmapa">Mapa Gov.</a><a href="#timeline">Timeline</a><a href="#juridico">Jurídico</a><a href="#futuro">Futuro</a><a href="#calendario2">Calendário</a><a href="#ressalvas">Ressalvas</a><a href="#fontes">Fontes</a><a href="index.html">← 1º turno</a></div><button class="nav-arr nav-arr-r" aria-label="Próximo" hidden>›</button></div></nav>
+<nav class="topnav" aria-label="Seções"><div><a href="#" class="nav-brand" aria-label="turnos"><img class="logo-light" src="assets/logo/turnos-horizontal-claro.svg" alt="turnos" height="22"><img class="logo-dark" src="assets/logo/turnos-horizontal-escuro.svg" alt="" height="22"></a><button class="nav-arr nav-arr-l" aria-label="Anterior" hidden>‹</button><div class="nav-links"><a href="#resumo">Resumo</a><a href="#presidente">Mapa</a><a href="#exterior">Exterior</a><a href="#comparacao">Comparação</a><a href="#transferencia">Transferência</a><a href="#mobilizacao">Mobilização</a><a href="#perfil">Perfil</a><a href="#2022vs2026">2022 vs 2026</a><a href="#governadores">Governadores</a><a href="#govmapa">Mapa Gov.</a><a href="#timeline">Timeline</a><a href="#juridico">Jurídico</a><a href="#futuro">Futuro</a><a href="#calendario2">Calendário</a><a href="#ressalvas">Ressalvas</a><a href="#fontes">Fontes</a><a href="index.html" style="background:var(--accent);color:#fff;border-radius:99px">← 1º turno</a></div><button class="nav-arr nav-arr-r" aria-label="Próximo" hidden>›</button><button class="help-btn" aria-label="Como usar" title="Como usar">?</button><button class="theme-toggle" aria-label="Alternar tema" title="Alternar tema">☀</button></div></nav>
 <script>!function(){var c=document.querySelector('.nav-links'),l=document.querySelector('.nav-arr-l'),r=document.querySelector('.nav-arr-r');function u(){var s=c.scrollLeft,m=c.scrollWidth-c.clientWidth;l.hidden=s<2;r.hidden=m-s<2}l.onclick=function(){c.scrollBy({left:-150,behavior:'smooth'})};r.onclick=function(){c.scrollBy({left:150,behavior:'smooth'})};c.addEventListener('scroll',u,{passive:true});new ResizeObserver(u).observe(c);u()}()</script>
+<script>!function(){var btn=document.querySelector('.theme-toggle'),root=document.documentElement;function isDark(){var t=root.getAttribute('data-theme');if(t)return t==='dark';return matchMedia('(prefers-color-scheme:dark)').matches}function update(){btn.textContent=isDark()?'☀':'☾';btn.setAttribute('aria-label',isDark()?'Mudar para tema claro':'Mudar para tema escuro')}var saved=localStorage.getItem('theme');if(saved)root.setAttribute('data-theme',saved);update();btn.onclick=function(){var next=isDark()?'light':'dark';root.setAttribute('data-theme',next);localStorage.setItem('theme',next);update()}}()</script>
+
+<div class="ob-overlay" id="onboarding" hidden><div class="ob-modal">
+<button class="ob-close" id="obX" type="button" aria-label="Fechar">&times;</button>
+<h3>Como usar este relatório</h3>
+<div class="ob-grid">
+<div class="ob-card"><div class="ob-demo"><span class="ob-arr">‹</span><span class="ob-pill">Resumo</span><span class="ob-pill ob-pill-on">Mapa</span><span class="ob-pill">Gov.</span><span class="ob-pill">Timeline</span><span class="ob-arr">›</span></div><h4>Navegação</h4><p>Use as setas ‹ › no topo para rolar entre seções. Clique no título de qualquer seção para colapsar ou expandir.</p></div>
+<div class="ob-card"><div class="ob-demo"><span class="ob-th">UF ↑</span><span class="ob-th">Vencedor ⇅</span><span class="ob-th">% ⇅</span></div><h4>Tabelas ordenáveis</h4><p>Clique no cabeçalho de qualquer coluna para ordenar. Clique de novo para inverter a ordem.</p></div>
+<div class="ob-card"><div class="ob-demo"><svg viewBox="0 0 80 20" width="80" height="20"><circle cx="8" cy="10" r="5" fill="var(--flavio)"/><circle cx="22" cy="10" r="5" fill="var(--flavio)"/><circle cx="36" cy="10" r="5" fill="var(--lula)"/><circle cx="50" cy="10" r="5" fill="var(--lula)"/><circle cx="64" cy="10" r="5" fill="var(--neutral)"/></svg></div><h4>Hemiciclos</h4><p>Passe o mouse ou toque nos pontos do hemiciclo para ver o partido. Use os botões acima para alternar entre partido, espectro e esquerda/centro/direita.</p></div>
+<div class="ob-card"><div class="ob-demo"><span class="ob-btn-demo">← 1º turno</span></div><h4>Dois turnos</h4><p>Este site cobre os dois turnos. Use o botão no topo para alternar entre o 1º e o 2º turno.</p></div>
+<div class="ob-card ob-card-wide"><div class="ob-demo ob-demo-note"><span>⚠ Os números vêm de reportagens que citam o TSE…</span></div><h4>Sobre os dados</h4><p>Não é uma base oficial única. Veja a seção Ressalvas para onde as fontes divergem.</p></div>
+</div>
+<div class="ob-foot"><label><span class="ob-check"><input type="checkbox" id="obDontShow" checked><span class="ob-box"></span></span> Não mostrar de novo</label><button type="button" id="obClose">Entendi</button></div>
+</div></div>
+<script>!function(){var ov=document.getElementById('onboarding'),cb=document.getElementById('obDontShow'),cls=document.getElementById('obClose'),hb=document.querySelector('.help-btn');function show(){ov.hidden=false;requestAnimationFrame(function(){ov.classList.add('show')})}function hide(){ov.classList.remove('show');setTimeout(function(){ov.hidden=true},250);if(cb.checked)localStorage.setItem('ob-seen','1')}cls.onclick=hide;document.getElementById('obX').onclick=hide;ov.onclick=function(e){if(e.target===ov)hide()};hb.onclick=function(){cb.checked=false;show()};if(!localStorage.getItem('ob-seen'))show()}()</script>
 
 <div class="wrap">
 
 <header>
   <div class="kicker">Eleições gerais · 2º turno em 25/10/2026</div>
   <h1>Lula vira e é reeleito: a primeira virada de turno da história democrática</h1>
-  <p class="sub">Presidente e governadores nos 6 estados com 2º turno. Apuração de 25 de outubro, compilada de veículos que citam o TSE. Dados de 26/10/2026.</p>
+  <p class="sub">Presidente e governadores nos 6 estados com 2º turno. Resultado final de 25 de outubro, compilado de veículos que citam o TSE. Dados reunidos em 26/10/2026.</p>
   <a href="index.html" style="display:inline-block;margin-top:14px;padding:10px 20px;background:var(--accent);color:#fff;border-radius:8px;font-weight:600;text-decoration:none;font-size:14px">← Resultados do 1º turno (04/10/2026)</a>
 </header>
 
@@ -45,8 +60,8 @@
   <p>A virada se construiu em duas frentes. No Nordeste, reduto lulista, a vantagem regional saltou de 11,1 milhões para 13,65 milhões de votos entre os dois turnos. Em Minas Gerais, único estado a trocar de lado, Lula transformou uma desvantagem de 5,4 pontos em uma vitória apertada de 0,86 ponto, com 50,43% contra 49,57%.</p>
   <p>A queda na abstenção foi decisiva. O comparecimento subiu de 125,2 milhões para 128,2 milhões de eleitores, e os votos brancos e nulos caíram 30%. Com o menor índice de ausências desde 2006 (19,22%), quase três milhões de brasileiros a mais foram às urnas no segundo turno.</p>
   <div class="duel">
-    <div class="card b"><div class="kicker l">PT</div><h3>Lula</h3><div class="num l">51,79%</div><div class="lbl">64.256.232 votos · eleito</div></div>
-    <div class="card a"><div class="kicker f">PL</div><h3>Flávio Bolsonaro</h3><div class="num f">48,21%</div><div class="lbl">59.826.041 votos</div></div>
+    <div class="card b"><div class="kicker l">PT</div><img class="cand-photo" src="https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/20322002026/280002542548/BR" alt="" onerror="this.style.display='none'"><h3>Lula</h3><div class="num l">51,79%</div><div class="lbl">64.256.232 votos · eleito</div></div>
+    <div class="card a"><div class="kicker f">PL</div><img class="cand-photo" src="https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/20322002026/280002551544/BR" alt="" onerror="this.style.display='none'"><h3>Flávio Bolsonaro</h3><div class="num f">48,21%</div><div class="lbl">59.826.041 votos</div></div>
   </div>
   <div>
     <div class="bar" role="img" aria-label="Votos válidos: Flávio 48,21%, Lula 51,79%">
@@ -109,14 +124,14 @@
 
 <section id="comparacao">
   <details open><summary><h2>Do 1º ao 2º turno: como Lula reverteu 2,2 milhões de votos</h2></summary>
-  <p>No primeiro turno, Flávio Bolsonaro liderou com 45,16% (53.879.538 votos) contra 42,07% de Lula (50.197.616 votos), uma vantagem de 2,2 milhões. Três semanas depois, Lula somou 64.256.232 votos (51,79%), um salto de 10,4 milhões. Flávio cresceu 3,6 milhões, chegando a 59.826.041 (48,21%). A margem se inverteu para 4,43 milhões a favor do petista.</p>
+  <p>No primeiro turno, Flávio Bolsonaro liderou com 47,03% dos votos válidos (56.104.503 votos) contra 45,15% de Lula (53.846.396 votos), uma vantagem de 2,26 milhões. Três semanas depois, Lula somou 64.256.232 votos (51,79%), um salto de 10,4 milhões. Flávio cresceu 3,72 milhões, chegando a 59.826.041 (48,21%). A margem se inverteu para 4,43 milhões a favor do petista.</p>
   <p>O Nordeste foi o motor da virada. A vantagem regional de Lula saltou de 11,1 milhões para 13,65 milhões de votos. No mapa, os 13 estados que Lula venceu são os mesmos que deram a vitória ao PT em 2022, com uma troca: em 2026, Lula perdeu Tocantins mas conquistou o Amapá.</p>
   <div class="grid g5">
-    <div class="card"><h3>Norte</h3><div class="num l">Lula 50,01%</div><div class="lbl">Mais dividida: Lula 3, Flávio 4</div></div>
-    <div class="card"><h3>Nordeste</h3><div class="num l">Lula 69,37%</div><div class="lbl">Reduto lulista: 9 a 0</div></div>
-    <div class="card"><h3>Centro-Oeste</h3><div class="num f">Flávio 60,01%</div><div class="lbl">Domínio de Flávio: 3+DF a 0</div></div>
-    <div class="card"><h3>Sudeste</h3><div class="num f">Flávio 52,76%</div><div class="lbl">Lula virou só em MG</div></div>
-    <div class="card"><h3>Sul</h3><div class="num f">Flávio 62,58%</div><div class="lbl">Flávio venceu nos 3 estados</div></div>
+    <div class="card region-card"><img class="region-map" src="assets/region-norte.svg" alt="" aria-hidden="true"><h3>Norte</h3><div class="num l">Lula 50,01%</div><div class="lbl">Mais dividida: Lula 3, Flávio 4</div></div>
+    <div class="card region-card"><img class="region-map" src="assets/region-nordeste.svg" alt="" aria-hidden="true"><h3>Nordeste</h3><div class="num l">Lula 69,37%</div><div class="lbl">Reduto lulista: 9 a 0</div></div>
+    <div class="card region-card"><img class="region-map" src="assets/region-centrooeste.svg" alt="" aria-hidden="true"><h3>Centro-Oeste</h3><div class="num f">Flávio 60,01%</div><div class="lbl">Domínio de Flávio: 3+DF a 0</div></div>
+    <div class="card region-card"><img class="region-map" src="assets/region-sudeste.svg" alt="" aria-hidden="true"><h3>Sudeste</h3><div class="num f">Flávio 52,76%</div><div class="lbl">Lula virou só em MG</div></div>
+    <div class="card region-card"><img class="region-map" src="assets/region-sul.svg" alt="" aria-hidden="true"><h3>Sul</h3><div class="num f">Flávio 62,58%</div><div class="lbl">Flávio venceu nos 3 estados</div></div>
   </div>
 </details></section>
 
@@ -170,7 +185,7 @@
   <h3 style="margin-top:24px">Crescimento de Lula por estado</h3>
   <p>Lula cresceu em todos os 27 estados e no DF entre o 1º e o 2º turno. O maior avanço em pontos percentuais foi em Goiás (+9,29 pp), onde Caiado tinha forte presença no 1T. Em números absolutos, São Paulo gerou o maior ganho: +2,61 milhões de votos.</p>
   <div class="scroll">
-    <table id="crescTable" style="min-width:700px"><thead><tr><th class="sort">UF</th><th class="sort n">Lula 1T</th><th class="sort n">Lula 2T</th><th class="sort n">Lula +</th><th class="sort n">Flávio 1T</th><th class="sort n">Flávio 2T</th><th class="sort n">Flávio +</th></tr></thead><tbody id="crescRows"></tbody></table>
+    <table id="crescTable"><thead><tr><th class="sort">UF</th><th class="sort n" style="color:var(--lula)">Lula 1T</th><th class="sort n" style="color:var(--lula)">Lula 2T</th><th class="sort n" style="color:var(--lula)">Δ Lula</th><th class="sort n" style="color:var(--flavio)">Flávio 1T</th><th class="sort n" style="color:var(--flavio)">Flávio 2T</th><th class="sort n" style="color:var(--flavio)">Δ Flávio</th></tr></thead><tbody id="crescRows"></tbody></table>
   </div>
 
   <h3 style="margin-top:24px">O avanço nos municípios</h3>
@@ -184,7 +199,7 @@
   <h3 style="margin-top:24px">Principais cidades e capitais</h3>
   <p>Lula virou em duas capitais: Rio de Janeiro e Macapá. Cresceu em todas as capitais do país, incluindo redutos adversários. Em BH, ficou a 0,80 ponto de virar.</p>
   <div class="scroll">
-    <table id="cidTable" style="min-width:780px"><thead><tr><th class="sort">Cidade</th><th class="sort">UF</th><th class="sort n">Lula 1T</th><th class="sort n">Lula 2T</th><th class="sort n">Lula +</th><th class="sort n">Flávio 1T</th><th class="sort n">Flávio 2T</th><th class="sort n">Flávio +</th><th class="sort">Resultado</th></tr></thead><tbody id="cidRows"></tbody></table>
+    <table id="cidTable"><thead><tr><th class="sort">Cidade</th><th class="sort">UF</th><th class="sort n" style="color:var(--lula)">Lula 1T</th><th class="sort n" style="color:var(--lula)">Lula 2T</th><th class="sort n" style="color:var(--lula)">Δ Lula</th><th class="sort n" style="color:var(--flavio)">Flávio 1T</th><th class="sort n" style="color:var(--flavio)">Flávio 2T</th><th class="sort n" style="color:var(--flavio)">Δ Flávio</th><th class="sort">Resultado</th></tr></thead><tbody id="cidRows"></tbody></table>
   </div>
   <p class="small" style="margin-top:8px">Lula cresceu em todos os 399 municípios do Paraná entre os turnos, subindo de 31,20% para 37,42%. Na região Centro-Oeste, conquistou 44% mais cidades; no Sul, 42% mais.</p>
 </details></section>
@@ -194,10 +209,10 @@
   <p>O segundo turno registrou a menor abstenção desde 2006: 19,22% dos eleitores aptos não compareceram, contra 21,08% do primeiro turno. Quase três milhões de brasileiros a mais foram às urnas, elevando o comparecimento de 125,2 milhões para 128,2 milhões.</p>
   <p>Os votos brancos e nulos também caíram. Juntos, somaram 4.153.791, uma queda de 30% em relação ao primeiro turno. Com mais gente votando e menos votos desperdiçados, o universo de votos válidos cresceu 4,78 milhões. A forma como esses votos se distribuíram, massivamente para Lula no Nordeste e entre os novos eleitores, foi o fator decisivo.</p>
   <div class="grid">
-    <div class="card"><div class="num">21,08% → 19,22%</div><div class="lbl">Abstenção (1º → 2º turno)</div></div>
-    <div class="card"><div class="num">1,84% → 1,12%</div><div class="lbl">Votos brancos</div></div>
-    <div class="card"><div class="num">2,93% → 2,12%</div><div class="lbl">Votos nulos</div></div>
-    <div class="card"><div class="num">+3 milhões</div><div class="lbl">Eleitores a mais no 2º turno</div></div>
+    <div class="card"><div class="num" style="font-size:22px">21,08% → 19,22%</div><div class="lbl">Abstenção (1º → 2º turno)</div></div>
+    <div class="card"><div class="num" style="font-size:22px">1,84% → 1,12%</div><div class="lbl">Votos brancos</div></div>
+    <div class="card"><div class="num" style="font-size:22px">2,93% → 2,12%</div><div class="lbl">Votos nulos</div></div>
+    <div class="card"><div class="num" style="font-size:22px">+3 milhões</div><div class="lbl">Eleitores a mais no 2º turno</div></div>
   </div>
 </details></section>
 
@@ -210,8 +225,8 @@
 
   <h3>Por gênero</h3>
   <div class="grid">
-    <div class="card"><h3>Homens</h3><div class="num f">52,5%</div><div class="lbl">Flávio</div><div class="small">Lula: 41,5%</div></div>
-    <div class="card"><h3>Mulheres</h3><div class="num" style="color:var(--muted)">Empate técnico</div><div class="lbl">Flávio 46,9% x Lula 45,7%</div></div>
+    <div class="card region-card"><img class="region-map" src="assets/icon-male.svg" alt="" aria-hidden="true" style="height:90%"><h3>Homens</h3><div class="num f">52,5%</div><div class="lbl">Flávio</div><div class="small">Lula: 41,5%</div></div>
+    <div class="card region-card"><img class="region-map" src="assets/icon-female.svg" alt="" aria-hidden="true" style="height:90%"><h3>Mulheres</h3><div class="num" style="color:var(--muted)">Empate técnico</div><div class="lbl">Flávio 46,9% x Lula 45,7%</div></div>
   </div>
 
   <h3 style="margin-top:18px">Por faixa etária</h3>
@@ -277,7 +292,7 @@
   <details open><summary><h2>Seis governadores definidos no 2º turno</h2></summary>
   <p>Cinco estados e o Distrito Federal definiram seus governadores no segundo turno. O PP foi o grande vencedor da etapa final, saindo de dois para quatro governos com as vitórias de Mailza Assis no Acre e Celina Leão no DF. No Rio Grande do Norte, Cadu de Lula (PT) venceu com a menor margem entre todas as disputas: apenas 32.625 votos de diferença, ou 1,54 ponto percentual.</p>
   <div class="scroll">
-    <table id="govTable2"><thead><tr><th class="sort">UF</th><th class="sort">Eleito</th><th class="sort">Partido</th><th class="sort n">%</th><th class="sort">Derrotado</th><th class="sort">Partido</th><th class="sort n">%</th></tr></thead><tbody id="govRows2"></tbody></table>
+    <table id="govTable2"><thead><tr><th class="sort">UF</th><th class="sort">Eleito</th><th class="sort">Partido</th><th class="sort n">%</th><th class="sort n">Votos</th><th class="sort">Derrotado</th><th class="sort">Partido</th><th class="sort n">%</th><th class="sort n">Votos</th></tr></thead><tbody id="govRows2"></tbody></table>
   </div>
   <h3>Governadores por partido</h3>
   <p>Com os resultados do 2º turno, oito partidos comandam os 27 governos estaduais. O PL lidera com seis governadores, seguido por PSD (5), PP (4), PT (4) e Republicanos (4).</p>
@@ -287,7 +302,7 @@
 <section id="govmapa">
   <details open><summary><h2>Mapa final: os 27 governadores</h2></summary>
   <p>Após os dois turnos, oito partidos comandam os governos estaduais. O PL lidera com 6 governadores, seguido por PSD (5), PP (4), PT (4) e Republicanos (4).</p>
-  <div class="maps">
+  <div class="maps" style="align-items:center">
     <svg id="mapGov2" viewBox="0 0 399 470" role="img" aria-label="Cartograma de governadores eleitos"></svg>
     <div>
       <div id="govPartyFull"></div>
@@ -302,235 +317,8 @@
 
 <section id="timeline">
   <details open><summary><h2>21 dias que viraram a eleição</h2></summary>
-  <p>Entre o 1º turno (4 de outubro) e o 2º turno (25 de outubro), uma sequência de movimentos políticos, debates, pesquisas e medidas de governo redefiniu a corrida presidencial. Esta cronologia registra os fatos que marcaram a campanha mais disputada desde a redemocratização.</p>
-
-  <div class="tl">
-
-  <div class="tl-item">
-    <div class="tl-date">4 out <span class="tl-tag">domingo</span></div>
-    <div class="tl-body">
-      <strong>1º turno.</strong> Flávio Bolsonaro (PL) lidera com 47,03% dos votos válidos (56,1 milhões); Lula (PT) fica em 2º com 45,16% (53,9 milhões), uma diferença de 2,2 milhões de votos. Seis estados e o DF vão ao 2º turno para governador. É a primeira vez que um presidente concorrendo à reeleição perde o 1º turno.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">5 out <span class="tl-tag">segunda</span></div>
-    <div class="tl-body">
-      <strong>Início da campanha do 2º turno.</strong> Romeu Zema (Novo), que obteve 0,27% no 1º turno, indica apoio a Flávio Bolsonaro nas redes sociais, dizendo "Onde o PT estiver, nós estaremos contra". Lula inicia reorganização da comunicação digital.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">6 out <span class="tl-tag">terça</span></div>
-    <div class="tl-body">
-      <strong>Caiado e Zema formalizam apoio a Flávio.</strong> Ronaldo Caiado (União), 5º lugar no 1º turno com 2,18%, formaliza adesão em Goiânia e apresenta documento com propostas sobre segurança, saúde e inteligência artificial. Tarcísio (Republicanos), reeleito governador de SP, já apoiava Flávio desde o início.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">7–8 out</div>
-    <div class="tl-body">
-      <strong>Nordeste entra na campanha; Cury fecha com Flávio.</strong> Lideranças do PT no Nordeste assumem postos de comando: o senador Camilo Santana (CE), o senador eleito Rui Costa (BA) e o governador Rafael Fonteles (PI) passam a coordenar a campanha de Lula. O canal de WhatsApp "Exército do Lula", administrado pelo deputado André Janones, ultrapassa 4,2 milhões de seguidores. No dia 8, Augusto Cury (Avante, 3º lugar com 2,89%) declara apoio a Flávio após assinar termo de compromisso com oito propostas, incluindo o fim da reeleição. Renan Santos (Missão, 4º lugar) mantém neutralidade e diz que não votará no 2T.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">9 out <span class="tl-tag">quinta</span></div>
-    <div class="tl-body">
-      <strong>Propaganda eleitoral gratuita.</strong> Começa o horário gratuito no rádio e na TV para o 2º turno (até 23 de outubro). Sete candidatos a governador em 2º turno declaram apoio a Flávio; três apoiam Lula.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">11 out <span class="tl-tag">sábado</span></div>
-    <div class="tl-body">
-      <strong>Primeiro debate cancelado.</strong> O confronto previsto é cancelado por incompatibilidade de agenda dos candidatos. Campanha de Lula intensifica presença digital, com foco em desconstruir propostas de Flávio.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">12 out <span class="tl-tag">domingo</span></div>
-    <div class="tl-body">
-      <strong>Onda de desinformação.</strong> Processos sobre propaganda digital quase triplicam em relação a eleições anteriores. Cerca de 60% dos conteúdos verificados são deepfakes (vídeos e imagens manipulados por IA) e a maioria não sinaliza uso da tecnologia.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">14 out <span class="tl-tag">terça</span></div>
-    <div class="tl-body">
-      <strong>Primeira pesquisa do 2º turno.</strong> Quaest/TV Globo mostra Flávio 51% × Lula 49% em votos válidos, empate técnico dentro da margem de erro. A campanha petista ainda corre atrás do prejuízo.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">15 out <span class="tl-tag">quarta</span></div>
-    <div class="tl-body">
-      <strong>Debate SBT e TSE ouve a Meta.</strong> Primeiro debate televisivo do 2º turno, promovido pelo SBT + pool de veículos. No mesmo dia, Datafolha divulga pesquisa e o TSE reúne representantes da Meta para debater o uso de IA e fake news nas plataformas.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">16–17 out</div>
-    <div class="tl-body">
-      <strong>Flávio na Paulista e a questão Jair.</strong> Flávio Bolsonaro participa de ato na Avenida Paulista e declara que seu pai, Jair Bolsonaro (condenado a 27 anos e 3 meses de prisão por tentativa de golpe de Estado, em prisão domiciliar) colocará a faixa presidencial nele. O ministro Alexandre de Moraes autoriza visita de Flávio ao pai, mas proíbe qualquer uso político-eleitoral da visita.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">18 out <span class="tl-tag">sábado</span></div>
-    <div class="tl-body">
-      <strong>Debate Band.</strong> Realizado às 20h na sede da emissora em São Paulo. Troca intensa de acusações sobre economia, endividamento e segurança pública. Flávio questiona gastos do governo; Lula responde com dados de emprego e crescimento.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">19–20 out</div>
-    <div class="tl-body">
-      <strong>Pacote eleitoral de Lula.</strong> O governo anuncia reajuste de 15% no Bolsa Família (recompondo inflação desde 2023) e antecipa os pagamentos de outubro. No Congresso, é aprovada a PEC do fim da escala 6×1 e o aumento do limite do MEI. Lula também anuncia o "Pé-de-Meia universitário": R$ 700/mês para estudantes de universidades públicas e bolsistas do ProUni.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">21 out <span class="tl-tag">terça</span></div>
-    <div class="tl-body">
-      <strong>Bolsa Família antecipado.</strong> Todos os pagamentos de outubro do programa são concluídos quatro dias antes do 2º turno. A aprovação do governo está em 47%, com 49% de desaprovação.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">23 out <span class="tl-tag">sexta</span></div>
-    <div class="tl-body">
-      <strong>Último debate: TV Globo.</strong> Realizado após o Jornal Nacional, nos estúdios da Globo no Rio, com mediação de César Tralli. Duas horas de confronto sobre economia, saúde, segurança, programas sociais e infraestrutura. Lula diz que Flávio "é jovem, não conhece o Brasil, não sabe o que é trabalhar e só sabe mentir". Último ato de campanha antes do silêncio eleitoral.
-    </div>
-  </div>
-
-  <div class="tl-item tl-final">
-    <div class="tl-date">25 out <span class="tl-tag">domingo, dia da votação</span></div>
-    <div class="tl-body">
-      <strong>2º turno.</strong> O dia que decidiu a eleição mais disputada da redemocratização, e a primeira em que o horário de votação foi prorrogado em todo o país.
-    </div>
-  </div>
-
-  </div>
-
-  <h3 style="margin-top:32px">Hora a hora: o dia 25 de outubro</h3>
-  <p>A crise dos ônibus, a prorrogação inédita e a apuração que alternou liderança três vezes.</p>
-
-  <div class="tl">
-
-  <div class="tl-item">
-    <div class="tl-date">8h</div>
-    <div class="tl-body">
-      <strong>Abertura das urnas.</strong> 158,7 milhões de eleitores aptos a votar para presidente em todo o país e governador em 6 UFs. Transporte público gratuito por determinação do STF (Resolução TSE nº 23.751/2026).
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">~10h–12h</div>
-    <div class="tl-body">
-      <strong>Primeiros relatos de falta de ônibus.</strong> Eleitores em Salvador, São Paulo, Aracaju, Teresina, Belém, Maceió e cidades do Rio de Janeiro denunciam frota reduzida. Em Salvador, a frota de ônibus opera com mais de 50% de redução em relação aos dias úteis. O Ministério da Justiça começa a mapear as falhas.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">~13h</div>
-    <div class="tl-body">
-      <strong>TRE-BA manda prender secretário de Mobilidade de Salvador.</strong> O desembargador Maurício Kertzman determina a prisão de Pablo Souza (Semob), responsável pela redução da frota. Souza está em Paris, em missão a convite do governo francês. Multa fixada em R$ 1 milhão por hora de descumprimento. Prefeitura de Bruno Reis (União) diz que ele se apresentará. Em Sergipe, a PF abre inquérito sobre ônibus retidos em garagens.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">15h46</div>
-    <div class="tl-body">
-      <strong>Campanha de Lula aciona o STF.</strong> O PT pede ao ministro Cristiano Zanin a prorrogação do horário de votação, alegando que eleitores não conseguem chegar aos locais de votação por falta de transporte em ao menos 7 estados.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">~16h</div>
-    <div class="tl-body">
-      <strong>Campanha de Flávio também pede prorrogação.</strong> O PL cita chuvas, alagamentos, interdições e mudanças em locais de votação como motivos. Ambas as campanhas convergem no pedido, mas por razões diferentes.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">17h</div>
-    <div class="tl-body">
-      <strong>Horário original de fechamento.</strong> TSE começa a divulgar os primeiros resultados parciais.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">17h03</div>
-    <div class="tl-body">
-      <strong>Zanin prorroga a votação até 19h em todo o país.</strong> Decisão inédita na história eleitoral brasileira. A liminar vale para todas as seções eleitorais ainda abertas. Polêmica imediata: Zanin foi advogado de Lula antes de ser indicado ao STF.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">17h03–17h20</div>
-    <div class="tl-body">
-      <strong>Questão da isonomia.</strong> A decisão chega quando centenas de seções já haviam encerrado a votação e lacrado as urnas às 17h, o horário previsto em lei. Urnas lacradas não podem ser reabertas. Na prática, eleitores de seções que fecharam no horário não puderam ser beneficiados pela prorrogação, enquanto eleitores de seções ainda abertas ganharam duas horas adicionais. Críticos apontam quebra de isonomia: as mesmas regras não valeram para todos os eleitores do país. A oposição alega que a decisão, tomada por um ex-advogado de um dos candidatos, alterou as condições da disputa de forma desigual.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">17h20</div>
-    <div class="tl-body">
-      <strong>TSE pausa a totalização.</strong> A divulgação de resultados é suspensa com apenas 0,25% das urnas contabilizadas. Manchetes: "STF atropela TSE". Escolas fecham por falta de aviso. A decisão do STF é comunicada ao TSE sem consulta prévia ao presidente da corte eleitoral.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">~18h</div>
-    <div class="tl-body">
-      <strong>Zanin e presidente do TSE alinham a decisão.</strong> Acordo por telefone entre Zanin e o ministro Kássio Nunes Marques restringe a prorrogação às seções que ainda estavam abertas no momento da decisão. Seções já encerradas não são reabertas, consolidando a assimetria.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">19h</div>
-    <div class="tl-body">
-      <strong>Fechamento definitivo das urnas. Apuração retomada.</strong> Com as primeiras urnas (Nordeste chega primeiro), Lula abre vantagem. Com 3,35% das urnas: Lula 51,26%.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">19h46</div>
-    <div class="tl-body">
-      <strong>Flávio ultrapassa Lula.</strong> Com ~13% das urnas apuradas, votos do Sul e Sudeste começam a chegar e Flávio assume a liderança temporária.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">20h26</div>
-    <div class="tl-body">
-      <strong>Lula retoma a liderança definitivamente.</strong> Com 47,24% das urnas, votos do Nordeste e de Minas Gerais consolidam a virada. Lula não perde mais a dianteira.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">~21h10</div>
-    <div class="tl-body">
-      <strong>Lula é matematicamente reeleito.</strong> Com maioria inalcançável, o TSE confirma: Lula 51,79% (64.256.232 votos) × Flávio 48,21% (59.826.041). Margem de 4,43 milhões. Minas Gerais é o único estado que virou.
-    </div>
-  </div>
-
-  <div class="tl-item">
-    <div class="tl-date">~22h</div>
-    <div class="tl-body">
-      <strong>Flávio não reconhece a derrota.</strong> Em pronunciamento, o senador diz: "É impossível reconhecer o resultado destas eleições". Anuncia que pedirá a anulação do pleito, alegando que Zanin (ex-advogado de Lula) "mudou as regras no meio do jogo". Afirma, sem apresentar provas, que fiscais do PL foram removidos das salas-cofre após a decisão de prorrogação.
-    </div>
-  </div>
-
-  <div class="tl-item tl-final">
-    <div class="tl-date">~23h</div>
-    <div class="tl-body">
-      <strong>Lula discursa como presidente reeleito.</strong> É a primeira virada de turno da história democrática brasileira. Seis governadores são eleitos no mesmo dia.
-    </div>
-  </div>
-
-  </div>
+  <p>Entre o 1º turno (4 de outubro) e o 2º turno (25 de outubro), uma sequência de movimentos políticos, debates, pesquisas e medidas de governo redefiniu a corrida presidencial. Clique em cada evento para ler os detalhes.</p>
+  <div id="tl2"></div>
 </details></section>
 
 <section id="juridico">
@@ -636,11 +424,27 @@
     </ul>
   </div>
 </details></section>
-<footer class="small" style="text-align:center;padding-top:28px;border-top:1px solid var(--line)">
-  <p>Projeto <strong>1turno</strong> · <a href="https://github.com/AndreRuperto/1turno">GitHub</a> · Dados compilados em 26/10/2026</p>
+<footer class="site-footer">
+  <div class="footer-main">
+    <div>
+      <div class="footer-brand"><a href="index.html">Turnos</a></div>
+      <div class="footer-desc">Resultados das eleições gerais de 2026, compilados de veículos que citam o TSE.</div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">1º turno</a>
+      <a href="2turno.html">2º turno</a>
+    </div>
+    <div class="footer-right">
+      <a href="https://github.com/AndreRuperto/1turno" target="_blank" rel="noopener" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 00-3.8 23.38c.6.12.82-.26.82-.58l-.01-2.05c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.31-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 016.02 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.48 5.92.43.37.81 1.1.81 2.22l-.01 3.29c0 .32.22.7.82.58A12 12 0 0012 .3"/></svg></a>
+      <a href="https://www.linkedin.com/in/andreruperto/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77A1.75 1.75 0 000 1.73v20.54A1.75 1.75 0 001.77 24h20.45A1.76 1.76 0 0024 22.27V1.73A1.76 1.76 0 0022.22 0z"/></svg></a>
+      Projeto por <strong><a href="https://github.com/AndreRuperto" target="_blank" rel="noopener">André Ruperto</a></strong>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 André Ruperto. <a href="https://github.com/AndreRuperto/1turno">Código aberto no GitHub</a>.</div>
 </footer>
 
 </div>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
 var UF = {
   RR:[1,0,'Roraima'],AP:[2,0,'Amapá'],
@@ -658,6 +462,7 @@ var PRES2 = {
 };
 
 function fmt(n){return n.toFixed(2).replace('.',',')}
+function fmtN(n){return n.toLocaleString('pt-BR')}
 
 var NS='http://www.w3.org/2000/svg', W=60, H=52, G=6;
 function drawMap(id, fn){
@@ -740,34 +545,44 @@ var TSE_REGIONS={AC:'NORTE',AM:'NORTE',AP:'NORTE',PA:'NORTE',RO:'NORTE',RR:'NORT
 var TSE_CARGO={presidente:1,governador:3,senador:5};
 var TSE_ELEICAO='20322002026';
 function tseLink(nome){
-  var mp=PLINKS[nome],url;
+  var mp=PLINKS[nome],candId,url;
   if(mp){
     var path=mp.replace('https://meuspoliticos.com.br/eleicoes/2026/','');
-    var parts=path.split('/');
-    var uf=parts[0].toUpperCase();
-    var office=parts[1];
-    var candId=parts[2].split('-').pop();
-    var region=TSE_REGIONS[uf]||'BR';
-    var cargo=TSE_CARGO[office]||5;
-    url='https://divulgacandcontas.tse.jus.br/divulga/#/candidato/'+region+'/'+uf+'/'+TSE_ELEICAO+'/'+candId+'/2026/'+cargo;
-  } else {
-    url='https://www.google.com/search?q='+encodeURIComponent(nome+' eleições 2026 TSE candidato');
+    candId=path.split('/')[2].split('-').pop();
   }
+  if(candId){
+    url='politico.html?id='+candId;
+    return '<a class="tse" href="'+url+'" title="Ver perfil de '+nome+'" aria-label="Ver perfil de '+nome+'">'+ICON+'</a>';
+  }
+  url='https://www.google.com/search?q='+encodeURIComponent(nome+' eleições 2026 TSE candidato');
   return '<a class="tse" href="'+url+'" target="_blank" rel="noopener" title="Ver perfil de '+nome+'" aria-label="Ver perfil de '+nome+'">'+ICON+'</a>';
 }
+var PHOTO_BASE='https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/'+TSE_ELEICAO+'/';
+function photoSrc(nome){
+  var id,uf;
+  if(PLINKS[nome]){var path=PLINKS[nome].replace(BASE,'').split('/');uf=path[0].toUpperCase();id=path[2].split('-').pop()}
+  return id?PHOTO_BASE+id+'/'+uf:'';
+}
+function photoImg(nome,cls){var s=photoSrc(nome);return s?'<img class="cand-photo'+(cls?' '+cls:'')+'" src="'+s+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':''}
 
 var GOV2 = [
-  ['AC','Mailza Assis','PP',66.21,'Alan Rick','Republicanos',33.79],
-  ['AM','Omar Aziz','PSD',61.42,'Profa Maria do Carmo','PL',38.58],
-  ['DF','Celina Leão','PP',57.18,'Leandro Grass','PT',42.82],
-  ['ES','Lorenzo Pazolini','Republicanos',52.17,'Ricardo Ferraço','MDB',47.83],
-  ['RN','Cadu de Lula','PT',50.77,'Allyson','União',49.23],
-  ['TO','Vicentinho Júnior','PSDB',64.52,'Profa Dorinha','União',35.48]
+  ['AC','Mailza Assis','PP',66.21,272635,'Alan Rick','Republicanos',33.79,139108],
+  ['AM','Omar Aziz','PSD',61.42,1273975,'Profa Maria do Carmo','PL',38.58,800328],
+  ['DF','Celina Leão','PP',57.18,987142,'Leandro Grass','PT',42.82,739130],
+  ['ES','Lorenzo Pazolini','Republicanos',52.17,1151818,'Ricardo Ferraço','MDB',47.83,1056119],
+  ['RN','Cadu de Lula','PT',50.77,1073024,'Allyson','União',49.23,1040399],
+  ['TO','Vicentinho Júnior','PSDB',64.52,545000,'Profa Dorinha','União',35.48,301000]
 ];
 document.getElementById('govRows2').innerHTML=GOV2.map(function(r){
-  return '<tr><td>'+r[0]+'</td><td data-sort="'+r[1]+'">'+r[1]+tseLink(r[1])+'</td><td data-sort="'+r[2]+'">'+tag(r[2])+'</td><td class="n" data-sort="'+r[3]+'">'+fmt(r[3])+'%</td><td data-sort="'+r[4]+'">'+r[4]+tseLink(r[4])+'</td><td data-sort="'+r[5]+'">'+tag(r[5])+'</td><td class="n" data-sort="'+r[6]+'">'+fmt(r[6])+'%</td></tr>';
+  return '<tr><td>'+r[0]+'</td><td data-sort="'+r[1]+'">'+photoImg(r[1])+r[1]+tseLink(r[1])+'</td><td data-sort="'+r[2]+'">'+tag(r[2])+'</td><td class="n" data-sort="'+r[3]+'">'+fmt(r[3])+'%</td><td class="n" data-sort="'+r[4]+'">'+fmtN(r[4])+'</td><td data-sort="'+r[5]+'">'+photoImg(r[5])+r[5]+tseLink(r[5])+'</td><td data-sort="'+r[6]+'">'+tag(r[6])+'</td><td class="n" data-sort="'+r[7]+'">'+fmt(r[7])+'%</td><td class="n" data-sort="'+r[8]+'">'+fmtN(r[8])+'</td></tr>';
 }).join('');
 makeSortable(document.getElementById('govTable2'));
+// inject photos into presTable2 (rendered before photoImg was defined)
+document.querySelectorAll('#presTable2 tbody td:nth-child(2)').forEach(function(td){
+  var nome=td.getAttribute('data-sort');
+  var img=photoImg(nome);
+  if(img)td.innerHTML=img+td.innerHTML;
+});
 
 var GOV_PARTIDOS = [['PL',6],['PSD',5],['PP',4],['PT',4],['Republicanos',4],['PSDB',2],['MDB',1],['Podemos',1]];
 bars('govParty2',GOV_PARTIDOS,6,tagCls);
@@ -876,5 +691,78 @@ bars('govPartyFull',gafr,6,tagCls);
   s.addEventListener('click',rm,{once:true});
   setTimeout(rm,5500);
 })();
+// destaca a aba da seção visível
+// ── Timeline v2 ──
+!function(){
+var IC={votacao:'vote',alianca:'handshake',debate:'mic',pesquisa:'chart-bar-increasing',governo:'file-text',juridico:'scale',crise:'zap'};
+var PHASES=[
+{title:'Alianças e posicionamento',sub:'4–8 out',items:[
+['4 out','domingo','1º turno','Flávio Bolsonaro (PL) lidera com 47,03% dos votos válidos (56,1 milhões); Lula (PT) fica em 2º com 45,16% (53,9 milhões), uma diferença de 2,2 milhões de votos. Seis estados e o DF vão ao 2º turno para governador. É a primeira vez que um presidente concorrendo à reeleição perde o 1º turno.','votacao'],
+['5 out','segunda','Zema indica apoio a Flávio','Romeu Zema (Novo), que obteve 0,27% no 1º turno, indica apoio a Flávio Bolsonaro nas redes sociais, dizendo "Onde o PT estiver, nós estaremos contra". Lula inicia reorganização da comunicação digital.','alianca'],
+['6 out','terça','Caiado e Zema formalizam apoio','Ronaldo Caiado (União), 5º lugar no 1º turno com 2,18%, formaliza adesão em Goiânia e apresenta documento com propostas sobre segurança, saúde e inteligência artificial. Tarcísio (Republicanos), reeleito governador de SP, já apoiava Flávio desde o início.','alianca'],
+['7–8 out','','Nordeste entra na campanha; Cury fecha com Flávio','Lideranças do PT no Nordeste assumem postos de comando: o senador Camilo Santana (CE), o senador eleito Rui Costa (BA) e o governador Rafael Fonteles (PI) passam a coordenar a campanha de Lula. O canal de WhatsApp "Exército do Lula", administrado pelo deputado André Janones, ultrapassa 4,2 milhões de seguidores. No dia 8, Augusto Cury (Avante, 3º lugar com 2,89%) declara apoio a Flávio após assinar termo de compromisso com oito propostas, incluindo o fim da reeleição. Renan Santos (Missão, 4º lugar) mantém neutralidade e diz que não votará no 2T.','alianca']
+]},
+{title:'Campanha, debates e pesquisas',sub:'9–23 out',items:[
+['9 out','quinta','Propaganda eleitoral gratuita','Começa o horário gratuito no rádio e na TV para o 2º turno (até 23 de outubro). Sete candidatos a governador em 2º turno declaram apoio a Flávio; três apoiam Lula.','governo'],
+['11 out','sábado','Primeiro debate cancelado','O confronto previsto é cancelado por incompatibilidade de agenda dos candidatos. Campanha de Lula intensifica presença digital, com foco em desconstruir propostas de Flávio.','debate'],
+['12 out','domingo','Onda de desinformação','Processos sobre propaganda digital quase triplicam em relação a eleições anteriores. Cerca de 60% dos conteúdos verificados são deepfakes (vídeos e imagens manipulados por IA) e a maioria não sinaliza uso da tecnologia.','crise'],
+['14 out','terça','Primeira pesquisa do 2º turno','Quaest/TV Globo mostra Flávio 51% × Lula 49% em votos válidos, empate técnico dentro da margem de erro. A campanha petista ainda corre atrás do prejuízo.','pesquisa'],
+['15 out','quarta','Debate SBT e TSE ouve a Meta','Primeiro debate televisivo do 2º turno, promovido pelo SBT + pool de veículos. No mesmo dia, Datafolha divulga pesquisa e o TSE reúne representantes da Meta para debater o uso de IA e fake news nas plataformas.','debate'],
+['16–17 out','','Flávio na Paulista e a questão Jair','Flávio Bolsonaro participa de ato na Avenida Paulista e declara que seu pai, Jair Bolsonaro (condenado a 27 anos e 3 meses de prisão por tentativa de golpe de Estado, em prisão domiciliar) colocará a faixa presidencial nele. O ministro Alexandre de Moraes autoriza visita de Flávio ao pai, mas proíbe qualquer uso político-eleitoral da visita.','crise'],
+['18 out','sábado','Debate Band','Realizado às 20h na sede da emissora em São Paulo. Troca intensa de acusações sobre economia, endividamento e segurança pública. Flávio questiona gastos do governo; Lula responde com dados de emprego e crescimento.','debate'],
+['19–20 out','','Pacote eleitoral de Lula','O governo anuncia reajuste de 15% no Bolsa Família (recompondo inflação desde 2023) e antecipa os pagamentos de outubro. No Congresso, é aprovada a PEC do fim da escala 6×1 e o aumento do limite do MEI. Lula também anuncia o "Pé-de-Meia universitário": R$ 700/mês para estudantes de universidades públicas e bolsistas do ProUni.','governo'],
+['21 out','terça','Bolsa Família antecipado','Todos os pagamentos de outubro do programa são concluídos quatro dias antes do 2º turno. A aprovação do governo está em 47%, com 49% de desaprovação.','governo'],
+['23 out','sexta','Último debate: TV Globo','Realizado após o Jornal Nacional, nos estúdios da Globo no Rio, com mediação de César Tralli. Duas horas de confronto sobre economia, saúde, segurança, programas sociais e infraestrutura. Lula diz que Flávio "é jovem, não conhece o Brasil, não sabe o que é trabalhar e só sabe mentir". Último ato de campanha antes do silêncio eleitoral.','debate']
+]},
+{title:'Dia da votação',sub:'25 out',items:[
+['8h','','Abertura das urnas','158,7 milhões de eleitores aptos a votar para presidente em todo o país e governador em 6 UFs. Transporte público gratuito por determinação do STF (Resolução TSE nº 23.751/2026).','votacao'],
+['~10h–12h','','Primeiros relatos de falta de ônibus','Eleitores em Salvador, São Paulo, Aracaju, Teresina, Belém, Maceió e cidades do Rio de Janeiro denunciam frota reduzida. Em Salvador, a frota de ônibus opera com mais de 50% de redução em relação aos dias úteis. O Ministério da Justiça começa a mapear as falhas.','crise'],
+['~13h','','TRE-BA manda prender secretário de Mobilidade','O desembargador Maurício Kertzman determina a prisão de Pablo Souza (Semob), responsável pela redução da frota. Souza está em Paris, em missão a convite do governo francês. Multa fixada em R$ 1 milhão por hora de descumprimento. Prefeitura de Bruno Reis (União) diz que ele se apresentará. Em Sergipe, a PF abre inquérito sobre ônibus retidos em garagens.','juridico'],
+['15h46','','Campanha de Lula aciona o STF','O PT pede ao ministro Cristiano Zanin a prorrogação do horário de votação, alegando que eleitores não conseguem chegar aos locais de votação por falta de transporte em ao menos 7 estados.','juridico'],
+['~16h','','Campanha de Flávio também pede prorrogação','O PL cita chuvas, alagamentos, interdições e mudanças em locais de votação como motivos. Ambas as campanhas convergem no pedido, mas por razões diferentes.','juridico'],
+['17h','','Horário original de fechamento','TSE começa a divulgar os primeiros resultados parciais.','votacao'],
+['17h03','','Zanin prorroga a votação até 19h em todo o país','Decisão inédita na história eleitoral brasileira. A liminar vale para todas as seções eleitorais ainda abertas. Polêmica imediata: Zanin foi advogado de Lula antes de ser indicado ao STF.','juridico'],
+['17h03–17h20','','Questão da isonomia','A decisão chega quando centenas de seções já haviam encerrado a votação e lacrado as urnas às 17h, o horário previsto em lei. Urnas lacradas não podem ser reabertas. Na prática, eleitores de seções que fecharam no horário não puderam ser beneficiados pela prorrogação, enquanto eleitores de seções ainda abertas ganharam duas horas adicionais. Críticos apontam quebra de isonomia: as mesmas regras não valeram para todos os eleitores do país. A oposição alega que a decisão, tomada por um ex-advogado de um dos candidatos, alterou as condições da disputa de forma desigual.','juridico'],
+['17h20','','TSE pausa a totalização','A divulgação de resultados é suspensa com apenas 0,25% das urnas contabilizadas. Manchetes: "STF atropela TSE". Escolas fecham por falta de aviso. A decisão do STF é comunicada ao TSE sem consulta prévia ao presidente da corte eleitoral.','crise'],
+['~18h','','Zanin e presidente do TSE alinham a decisão','Acordo por telefone entre Zanin e o ministro Kássio Nunes Marques restringe a prorrogação às seções que ainda estavam abertas no momento da decisão. Seções já encerradas não são reabertas, consolidando a assimetria.','juridico']
+]},
+{title:'Apuração e resultado',sub:'25 out, noite',items:[
+['19h','','Fechamento definitivo das urnas. Apuração retomada','Com as primeiras urnas (Nordeste chega primeiro), Lula abre vantagem. Com 3,35% das urnas: Lula 51,26%.','votacao'],
+['19h46','','Flávio ultrapassa Lula','Com ~13% das urnas apuradas, votos do Sul e Sudeste começam a chegar e Flávio assume a liderança temporária.','votacao'],
+['20h26','','Lula retoma a liderança definitivamente','Com 47,24% das urnas, votos do Nordeste e de Minas Gerais consolidam a virada. Lula não perde mais a dianteira.','votacao'],
+['~21h10','','Lula é matematicamente reeleito','Com maioria inalcançável, o TSE confirma: Lula 51,79% (64.256.232 votos) × Flávio 48,21% (59.826.041). Margem de 4,43 milhões. Minas Gerais é o único estado que virou.','votacao'],
+['~22h','','Flávio não reconhece a derrota','Em pronunciamento, o senador diz: "É impossível reconhecer o resultado destas eleições". Anuncia que pedirá a anulação do pleito, alegando que Zanin (ex-advogado de Lula) "mudou as regras no meio do jogo". Afirma, sem apresentar provas, que fiscais do PL foram removidos das salas-cofre após a decisão de prorrogação.','juridico'],
+['~23h','','Lula discursa como presidente reeleito','É a primeira virada de turno da história democrática brasileira. Seis governadores são eleitos no mesmo dia.','votacao']
+]}
+];
+var el=document.getElementById('tl2');
+function icon(name){return '<i data-lucide="'+name+'"></i>'}
+var html='';
+PHASES.forEach(function(ph,pi){
+  html+='<div class="tl2-phase'+(pi>2?' closed':'')+'"><button class="tl2-phase-btn" type="button">'+ph.title+' <span class="tl2-count">'+ph.items.length+'</span></button><div class="tl2-cards">';
+  ph.items.forEach(function(it){
+    var cat=it[4];
+    html+='<div class="tl2-card tl2-cat-'+cat+'"><div class="tl2-head"><div class="tl2-icon">'+icon(IC[cat])+'</div><span class="tl2-date">'+it[0]+'</span><span class="tl2-title">'+it[2]+'</span><span class="tl2-chevron">'+icon('chevron-down')+'</span></div><div class="tl2-detail">'+it[3]+'</div></div>';
+  });
+  html+='</div></div>';
+});
+el.innerHTML=html;
+lucide.createIcons({attrs:{class:''}});
+el.addEventListener('click',function(e){
+  var card=e.target.closest('.tl2-card');
+  if(card){card.classList.toggle('open');return}
+  var btn=e.target.closest('.tl2-phase-btn');
+  if(btn){btn.parentNode.classList.toggle('closed')}
+});
+}();
+
+var navLinks={};document.querySelectorAll('.nav-links a[href^="#"]').forEach(function(a){navLinks[a.getAttribute('href').slice(1)]=a});
+if('IntersectionObserver' in window){var navIO=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;
+  Object.keys(navLinks).forEach(function(k){navLinks[k].classList.remove('on')});
+  var a=navLinks[e.target.id];if(a){a.classList.add('on');var n=a.parentNode;n.scrollLeft=a.offsetLeft-n.offsetLeft-n.clientWidth/2+a.offsetWidth/2}})},{rootMargin:'-30% 0px -60% 0px'});
+  document.querySelectorAll('section[id]').forEach(function(s){navIO.observe(s)})}
 </script>
+
+<a href="#" class="back-top" aria-label="Voltar ao topo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></a>
+<script>!function(){var b=document.querySelector('.back-top');window.addEventListener('scroll',function(){b.classList.toggle('show',window.scrollY>600)},{passive:true})}()</script>
 </body></html>

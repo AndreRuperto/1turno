@@ -1,0 +1,287 @@
+<!doctype html><html lang="pt-BR"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>Político — Eleições 2026</title>
+<link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/favicon-180.png">
+</head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<link rel="stylesheet" href="css/shared.css">
+
+<nav class="topnav" aria-label="Seções"><div><a href="index.html" class="nav-brand" aria-label="turnos"><img class="logo-light" src="assets/logo/turnos-horizontal-claro.svg" alt="turnos" height="22"><img class="logo-dark" src="assets/logo/turnos-horizontal-escuro.svg" alt="" height="22"></a><button class="nav-arr nav-arr-l" aria-label="Anterior" hidden>‹</button><div class="nav-links"><a href="#resultado">Resultado</a><a href="#patrimonio">Patrimônio</a><a href="#candidaturas">Candidaturas</a></div><button class="nav-arr nav-arr-r" aria-label="Próximo" hidden>›</button><a href="javascript:history.back()" style="flex:none;display:flex;align-items:center;padding-block:10px;padding-inline:10px;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;white-space:nowrap">← Voltar</a><button class="theme-toggle" aria-label="Alternar tema" title="Alternar tema">☀</button></div></nav>
+<script>!function(){var c=document.querySelector('.nav-links'),l=document.querySelector('.nav-arr-l'),r=document.querySelector('.nav-arr-r');function u(){var s=c.scrollLeft,m=c.scrollWidth-c.clientWidth;l.hidden=s<2;r.hidden=m-s<2}l.onclick=function(){c.scrollBy({left:-150,behavior:'smooth'})};r.onclick=function(){c.scrollBy({left:150,behavior:'smooth'})};c.addEventListener('scroll',u,{passive:true});new ResizeObserver(u).observe(c);u()}()</script>
+<script>!function(){var btn=document.querySelector('.theme-toggle'),root=document.documentElement;function isDark(){var t=root.getAttribute('data-theme');if(t)return t==='dark';return matchMedia('(prefers-color-scheme:dark)').matches}function update(){btn.textContent=isDark()?'☀':'☾';btn.setAttribute('aria-label',isDark()?'Mudar para tema claro':'Mudar para tema escuro')}var saved=localStorage.getItem('theme');if(saved)root.setAttribute('data-theme',saved);update();btn.onclick=function(){var next=isDark()?'light':'dark';root.setAttribute('data-theme',next);localStorage.setItem('theme',next);update()}}()</script>
+
+<div class="wrap">
+
+<header class="pol-header">
+  <img class="pol-photo" id="polPhoto" alt="">
+  <div>
+    <div class="kicker" id="polKicker"></div>
+    <h1 id="polNome">Carregando...</h1>
+    <p class="sub" id="polSub"></p>
+    <a id="polTse" class="pol-tse" href="#" target="_blank" rel="noopener">Ver no TSE ↗</a>
+  </div>
+</header>
+
+<section id="resultado">
+  <details open><summary><h2>Resultado</h2></summary>
+  <div id="resultadoContent"><p class="sub">Carregando...</p></div>
+  </details>
+</section>
+
+<section id="patrimonio">
+  <details open><summary><h2>Patrimônio</h2></summary>
+  <div id="patrimonioContent"><p class="sub">Carregando...</p></div>
+  </details>
+</section>
+
+<section id="candidaturas">
+  <details open><summary><h2>Candidaturas</h2></summary>
+  <div id="candidaturasContent"><p class="sub">Carregando...</p></div>
+  </details>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-main">
+    <div>
+      <div class="footer-brand"><a href="index.html">Turnos</a></div>
+      <div class="footer-desc">Resultados das eleições gerais de 2026, compilados de veículos que citam o TSE.</div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">1º turno</a>
+      <a href="2turno.html">2º turno</a>
+    </div>
+    <div class="footer-right">
+      <a href="https://github.com/AndreRuperto/1turno" target="_blank" rel="noopener" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 00-3.8 23.38c.6.12.82-.26.82-.58l-.01-2.05c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.31-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 016.02 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.48 5.92.43.37.81 1.1.81 2.22l-.01 3.29c0 .32.22.7.82.58A12 12 0 0012 .3"/></svg></a>
+      <a href="https://www.linkedin.com/in/andreruperto/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77A1.75 1.75 0 000 1.73v20.54A1.75 1.75 0 001.77 24h20.45A1.76 1.76 0 0024 22.27V1.73A1.76 1.76 0 0022.22 0z"/></svg></a>
+      Projeto por <strong><a href="https://github.com/AndreRuperto" target="_blank" rel="noopener">André Ruperto</a></strong>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 André Ruperto. <a href="https://github.com/AndreRuperto/1turno">Código aberto no GitHub</a>.</div>
+</footer>
+
+</div>
+
+<script src="data/politicos.js"></script>
+<script>
+function fmt(n){return n.toFixed(2).replace('.',',')}
+function fmtN(n){return n.toLocaleString('pt-BR')}
+function fmtR(n){return 'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+function showError(msg){
+  var nome=document.getElementById('polNome');
+  if(nome)nome.textContent='Político não encontrado';
+  var kicker=document.getElementById('polKicker');
+  if(kicker)kicker.textContent='';
+  var sub=document.getElementById('polSub');
+  if(sub)sub.textContent='';
+  var tse=document.getElementById('polTse');
+  if(tse)tse.style.display='none';
+  var photo=document.getElementById('polPhoto');
+  if(photo)photo.style.display='none';
+  ['resultadoContent','patrimonioContent','candidaturasContent'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.innerHTML='<p class="sub">'+(msg||'Dados não disponíveis.')+'</p>';
+  });
+  document.title='Político não encontrado — Eleições 2026';
+  var wrap=document.querySelector('.wrap');
+  if(wrap){
+    var err=document.createElement('div');
+    err.className='note';
+    err.style.marginTop='0';
+    err.innerHTML='Político não encontrado. <a href="index.html">← Voltar ao início</a>';
+    wrap.prepend(err);
+  }
+}
+
+function renderHeader(p,id){
+  document.title=p.nome+' — Eleições 2026';
+  var photo=document.getElementById('polPhoto');
+  if(p.foto){photo.src=p.foto;photo.alt=p.nome;}
+  else{photo.style.display='none';}
+
+  var kicker=document.getElementById('polKicker');
+  var parts=[];
+  if(p.partido)parts.push(p.partido);
+  if(p.cargo)parts.push(p.cargo);
+  if(p.estado)parts.push(p.estado);
+  kicker.textContent=parts.join(' · ');
+
+  var nome=document.getElementById('polNome');
+  nome.textContent=p.nome;
+
+  var sub=document.getElementById('polSub');
+  var subParts=[];
+  if(p.numero)subParts.push('Número '+p.numero);
+  if(p.educacao)subParts.push(p.educacao);
+  if(p.ocupacao)subParts.push(p.ocupacao);
+  sub.textContent=subParts.join(' · ');
+
+  var tse=document.getElementById('polTse');
+  if(p.estado&&id){
+    var estado=encodeURIComponent(p.estado);
+    tse.href='https://divulgacandcontas.tse.jus.br/divulga/#/candidato/'+estado+'/'+id;
+  } else {
+    tse.style.display='none';
+  }
+}
+
+function renderResultado(p){
+  var el=document.getElementById('resultadoContent');
+  if(!p.resultado&&!p.resultado2t){
+    el.innerHTML='<p class="sub">Sem dados de resultado disponíveis.</p>';
+    return;
+  }
+
+  var html='';
+
+  if(p.resultado&&p.resultado2t){
+    // Two rounds: duel layout
+    html+='<div class="duel">';
+    html+=renderRoundCard(p.resultado,'1º turno','a');
+    html+=renderRoundCard(p.resultado2t,'2º turno','b');
+    html+='</div>';
+  } else {
+    var r=p.resultado||p.resultado2t;
+    var label=p.resultado2t?'2º turno':'1º turno';
+    html+=renderRoundCard(r,label,'');
+  }
+
+  // Bar for primary result
+  var r=p.resultado||p.resultado2t;
+  if(r&&r.pct!=null){
+    var pct=parseFloat(r.pct);
+    html+='<div style="margin-top:14px">';
+    html+='<div class="bar" role="img" aria-label="Percentual de votos: '+fmt(pct)+'%">';
+    html+='<span style="width:'+fmt(pct)+'%;background:var(--accent)"></span>';
+    html+='</div>';
+    html+='<div class="legend" style="margin-top:8px"><span>'+fmt(pct)+'% dos votos válidos</span></div>';
+    html+='</div>';
+  }
+
+  el.innerHTML=html;
+}
+
+function renderRoundCard(r,label,side){
+  var cls='card'+(side?' '+side:'');
+  var html='<div class="'+cls+'">';
+  html+='<div class="kicker">'+escH(label)+'</div>';
+  if(r.votos!=null) html+='<div class="num">'+fmtN(r.votos)+'</div><div class="lbl">votos</div>';
+  if(r.pct!=null) html+='<div class="num" style="font-size:22px;margin-top:8px">'+fmt(parseFloat(r.pct))+'%</div>';
+  if(r.situacao) html+='<div class="tag" style="margin-top:8px">'+escH(r.situacao)+'</div>';
+  html+='</div>';
+  return html;
+}
+
+function renderPatrimonio(p){
+  var el=document.getElementById('patrimonioContent');
+  // Collect bens data from candidaturas
+  var anos=[];
+  if(p.candidaturas&&p.candidaturas.length){
+    p.candidaturas.forEach(function(c){
+      if(c.bens!=null){
+        anos.push({ano:c.ano,total:c.bens,itens:c.bensItens||[]});
+      }
+    });
+  }
+  // Also check top-level patrimonio array
+  if(p.patrimonio&&p.patrimonio.length){
+    p.patrimonio.forEach(function(pat){
+      // Avoid duplicating if already added from candidaturas
+      var existing=anos.find(function(a){return a.ano===pat.ano});
+      if(!existing) anos.push({ano:pat.ano,total:pat.total,itens:pat.itens||[]});
+    });
+  }
+
+  if(!anos.length){
+    el.innerHTML='<p class="sub">Sem dados de patrimônio disponíveis.</p>';
+    return;
+  }
+
+  anos.sort(function(a,b){return a.ano-b.ano});
+  var maxVal=Math.max.apply(null,anos.map(function(a){return a.total}));
+
+  var html='<div class="scroll"><table style="min-width:0"><thead><tr>';
+  html+='<th>Ano</th><th class="n">Valor total</th><th>Barra</th><th class="n">Variação</th>';
+  html+='</tr></thead><tbody>';
+
+  anos.forEach(function(a,i){
+    var pct=maxVal>0?(a.total/maxVal*100):0;
+    var varHtml='';
+    if(i>0){
+      var prev=anos[i-1].total;
+      if(prev>0){
+        var v=((a.total-prev)/prev)*100;
+        var cls2=v>=0?'up':'dn';
+        var sign=v>=0?'+':'';
+        varHtml='<span class="pat-var '+cls2+'">'+sign+fmt(v)+'%</span>';
+      }
+    }
+    html+='<tr>';
+    html+='<td><strong>'+escH(String(a.ano))+'</strong></td>';
+    html+='<td class="n">'+fmtR(a.total)+'</td>';
+    html+='<td style="width:200px;min-width:120px"><div style="background:var(--neutral-soft);border-radius:4px;height:18px;overflow:hidden"><div class="pat-bar" style="width:'+fmt(pct)+'%"></div></div></td>';
+    html+='<td class="n">'+varHtml+'</td>';
+    html+='</tr>';
+    if(a.itens&&a.itens.length){
+      html+='<tr><td colspan="4" style="padding-top:0;padding-bottom:12px">';
+      html+='<details><summary style="font-size:13px;color:var(--muted);cursor:pointer">Ver '+a.itens.length+' bem(ns) declarado(s)</summary>';
+      html+='<ul style="margin:8px 0 0;padding-left:18px;font-size:13px;display:flex;flex-direction:column;gap:4px">';
+      a.itens.forEach(function(item){
+        html+='<li>'+escH(item.descricao||'')+(item.valor!=null?' — '+fmtR(item.valor):'')+'</li>';
+      });
+      html+='</ul></details></td></tr>';
+    }
+  });
+
+  html+='</tbody></table></div>';
+  el.innerHTML=html;
+}
+
+function renderCandidaturas(p){
+  var el=document.getElementById('candidaturasContent');
+  if(!p.candidaturas||!p.candidaturas.length){
+    el.innerHTML='<p class="sub">Sem dados de candidaturas disponíveis.</p>';
+    return;
+  }
+
+  var sorted=p.candidaturas.slice().sort(function(a,b){return (a.ano||0)-(b.ano||0)});
+
+  var html='<div class="tl">';
+  sorted.forEach(function(c){
+    html+='<div class="tl-item">';
+    html+='<div class="tl-date">'+escH(String(c.ano||''))+'<span class="tl-tag">'+escH(c.cargo||'')+(c.estado?' · '+escH(c.estado):'')+'</span></div>';
+    html+='<div class="tl-body">';
+    if(c.partido) html+='<strong>'+escH(c.partido)+'</strong> ';
+    if(c.resultado) html+='<span class="tag">'+escH(c.resultado)+'</span>';
+    if(c.votos!=null) html+=' <span class="small">'+fmtN(c.votos)+' votos</span>';
+    html+='</div>';
+    html+='</div>';
+  });
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+function escH(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+(function(){
+  var params=new URLSearchParams(location.search);
+  var id=params.get('id');
+  if(!id){showError('Nenhum candidato especificado. Use <code>?id=tseCandidateId</code> na URL.');return;}
+  if(typeof POLITICOS==='undefined'){showError('Não foi possível carregar os dados.');return;}
+  var p=POLITICOS[id];
+  if(!p){showError('Candidato com id "'+escH(id)+'" não encontrado.');return;}
+  renderHeader(p,id);
+  renderResultado(p);
+  renderPatrimonio(p);
+  renderCandidaturas(p);
+})();
+</script>
+
+</body></html>

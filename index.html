@@ -11,8 +11,23 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
 <link rel="stylesheet" href="css/shared.css">
 
-<nav class="topnav" aria-label="Seções"><div><a href="#" class="nav-brand" aria-label="1turno"><img class="logo-light" src="assets/logo/turnos-horizontal-claro.svg" alt="turnos" height="22"><img class="logo-dark" src="assets/logo/turnos-horizontal-escuro.svg" alt="" height="22"></a><button class="nav-arr nav-arr-l" aria-label="Anterior" hidden>‹</button><div class="nav-links"><a href="#resumo">Resumo</a><a href="#presidente">Presidente</a><a href="#mapa">Mapa</a><a href="#governadores">Governadores</a><a href="#senado">Senado</a><a href="#camara">Câmara</a><a href="#congresso">Congresso 2027</a><a href="#estados">Estados</a><a href="#calendario">Calendário</a><a href="#ressalvas">Ressalvas</a><a href="#fontes">Fontes</a><a href="2turno.html" style="background:var(--accent);color:#fff;border-radius:99px">2º turno →</a></div><button class="nav-arr nav-arr-r" aria-label="Próximo" hidden>›</button></div></nav>
+<nav class="topnav" aria-label="Seções"><div><a href="#" class="nav-brand" aria-label="1turno"><img class="logo-light" src="assets/logo/turnos-horizontal-claro.svg" alt="turnos" height="22"><img class="logo-dark" src="assets/logo/turnos-horizontal-escuro.svg" alt="" height="22"></a><button class="nav-arr nav-arr-l" aria-label="Anterior" hidden>‹</button><div class="nav-links"><a href="#resumo">Resumo</a><a href="#presidente">Presidente</a><a href="#mapa">Mapa</a><a href="#governadores">Governadores</a><a href="#senado">Senado</a><a href="#camara">Câmara</a><a href="#congresso">Congresso 2027</a><a href="#estados">Estados</a><a href="#calendario">Calendário</a><a href="#ressalvas">Ressalvas</a><a href="#fontes">Fontes</a><a href="2turno.html" style="background:var(--accent);color:#fff;border-radius:99px">2º turno →</a></div><button class="nav-arr nav-arr-r" aria-label="Próximo" hidden>›</button><button class="help-btn" aria-label="Como usar" title="Como usar">?</button><button class="theme-toggle" aria-label="Alternar tema" title="Alternar tema">☀</button></div></nav>
 <script>!function(){var c=document.querySelector('.nav-links'),l=document.querySelector('.nav-arr-l'),r=document.querySelector('.nav-arr-r');function u(){var s=c.scrollLeft,m=c.scrollWidth-c.clientWidth;l.hidden=s<2;r.hidden=m-s<2}l.onclick=function(){c.scrollBy({left:-150,behavior:'smooth'})};r.onclick=function(){c.scrollBy({left:150,behavior:'smooth'})};c.addEventListener('scroll',u,{passive:true});new ResizeObserver(u).observe(c);u()}()</script>
+<script>!function(){var btn=document.querySelector('.theme-toggle'),root=document.documentElement;function isDark(){var t=root.getAttribute('data-theme');if(t)return t==='dark';return matchMedia('(prefers-color-scheme:dark)').matches}function update(){btn.textContent=isDark()?'☀':'☾';btn.setAttribute('aria-label',isDark()?'Mudar para tema claro':'Mudar para tema escuro')}var saved=localStorage.getItem('theme');if(saved)root.setAttribute('data-theme',saved);update();btn.onclick=function(){var next=isDark()?'light':'dark';root.setAttribute('data-theme',next);localStorage.setItem('theme',next);update()}}()</script>
+
+<div class="ob-overlay" id="onboarding" hidden><div class="ob-modal">
+<button class="ob-close" id="obX" type="button" aria-label="Fechar">&times;</button>
+<h3>Como usar este relatório</h3>
+<div class="ob-grid">
+<div class="ob-card"><div class="ob-demo"><span class="ob-arr">‹</span><span class="ob-pill">Resumo</span><span class="ob-pill">Presidente</span><span class="ob-pill ob-pill-on">Mapa</span><span class="ob-pill">Gov.</span><span class="ob-arr">›</span></div><h4>Navegação</h4><p>Use as setas ‹ › no topo para rolar entre seções. Clique no título de qualquer seção para colapsar ou expandir.</p></div>
+<div class="ob-card"><div class="ob-demo"><span class="ob-th">UF ↑</span><span class="ob-th">Vencedor ⇅</span><span class="ob-th">% ⇅</span></div><h4>Tabelas ordenáveis</h4><p>Clique no cabeçalho de qualquer coluna para ordenar. Clique de novo para inverter a ordem.</p></div>
+<div class="ob-card"><div class="ob-demo"><svg viewBox="0 0 80 20" width="80" height="20"><circle cx="8" cy="10" r="5" fill="var(--flavio)"/><circle cx="22" cy="10" r="5" fill="var(--flavio)"/><circle cx="36" cy="10" r="5" fill="var(--lula)"/><circle cx="50" cy="10" r="5" fill="var(--lula)"/><circle cx="64" cy="10" r="5" fill="var(--neutral)"/></svg></div><h4>Hemiciclos</h4><p>Passe o mouse ou toque nos pontos do hemiciclo para ver o partido. Use os botões acima para alternar entre partido, espectro e esquerda/centro/direita.</p></div>
+<div class="ob-card"><div class="ob-demo"><span class="ob-btn-demo">2º turno →</span></div><h4>Dois turnos</h4><p>Este site cobre os dois turnos. Use o botão no topo para alternar entre o 1º e o 2º turno.</p></div>
+<div class="ob-card ob-card-wide"><div class="ob-demo ob-demo-note"><span>⚠ Os números vêm de reportagens que citam o TSE…</span></div><h4>Sobre os dados</h4><p>Não é uma base oficial única. Veja a seção Ressalvas para onde as fontes divergem.</p></div>
+</div>
+<div class="ob-foot"><label><span class="ob-check"><input type="checkbox" id="obDontShow" checked><span class="ob-box"></span></span> Não mostrar de novo</label><button type="button" id="obClose">Entendi</button></div>
+</div></div>
+<script>!function(){var ov=document.getElementById('onboarding'),cb=document.getElementById('obDontShow'),cls=document.getElementById('obClose'),hb=document.querySelector('.help-btn');function show(){ov.hidden=false;requestAnimationFrame(function(){ov.classList.add('show')})}function hide(){ov.classList.remove('show');setTimeout(function(){ov.hidden=true},250);if(cb.checked)localStorage.setItem('ob-seen','1')}cls.onclick=hide;document.getElementById('obX').onclick=hide;ov.onclick=function(e){if(e.target===ov)hide()};hb.onclick=function(){cb.checked=false;show()};if(!localStorage.getItem('ob-seen'))show()}()</script>
 
 <div class="wrap">
 
@@ -37,8 +52,8 @@
 <section id="presidente">
   <details open><summary><h2>Presidente da República</h2></summary>
   <div class="duel">
-    <div class="card a"><div class="kicker f">PL</div><h3>Flávio Bolsonaro</h3><div class="num f">47,03%</div><div class="lbl">56.104.503 votos válidos. Venceu em 14 estados e no DF</div></div>
-    <div class="card b"><div class="kicker l">PT</div><h3>Lula</h3><div class="num l">45,15%</div><div class="lbl">53.846.396 votos válidos. Venceu em 12 estados</div></div>
+    <div class="card a"><div class="kicker f">PL</div><img class="cand-photo" src="https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/20322002026/280002551544/BR" alt="" onerror="this.style.display='none'"><h3>Flávio Bolsonaro</h3><div class="num f">47,03%</div><div class="lbl">56.104.503 votos válidos. Venceu em 14 estados e no DF</div></div>
+    <div class="card b"><div class="kicker l">PT</div><img class="cand-photo" src="https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/20322002026/280002542548/BR" alt="" onerror="this.style.display='none'"><h3>Lula</h3><div class="num l">45,15%</div><div class="lbl">53.846.396 votos válidos. Venceu em 12 estados</div></div>
   </div>
   <div>
     <div class="bar" role="img" aria-label="Votos válidos: Flávio 47,03%, Lula 45,15%, demais 7,81%">
@@ -52,15 +67,22 @@
       <span><i style="background:var(--neutral)"></i>Demais 7,81%</span>
     </div>
   </div>
-  <div class="scroll"><table id="presCandTable">
-    <thead><tr><th class="sort">Candidato</th><th>Partido</th><th class="sort n" aria-sort="descending">% votos válidos</th><th class="sort">Situação</th></tr></thead>
+  <div class="scroll"><table id="presCandTable" style="min-width:0">
+    <thead><tr><th class="sort">Candidato</th><th>Partido</th><th class="sort n" aria-sort="descending">%</th><th class="sort n">Votos</th><th class="sort">Situação</th></tr></thead>
     <tbody>
-      <tr><td>Flávio Bolsonaro</td><td><span class="tag pl">PL</span></td><td class="n">47,03</td><td>2º turno</td></tr>
-      <tr><td>Lula</td><td><span class="tag pt">PT</span></td><td class="n">45,15</td><td>2º turno</td></tr>
-      <tr><td>Cury</td><td><span class="tag">Avante</span></td><td class="n">2,89</td><td>Eliminado</td></tr>
-      <tr><td>Renan Santos</td><td><span class="tag">Missão</span></td><td class="n">2,24</td><td>Eliminado</td></tr>
-      <tr><td>Caiado</td><td><span class="tag">PSD</span></td><td class="n">2,18</td><td>Eliminado</td></tr>
-      <tr><td>Demais candidatos</td><td>-</td><td class="n">0,5</td><td>Eliminados</td></tr>
+      <tr><td>Flávio Bolsonaro</td><td><span class="tag pl">PL</span></td><td class="n">47,03</td><td class="n">56.104.503</td><td>2º turno</td></tr>
+      <tr><td>Lula</td><td><span class="tag pt">PT</span></td><td class="n">45,16</td><td class="n">53.879.538</td><td>2º turno</td></tr>
+      <tr><td>Escritor Augusto Cury</td><td><span class="tag">Avante</span></td><td class="n">2,89</td><td class="n">3.448.569</td><td>Eliminado</td></tr>
+      <tr><td>Renan Santos</td><td><span class="tag">Missão</span></td><td class="n">2,24</td><td class="n">2.675.887</td><td>Eliminado</td></tr>
+      <tr><td>Ronaldo Caiado</td><td><span class="tag">PSD</span></td><td class="n">2,18</td><td class="n">2.605.148</td><td>Eliminado</td></tr>
+      <tr id="presSummary" style="cursor:pointer"><td>▸ Demais candidatos (7)</td><td>-</td><td class="n">0,48</td><td class="n">587.143</td><td>Eliminados</td></tr>
+      <tr hidden class="pres-extra"><td>Zema</td><td><span class="tag">Novo</span></td><td class="n">0,27</td><td class="n">326.488</td><td>Eliminado</td></tr>
+      <tr hidden class="pres-extra"><td>Samara</td><td><span class="tag">UP</span></td><td class="n">0,10</td><td class="n">122.911</td><td>Eliminada</td></tr>
+      <tr hidden class="pres-extra"><td>Hertz Dias</td><td><span class="tag">PSTU</span></td><td class="n">0,04</td><td class="n">43.103</td><td>Eliminado</td></tr>
+      <tr hidden class="pres-extra"><td>Clariana Barão</td><td><span class="tag">DC</span></td><td class="n">0,03</td><td class="n">40.043</td><td>Eliminada</td></tr>
+      <tr hidden class="pres-extra"><td>Edmilson Costa</td><td><span class="tag">PCB</span></td><td class="n">0,02</td><td class="n">22.693</td><td>Eliminado</td></tr>
+      <tr hidden class="pres-extra"><td>Veterinário Wilson Grassi</td><td><span class="tag">Democrata</span></td><td class="n">0,01</td><td class="n">16.881</td><td>Eliminado</td></tr>
+      <tr hidden class="pres-extra"><td>Rui Costa Pimenta</td><td><span class="tag">PCO</span></td><td class="n">0,01</td><td class="n">15.024</td><td>Eliminado</td></tr>
     </tbody>
   </table></div>
   <p class="small">Votos em branco: 2.300.798. Votos nulos: 3.674.249.</p>
@@ -81,7 +103,7 @@
       <p class="small" style="margin-top:8px">Contorno tracejado: AP, empate técnico (Lula 45,71% e Flávio 45,67%).</p>
     </div>
     <div class="fill"><div class="scroll"><table id="presMapTable" style="min-width:0">
-      <thead><tr><th class="sort" aria-sort="ascending">UF</th><th class="sort">Vencedor</th><th class="sort n">%</th></tr></thead>
+      <thead><tr><th class="sort" aria-sort="ascending">UF</th><th class="sort">Vencedor</th><th class="sort n">%</th><th class="sort n">Votos</th></tr></thead>
       <tbody id="presRows"></tbody>
     </table></div></div>
   </div>
@@ -91,7 +113,7 @@
 <section id="governadores">
   <details open><summary><h2>Governadores</h2></summary>
   <p>21 foram eleitos no 1º turno (recorde). Seis disputas vão ao 2º turno em 25/10: AC, AM, DF, ES, RN e TO. O RJ, que iria ao 2º turno, teve Douglas Ruas (PL) declarado eleito após redistribuição de votos com a retirada de recurso de Garotinho — atingindo 50,88%.</p>
-  <div class="maps">
+  <div class="maps" style="align-items:center">
     <div>
       <svg id="mapGov" viewBox="0 0 396 464" role="img" aria-label="Cartograma dos governadores: eleitos no 1º turno e estados com 2º turno"></svg>
       <div class="legend" style="margin-top:10px">
@@ -101,7 +123,7 @@
         <span><i style="border:2px dashed var(--fg);background:transparent"></i>2º turno</span>
       </div>
     </div>
-    <div>
+    <div style="align-self:center">
       <h3 style="margin-bottom:8px">Eleitos no 1º turno por partido</h3>
       <div id="govParty"></div>
       <p class="small" style="margin-top:8px">PL 6, PSD 4, PT 3, Republicanos 3, PP 2, PSDB 1, MDB 1, Podemos 1. Dez reeleições. Raquel Lyra (PE) é a única mulher eleita no 1º turno.</p>
@@ -109,7 +131,7 @@
   </div>
   <h3>Os 21 eleitos</h3>
   <div class="scroll"><table id="govTable">
-    <thead><tr><th class="sort" data-col="uf" aria-sort="ascending">UF</th><th class="sort" data-col="nome">Governador eleito</th><th class="sort n" data-col="pct" style="width:80px">%</th></tr></thead>
+    <thead><tr><th class="sort" data-col="uf" aria-sort="ascending">UF</th><th class="sort" data-col="nome" style="width:50%">Governador eleito</th><th class="sort n" data-col="pct">%</th><th class="sort n">Votos</th></tr></thead>
     <tbody id="govRows"></tbody>
   </table></div>
   <h3>Os 6 segundos turnos (25/10)</h3>
@@ -125,7 +147,7 @@
   <p>Eleição majoritária, dois por UF. O PL elegeu 19, quase o dobro da bancada que tinha. Somando os 9 senadores do partido com mandato até 2031, o PL terá 28 das 81 cadeiras a partir de 2027, mais de um terço da Casa.</p>
   <div id="senParty"></div>
   <div class="scroll"><table id="senTable">
-    <thead><tr><th class="sort" aria-sort="ascending">UF</th><th class="sort"><div class="split"><span>Senador 1</span><span>%</span></div></th><th class="sort"><div class="split"><span>Senador 2</span><span>%</span></div></th></tr></thead>
+    <thead><tr><th class="sort" aria-sort="ascending">UF</th><th class="sort"><div class="split"><span>Senador 1</span><span>% / Votos</span></div></th><th class="sort"><div class="split"><span>Senador 2</span><span>% / Votos</span></div></th></tr></thead>
     <tbody id="senRows"></tbody>
   </table></div>
 </details></section>
@@ -221,9 +243,29 @@
   </ul>
 </details></section>
 
+<footer class="site-footer">
+  <div class="footer-main">
+    <div>
+      <div class="footer-brand"><a href="index.html">Turnos</a></div>
+      <div class="footer-desc">Resultados das eleições gerais de 2026, compilados de veículos que citam o TSE.</div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">1º turno</a>
+      <a href="2turno.html">2º turno</a>
+    </div>
+    <div class="footer-right">
+      <a href="https://github.com/AndreRuperto/1turno" target="_blank" rel="noopener" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 00-3.8 23.38c.6.12.82-.26.82-.58l-.01-2.05c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.31-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 016.02 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.48 5.92.43.37.81 1.1.81 2.22l-.01 3.29c0 .32.22.7.82.58A12 12 0 0012 .3"/></svg></a>
+      <a href="https://www.linkedin.com/in/andreruperto/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77A1.75 1.75 0 000 1.73v20.54A1.75 1.75 0 001.77 24h20.45A1.76 1.76 0 0024 22.27V1.73A1.76 1.76 0 0022.22 0z"/></svg></a>
+      Projeto por <strong><a href="https://github.com/AndreRuperto" target="_blank" rel="noopener">André Ruperto</a></strong>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 André Ruperto. <a href="https://github.com/AndreRuperto/1turno">Código aberto no GitHub</a>.</div>
+</footer>
+
 </div>
 
 <script>
+!function(){var sum=document.getElementById('presSummary'),td=sum.querySelector('td:first-child'),rows=document.querySelectorAll('.pres-extra'),open=false;sum.onclick=function(){open=!open;rows.forEach(function(r){r.hidden=!open});td.innerHTML=open?'▾ Demais candidatos (7)':'▸ Demais candidatos (7)'}}();
 var UF = {
   RR:[1,0,'Roraima'],AP:[2,0,'Amapá'],
   AM:[1,1,'Amazonas'],PA:[2,1,'Pará'],MA:[3,1,'Maranhão'],CE:[4,1,'Ceará'],RN:[5,1,'Rio Grande do Norte'],
@@ -233,54 +275,54 @@ var UF = {
   PR:[2,5,'Paraná'],RJ:[3,5,'Rio de Janeiro'],ES:[4,5,'Espírito Santo'],SE:[5,5,'Sergipe'],
   SC:[2,6,'Santa Catarina'],RS:[2,7,'Rio Grande do Sul']
 };
-// presidente: [vencedor F|L, % do vencedor]
-var PRES = {RR:['F',71.06],RO:['F',67.45],SC:['F',66.65],MT:['F',65.15],AC:['F',64.56],PR:['F',59.91],MS:['F',58.60],RS:['F',55.64],ES:['F',54.78],GO:['F',53.61],RJ:['F',53.01],SP:['F',51.93],DF:['F',51.31],TO:['F',50.44],MG:['F',48.26],
-  PI:['L',70.97],BA:['L',66.09],MA:['L',63.94],PE:['L',63.44],CE:['L',63.23],SE:['L',62.75],PB:['L',61.31],RN:['L',59.75],AL:['L',54.73],PA:['L',49.89],AM:['L',48.08],AP:['L',45.71]};
-// governadores eleitos: [nome, partido, %]
+// presidente: [vencedor F|L, % do vencedor, votos do vencedor]
+var PRES = {RR:['F',71.06,231322],RO:['F',67.45,652988],SC:['F',66.65,3000020],MT:['F',65.15,1298581],AC:['F',64.56,302807],PR:['F',59.91,3945345],MS:['F',58.60,873351],RS:['F',55.64,3573783],ES:['F',54.78,1233194],GO:['F',53.61,2051888],RJ:['F',53.01,4966844],SP:['F',51.93,12922023],DF:['F',51.31,909616],TO:['F',50.44,469321],MG:['F',48.26,5777548],
+  PI:['L',70.97,1523710],BA:['L',66.09,5664771],MA:['L',63.94,2566301],PE:['L',63.44,3553971],CE:['L',63.23,3555263],SE:['L',62.75,856019],PB:['L',61.31,1541127],RN:['L',59.75,1237963],AL:['L',54.73,995459],PA:['L',49.89,2427237],AM:['L',48.08,1046996],AP:['L',45.71,212503]};
+// governadores eleitos: [nome, partido, %, votos]
 var GOV = {
-  AL:['JHC','PSDB',52.19],AP:['Furlan','PSD',62.75],BA:['Jerônimo Rodrigues','PT',55.70],CE:['Elmano de Freitas','PT',53.14],
-  GO:['Daniel Vilela','MDB',59.17],MA:['Eduardo Braide','PSD',54.08],MT:['Otaviano Pivetta','Republicanos',60.77],MS:['Eduardo Riedel','PP',67.07],
-  MG:['Cleitinho Azevedo','Republicanos',55.40],PA:['Dr. Daniel','Podemos',51.40],PB:['Lucas Ribeiro','PP',64.30],PR:['Sergio Moro','PL',50.10],
-  PE:['Raquel Lyra','PSD',53.27],PI:['Rafael Fonteles','PT',70.90],RJ:['Douglas Ruas','PL',50.88],RS:['Luciano Zucco','PL',58.05],RO:['Marcos Rogério','PL',56.86],
-  RR:['Arthur Henrique','PL',69.13],SC:['Jorginho Mello','PL',68.98],SP:['Tarcísio de Freitas','Republicanos',62.65],SE:['Fábio Mitidieri','PSD',59.27]
+  AL:['JHC','PSDB',52.19,892484],AP:['Furlan','PSD',62.75,281595],BA:['Jerônimo Rodrigues','PT',55.70,4626509],CE:['Elmano de Freitas','PT',53.14,2875573],
+  GO:['Daniel Vilela','MDB',59.17,2148218],MA:['Eduardo Braide','PSD',54.08,2104122],MT:['Otaviano Pivetta','Republicanos',60.77,1128099],MS:['Eduardo Riedel','PP',67.07,914323],
+  MG:['Cleitinho Azevedo','Republicanos',55.40,6321590],PA:['Dr. Daniel','Podemos',51.40,2345721],PB:['Lucas Ribeiro','PP',64.30,1470252],PR:['Sergio Moro','PL',50.10,3127911],
+  PE:['Raquel Lyra','PSD',53.27,2805438],PI:['Rafael Fonteles','PT',70.90,1436697],RJ:['Douglas Ruas','PL',50.88,4271199],RS:['Luciano Zucco','PL',58.05,3516048],RO:['Marcos Rogério','PL',56.86,537370],
+  RR:['Arthur Henrique','PL',69.13,220809],SC:['Jorginho Mello','PL',68.98,2942386],SP:['Tarcísio de Freitas','Republicanos',62.65,14491874],SE:['Fábio Mitidieri','PSD',59.27,727291]
 };
 var RUN = [
-  ['AC','Mailza Assis','PP',49.76,'Alan Rick','Republicanos',32.27],
-  ['AM','Omar Aziz','PSD',40.56,'Professora Maria do Carmo','PL',24.57],
-  ['DF','Celina Leão','PP',49.93,'Leandro Grass','PT',34.47],
-  ['ES','Lorenzo Pazolini','Republicanos',49.65,'Ricardo Ferraço','MDB',34.06],
-  ['RN','Allyson','União',36.94,'Cadu de Lula','PT',36.16],
-  ['TO','Professora Dorinha','União',45.52,'Vicentinho Júnior','PSDB',43.94]
+  ['AC','Mailza Assis','PP',49.76,218760,'Alan Rick','Republicanos',32.27,141859],
+  ['AM','Omar Aziz','PSD',40.56,841846,'Professora Maria do Carmo','PL',24.57,507335],
+  ['DF','Celina Leão','PP',49.93,825530,'Leandro Grass','PT',34.47,569930],
+  ['ES','Lorenzo Pazolini','Republicanos',49.65,1048633,'Ricardo Ferraço','MDB',34.06,719397],
+  ['RN','Allyson','União',36.94,733809,'Cadu de Lula','PT',36.16,718300],
+  ['TO','Professora Dorinha','União',45.52,386260,'Vicentinho Júnior','PSDB',43.94,372848]
 ];
-// SEN: [UF, nome1, partido1, pct1, nome2, partido2, pct2]
+// SEN: [UF, nome1, partido1, pct1, nome2, partido2, pct2, votos1, votos2]
 var SEN = [
-  ['AC','Marcio Bittar','PL',52.15,'Mara Rocha','Republicanos',30.47],
-  ['AL','Arthur Lira','PP',47.83,'Marina JHC','PSDB',35.12],
-  ['AP','Rayssa Furlan','Podemos',41.67,'Lucas Barreto','PSD',37.94],
-  ['AM','Eduardo Braga','MDB',44.58,'Plinio Valério','PSDB',31.72],
-  ['BA','Rui Costa','PT',57.84,'Jaques Wagner','PT',51.23],
-  ['CE','Cid Gomes','PSB',46.91,'Luizianne','Rede',34.56],
-  ['DF','Michelle Bolsonaro','PL',54.73,'Bia Kicis','PL',46.89],
-  ['ES','Renato Casagrande','PSB',43.15,'Evair de Melo','Republicanos',37.82],
-  ['GO','Gustavo Gayer','PL',51.94,'Gracinha Caiado','União',40.87],
-  ['MA','Fufuca','PP',49.73,'Lahesio Bonfim','Novo',33.61],
-  ['MT','Mauro Mendes','União',53.82,'Zé Medeiros','PL',41.57],
-  ['MS','Reinaldo Azambuja','PL',56.94,'Capitão Contar','PL',42.18],
-  ['MG','Domingos Sávio','PL',47.83,'Marília Campos','PT',41.56],
-  ['PA','Helder','MDB',47.65,'Chicão','União',35.92],
-  ['PB','João Azevêdo','PSB',54.83,'Veneziano','MDB',37.64],
-  ['PR','Filipe Barros','PL',46.73,'Deltan Dallagnol','Novo',37.91],
-  ['PE','Humberto Costa','PT',51.87,'Marília Arraes','PDT',37.54],
-  ['PI','Marcelo Castro','MDB',54.73,'Júlio César (Julim do Lula)','PSD',41.82],
-  ['RJ','Carlos Portinho','PL',46.83,'Carlos Jordy','PL',40.17],
-  ['RN','Styvenson Valentim','Podemos',43.85,'Samanda de Lula','PT',37.93],
-  ['RS','Sanderson','PL',51.74,'Marcel van Hattem','Novo',40.63],
-  ['RO','Dr. Fernando Máximo','PL',52.87,'Bruno Scheid','PL',44.15],
-  ['RR','Nicoletti','PL',59.84,'Teresa Surita','MDB',32.41],
-  ['SC','Carol de Toni','PL',61.73,'Carlos Bolsonaro','PL',54.82],
-  ['SP','Guilherme Derrite','PP',44.73,'André do Prado','PL',38.16],
-  ['SE','Rogério Carvalho','PT',54.82,'Delegado Alessandro','MDB',37.93],
-  ['TO','Eduardo Gomes','PL',49.73,'Alexandre Guimarães','MDB',41.84]
+  ['AC','Marcio Bittar','PL',52.15,'Mara Rocha','Republicanos',30.47,221494,155494],
+  ['AL','Arthur Lira','PP',47.83,'Marina JHC','PSDB',35.12,948703,926860],
+  ['AP','Rayssa Furlan','Podemos',41.67,'Lucas Barreto','PSD',37.94,264799,213948],
+  ['AM','Eduardo Braga','MDB',44.58,'Plinio Valério','PSDB',31.72,1240471,948793],
+  ['BA','Rui Costa','PT',57.84,'Jaques Wagner','PT',51.23,4335196,3986690],
+  ['CE','Cid Gomes','PSB',46.91,'Luizianne','Rede',34.56,3033562,2822806],
+  ['DF','Michelle Bolsonaro','PL',54.73,'Bia Kicis','PL',46.89,938496,886616],
+  ['ES','Renato Casagrande','PSB',43.15,'Evair de Melo','Republicanos',37.82,995361,982978],
+  ['GO','Gustavo Gayer','PL',51.94,'Gracinha Caiado','União',40.87,1639247,1458522],
+  ['MA','Fufuca','PP',49.73,'Lahesio Bonfim','Novo',33.61,1530187,1471859],
+  ['MT','Mauro Mendes','União',53.82,'Zé Medeiros','PL',41.57,1187352,977777],
+  ['MS','Reinaldo Azambuja','PL',56.94,'Capitão Contar','PL',42.18,903554,856045],
+  ['MG','Domingos Sávio','PL',47.83,'Marília Campos','PT',41.56,4968829,3990864],
+  ['PA','Helder','MDB',47.65,'Chicão','União',35.92,2342070,2014409],
+  ['PB','João Azevêdo','PSB',54.83,'Veneziano','MDB',37.64,1391994,974550],
+  ['PR','Filipe Barros','PL',46.73,'Deltan Dallagnol','Novo',37.91,3148583,2904594],
+  ['PE','Humberto Costa','PT',51.87,'Marília Arraes','PDT',37.54,2531389,2325127],
+  ['PI','Marcelo Castro','MDB',54.73,'Júlio César (Julim do Lula)','PSD',41.82,1307833,989146],
+  ['RJ','Carlos Portinho','PL',46.83,'Carlos Jordy','PL',40.17,4264932,3912405],
+  ['RN','Styvenson Valentim','Podemos',43.85,'Samanda de Lula','PT',37.93,1055000,635924],
+  ['RS','Sanderson','PL',51.74,'Marcel van Hattem','Novo',40.63,3453316,3449053],
+  ['RO','Dr. Fernando Máximo','PL',52.87,'Bruno Scheid','PL',44.15,570799,474226],
+  ['RR','Nicoletti','PL',59.84,'Teresa Surita','MDB',32.41,138269,117270],
+  ['SC','Carol de Toni','PL',61.73,'Carlos Bolsonaro','PL',54.82,2694918,2041840],
+  ['SP','Guilherme Derrite','PP',44.73,'André do Prado','PL',38.16,13273880,12703089],
+  ['SE','Rogério Carvalho','PT',54.82,'Delegado Alessandro','MDB',37.93,511142,399775],
+  ['TO','Eduardo Gomes','PL',49.73,'Alexandre Guimarães','MDB',41.84,450191,316786]
 ];
 var CAM = [['PL',121],['PT/PCdoB/PV',88],['União/PP',87],['PSD',43],['Republicanos',41],['MDB',36],['Podemos',27],['PSB',15],['Psol/Rede',15],['PSDB/Cidadania',11],['Novo',10],['PRD/Solidariedade',7],['PDT',6],['Avante',5],['Missão',1]];
 
@@ -375,7 +417,17 @@ var PLINKS={
 'Rogério Carvalho':BASE+'se/senador/rogerio-carvalho-sen-se-2026-260002547285',
 'Delegado Alessandro':BASE+'se/senador/delegado-alessandro-sen-se-2026-260002533084',
 'Eduardo Gomes':BASE+'to/senador/eduardo-gomes-sen-to-2026-270002546333',
-'Alexandre Guimarães':BASE+'to/senador/alexandre-guimaraes-sen-to-2026-270002548344'
+'Alexandre Guimarães':BASE+'to/senador/alexandre-guimaraes-sen-to-2026-270002548344',
+'Escritor Augusto Cury':BASE+'br/presidente/escritor-augusto-cury-pres-br-2026-280002551547',
+'Renan Santos':BASE+'br/presidente/renan-santos-pres-br-2026-280002540694',
+'Ronaldo Caiado':BASE+'br/presidente/ronaldo-caiado-pres-br-2026-280002551932',
+'Zema':BASE+'br/presidente/zema-pres-br-2026-280002539826',
+'Clariana Barão':BASE+'br/presidente/clariana-barao-pres-br-2026-280002552484',
+'Veterinário Wilson Grassi':BASE+'br/presidente/veterinario-wilson-grassi-pres-br-2026-280002548139',
+'Samara':BASE+'br/presidente/samara-pres-br-2026-280002538811',
+'Hertz Dias':BASE+'br/presidente/hertz-dias-pres-br-2026-280002541457',
+'Edmilson Costa':BASE+'br/presidente/edmilson-costa-pres-br-2026-280002551975',
+'Rui Costa Pimenta':BASE+'br/presidente/rui-costa-pimenta-pres-br-2026-280002552487'
 };
 var ICON='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
 // 433 deputados com link direto pro TSE
@@ -392,7 +444,7 @@ var DEP_LINKS={
 'Allyson Elias':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002543310/2026/7',
 'Altair Moraes':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002537973/2026/6',
 'Altineu Cortes':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002532810/2026/6',
-'Al� Portela':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542081/2026/7',
+'Alê Portela':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542081/2026/7',
 'Amanda Teixeira Dias':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542080/2026/7',
 'Ana Carolina Oliveira':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002544330/2026/6',
 'Ana Carolina Serra':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002548910/2026/7',
@@ -404,11 +456,11 @@ var DEP_LINKS={
 'Analice Fernandes':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002540584/2026/7',
 'Anderson Lima':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542079/2026/7',
 'Anderson Moraes':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002533433/2026/7',
-'Andr� Ceciliano':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002543309/2026/7',
-'Andr� Correa':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002538043/2026/7',
-'Andr� Janones':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002539715/2026/6',
-'Andr� Kubitschek':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002550001/2026/8',
-'Andr�ia de Jesus':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535371/2026/7',
+'André Ceciliano':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002543309/2026/7',
+'André Correa':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002538043/2026/7',
+'André Janones':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002539715/2026/6',
+'André Kubitschek':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002550001/2026/8',
+'Andréia de Jesus':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535371/2026/7',
 'Anielle Franco':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002543080/2026/6',
 'Antonio Carlos Arantes':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542060/2026/7',
 'Arlindo Chinaglia':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536719/2026/6',
@@ -420,19 +472,19 @@ var DEP_LINKS={
 'Barros Munhoz':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002540580/2026/7',
 'Beatriz Cerqueira':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535347/2026/7',
 'Bebeto':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002541063/2026/6',
-'Bella Gon�alves':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535315/2026/6',
+'Bella Gonçalves':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535315/2026/6',
 'Betinho Pinto Coelho':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542754/2026/7',
-'Bet�o':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535327/2026/7',
+'Betão':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535327/2026/7',
 'Bruna Furlan':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002541870/2026/7',
 'Bruno Dauaire':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002541637/2026/7',
 'Bruno Engler':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542113/2026/7',
 'Bruno Farias':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002537202/2026/6',
 'Bruno Zambelli':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536419/2026/7',
 'Cabo Gregorio Silva':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002533517/2026/7',
-'Caio Fran�a':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002539294/2026/7',
+'Caio França':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002539294/2026/7',
 'Camila Godoi':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002533748/2026/7',
-'Capit�o Augusto':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002535954/2026/6',
-'Capit�o Mosart':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536344/2026/7',
+'Capitão Augusto':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002535954/2026/6',
+'Capitão Mosart':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536344/2026/7',
 'Caporezzo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542043/2026/6',
 'Carla Machado':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002538018/2026/7',
 'Carla Morando':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002540562/2026/7',
@@ -497,16 +549,16 @@ var DEP_LINKS={
 'Dr. Jean Freire':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535374/2026/7',
 'Dr. Luizinho':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002541060/2026/6',
 'Dr. Marcos Vinicius':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542044/2026/6',
-'Dr. Maur�cio':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002534569/2026/7',
+'Dr. Maurício':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002534569/2026/7',
 'Dr. Pedro Ricardo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002533711/2026/7',
 'Dra. Gabriela':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002533422/2026/7',
-'Dra. La�s Santiago':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002540054/2026/7',
+'Dra. Laís Santiago':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002540054/2026/7',
 'Dra. Sandra Tadeu':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002535965/2026/6',
 'Duarte Bechir':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002549949/2026/7',
-'Duarte J�nior':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002543714/2026/6',
+'Duarte Júnior':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002543714/2026/6',
 'Duda Hidalgo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536833/2026/7',
 'Duda Salabert':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002539728/2026/6',
-'D�bora Camilo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002539937/2026/7',
+'Débora Camilo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002539937/2026/7',
 'Ediane Maria':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002538904/2026/7',
 'Edinho Silva':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536743/2026/6',
 'Eduarda Campopiano':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536384/2026/7',
@@ -518,7 +570,7 @@ var DEP_LINKS={
 'Elismar Prado':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002549952/2026/7',
 'Ely Santos':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002541857/2026/7',
 'Emidinho Madeira':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542017/2026/6',
-'Em�dio':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536831/2026/7',
+'Emídio':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536831/2026/7',
 'Enes Candido':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002549954/2026/7',
 'Enio Tatto':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536268/2026/7',
 'Enrico Misasi':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002533666/2026/6',
@@ -528,8 +580,8 @@ var DEP_LINKS={
 'Fabiana Bolsonaro':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536380/2026/7',
 'Fabiano Horta':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002543065/2026/6',
 'Fabinho Ramalho':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542011/2026/6',
-'Fabio Faria de S�':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002545207/2026/7',
-'Fab�o':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535388/2026/7',
+'Fabio Faria de Sá':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002545207/2026/7',
+'Fabão':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535388/2026/7',
 'Felipe Becari':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002544326/2026/6',
 'Felipe Pampolha':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002541635/2026/7',
 'Felipe Sertanejo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536413/2026/7',
@@ -538,11 +590,11 @@ var DEP_LINKS={
 'Fernanda Neves':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002541803/2026/7',
 'Fernando Breno':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002532941/2026/7',
 'Flavio Serafini':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002536110/2026/7',
-'Fl�via Borja':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002548716/2026/7',
+'Flávia Borja':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002548716/2026/7',
 'Franco Sardelli':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536377/2026/7',
 'Fred Costa':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002533240/2026/6',
 'Freixo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002543092/2026/6',
-'F�bio Felix':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002533381/2026/6',
+'Fábio Felix':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002533381/2026/6',
 'Gabriel Magno':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002540525/2026/8',
 'General Pazuello':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002532819/2026/6',
 'Gil Pereira':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002549960/2026/7',
@@ -554,7 +606,7 @@ var DEP_LINKS={
 'Glauber Braga':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002536155/2026/6',
 'Gleide Andrade':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535282/2026/6',
 'Gleidson Azevedo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002537199/2026/6',
-'Grego da Funda��o':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542804/2026/7',
+'Grego da Fundação':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542804/2026/7',
 'Greyce Elias':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542019/2026/6',
 'Guilherme Cortez':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002539620/2026/6',
 'Guilherme Delaroli':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002533706/2026/7',
@@ -571,7 +623,7 @@ var DEP_LINKS={
 'Igor Soares':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002539713/2026/6',
 'Isaac Antunes':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536375/2026/7',
 'Itamar Borges':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002534232/2026/7',
-'Iza Louren�a':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002539490/2026/7',
+'Iza Lourença':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002539490/2026/7',
 'Izalci Lucas':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002550316/2026/6',
 'Jair Bittencourt':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002533424/2026/7',
 'Jandira Feghali':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002543096/2026/6',
@@ -584,14 +636,14 @@ var DEP_LINKS={
 'Jorge Felippe Neto':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002533686/2026/7',
 'Jorge Miranda':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002532823/2026/6',
 'Joyce Trindade':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002538000/2026/7',
-'Jo�o Cardoso':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002550000/2026/8',
-'Jo�o Cury':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002533624/2026/6',
-'Jo�o Magalh�es':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002549959/2026/7',
-'Jo�o Paulo Cunha':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536733/2026/6',
-'Jo�o Paulo Rillo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536840/2026/7',
-'Jo�o Paulo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536356/2026/7',
-'Jo�o Pires':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002538031/2026/7',
-'Jo�o do Social':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002544403/2026/7',
+'João Cardoso':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002550000/2026/8',
+'João Cury':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002533624/2026/6',
+'João Magalhães':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002549959/2026/7',
+'João Paulo Cunha':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536733/2026/6',
+'João Paulo Rillo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536840/2026/7',
+'João Paulo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536356/2026/7',
+'João Pires':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002538031/2026/7',
+'João do Social':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002544403/2026/7',
 'Juca Bahia':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002533229/2026/7',
 'Julia de Castro':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002532835/2026/6',
 'Juliana Cardoso':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536734/2026/6',
@@ -624,25 +676,25 @@ var DEP_LINKS={
 'Lucas Pavanato':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002535995/2026/6',
 'Luciana Boiteux':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002536108/2026/7',
 'Luciano Vieira':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002550510/2026/6',
-'Lud Falc�o':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002539910/2026/7',
+'Lud Falcão':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002539910/2026/7',
 'Luis Carlos Gomes':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002543363/2026/6',
-'Luis Tib�':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002543112/2026/6',
+'Luis Tibé':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002543112/2026/6',
 'Luiz Fernando Machado':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002535940/2026/6',
 'Luiz Fernando':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536270/2026/7',
 'Luiz Lima':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002534633/2026/6',
 'Luiz Paulo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002543650/2026/7',
-'Luiz Philippe de Orl�ans e Bragan�a':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002535958/2026/6',
+'Luiz Philippe de Orléans e Bragança':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002535958/2026/6',
 'Luiza Erundina':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002539934/2026/7',
 'Luizinho':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535362/2026/7',
 'Luna Zarattini':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536727/2026/6',
-'L�o Oliveira':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002534220/2026/7',
-'L�o Vieira Filho':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002550038/2026/7',
-'Maca� Evaristo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535329/2026/7',
+'Léo Oliveira':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002534220/2026/7',
+'Léo Vieira Filho':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002550038/2026/7',
+'Macaé Evaristo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535329/2026/7',
 'Manoela Peres':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002532804/2026/6',
 'Marcelo Dino':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002533710/2026/7',
 'Marcelo Heitor':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542066/2026/7',
 'Marcelo Queiroz':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002550489/2026/6',
-'Marcelo �lvaro Ant�nio':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542016/2026/6',
+'Marcelo Álvaro Antônio':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542016/2026/6',
 'Marcio Alvino':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002535980/2026/6',
 'Marcio Ribeiro':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002540185/2026/6',
 'Marcolino':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536263/2026/7',
@@ -667,16 +719,16 @@ var DEP_LINKS={
 'Mauro Tramonte':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002539884/2026/7',
 'Max Maciel':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002533394/2026/8',
 'Miguel Lombardi':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002535948/2026/6',
-'Miguel �ngelo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535286/2026/6',
+'Miguel Ângelo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535286/2026/6',
 'Monica das Pretas':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002538918/2026/7',
 'Motta':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002535968/2026/6',
 'Munir Neto':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002534113/2026/7',
-'M�cio':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002542499/2026/8',
-'M�rcio Canella':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002541682/2026/7',
-'M�rcio Gualberto':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002533420/2026/7',
-'M�rcio Rezende':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002540190/2026/6',
-'M�rio Henrique Caixa':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535378/2026/7',
-'Nat�lia Boulos':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002539624/2026/6',
+'Múcio':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002542499/2026/8',
+'Márcio Canella':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002541682/2026/7',
+'Márcio Gualberto':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002533420/2026/7',
+'Márcio Rezende':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002540190/2026/6',
+'Mário Henrique Caixa':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535378/2026/7',
+'Natália Boulos':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002539624/2026/6',
 'Nayara Rocha':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542782/2026/7',
 'Neilando Pimenta':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002539885/2026/7',
 'Nelsinho Ruas':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002533707/2026/7',
@@ -686,9 +738,9 @@ var DEP_LINKS={
 'Nikolas Ferreira':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542026/2026/6',
 'Nilto Tatto':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536764/2026/6',
 'Noraldino Junior':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002543664/2026/7',
-'N�sia Trindade':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002543091/2026/6',
+'Nísia Trindade':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002543091/2026/6',
 'Pablo Almeida':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542107/2026/7',
-'Padre Jo�o':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535303/2026/6',
+'Padre João':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535303/2026/6',
 'Pardini':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002540890/2026/7',
 'Pastor Daniel de Castro':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002538488/2026/8',
 'Pastor Henrique Vieira':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002536145/2026/6',
@@ -715,9 +767,9 @@ var DEP_LINKS={
 'Rafael Picciani':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002541658/2026/7',
 'Rafael Prudente':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002538935/2026/6',
 'Rafael Saraiva':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002533758/2026/7',
-'Rafael Sati�':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002532820/2026/6',
+'Rafael Satiê':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002532820/2026/6',
 'Rafael Silva Jr':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002540897/2026/7',
-'Rafael Sim�es':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542738/2026/6',
+'Rafael Simões':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542738/2026/6',
 'Raone Ferreira':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002543585/2026/7',
 'Raul Belem':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002549938/2026/7',
 'Regina Nunes':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002534251/2026/7',
@@ -732,13 +784,13 @@ var DEP_LINKS={
 'Renato Cozzolino':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002541086/2026/6',
 'Renato Miranda':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002533695/2026/7',
 'Ricardo Campos':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535376/2026/7',
-'Ricardo Fran�a':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002545142/2026/7',
+'Ricardo França':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002545142/2026/7',
 'Ricardo Madalena':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536389/2026/7',
 'Ricardo Vale':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002540512/2026/8',
 'Rick Azevedo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002536159/2026/6',
 'Roberta Lopes':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542096/2026/7',
 'Roberto Andrade':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002532951/2026/7',
-'Rob�rio Negreiros':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002541286/2026/8',
+'Robério Negreiros':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002541286/2026/8',
 'Rodrigo Ashiuchi':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536361/2026/7',
 'Rodrigo Cadeirante':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002548769/2026/7',
 'Rodrigo Gambale':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002544355/2026/6',
@@ -751,15 +803,15 @@ var DEP_LINKS={
 'Rogerio Lins':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002545156/2026/7',
 'Rogerio Morro da Cruz':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002537382/2026/8',
 'Rogerio Nogueira':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002540880/2026/7',
-'Rog�rio Correia':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535279/2026/6',
-'Rog�rio Franco':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536405/2026/7',
+'Rogério Correia':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535279/2026/6',
+'Rogério Franco':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536405/2026/7',
 'Roosevelt Vilela':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002550009/2026/8',
 'Rosana Valle':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002535972/2026/6',
 'Rosangela Reis':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542027/2026/6',
 'Rosenverg Reis':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002538819/2026/7',
 'Rueda':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002541091/2026/6',
-'R�mulo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536836/2026/7',
-'R�ney Nemer':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002538503/2026/8',
+'Rômulo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536836/2026/7',
+'Rôney Nemer':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002538503/2026/8',
 'Samuel Caires':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542048/2026/7',
 'Samuel Viana':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542695/2026/6',
 'Sargento Castro':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002533778/2026/7',
@@ -767,7 +819,7 @@ var DEP_LINKS={
 'Sargento Nantes':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002532342/2026/6',
 'Sargento Rodrigues':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542109/2026/7',
 'Saulo Pedroso':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002541149/2026/6',
-'Sebasti�o Santos':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002541873/2026/7',
+'Sebastião Santos':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002541873/2026/7',
 'Serginho':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002541802/2026/7',
 'Sidney Cruz':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002533664/2026/6',
 'Sofia Favero':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002538926/2026/7',
@@ -775,12 +827,12 @@ var DEP_LINKS={
 'Soldado Tobias':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002534075/2026/7',
 'Soraya Santos':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002532807/2026/6',
 'Subtenente Gonzaga':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542022/2026/6',
-'S�mia Bomfim':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002539604/2026/6',
-'S�stenes Cavalcante':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002532795/2026/6',
+'Sâmia Bomfim':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002539604/2026/6',
+'Sóstenes Cavalcante':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002532795/2026/6',
 'Tabata Amaral':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002539435/2026/6',
 'Talita Galhardo':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002550500/2026/6',
-'Tal�ria Petrone':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002536156/2026/6',
-'Telhadinha - Capit�o Telhada':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002533757/2026/7',
+'Talíria Petrone':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002536156/2026/6',
+'Telhadinha - Capitão Telhada':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002533757/2026/7',
 'Tenente Coimbra':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536395/2026/7',
 'Thainara Faria':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536814/2026/7',
 'Thammy Miranda':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002540911/2026/7',
@@ -798,10 +850,10 @@ var DEP_LINKS={
 'Ulysses Gomes':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002535348/2026/7',
 'Valdomiro Lopes':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002539298/2026/7',
 'Vantoil Martins':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002537737/2026/7',
-'Ver�nica Lima':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002543583/2026/7',
+'Verônica Lima':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002543583/2026/7',
 'Victor Jansen':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/CENTRO-OESTE/DF/20322002026/70002550004/2026/8',
 'Vinicius Diniz':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542021/2026/6',
-'Vin�cius Cozzolino':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002538014/2026/7',
+'Vinícius Cozzolino':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002538014/2026/7',
 'Vitorio Junior':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542764/2026/7',
 'Vittorio Medioli':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542058/2026/7',
 'Weliton Prado':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002545577/2026/6',
@@ -809,33 +861,47 @@ var DEP_LINKS={
 'Wladimir Garotinho':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002532805/2026/6',
 'Yuri Moura':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002536132/2026/7',
 'Zeidan':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002543329/2026/7',
-'Z� Guilherme':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542753/2026/7',
-'Z� Laviola':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002534510/2026/7',
-'Z� Vitor':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542031/2026/6',
-'�ndia Armelau':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002533418/2026/7',
+'Zé Guilherme':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542753/2026/7',
+'Zé Laviola':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002534510/2026/7',
+'Zé Vitor':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/MG/20322002026/130002542031/2026/6',
+'Índia Armelau':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/RJ/20322002026/190002533418/2026/7',
+'Alex Manente':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002550395/2026/6',
+'Eleuses Paiva':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002541143/2026/6',
+'Moises Selerges':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536738/2026/6',
+'Orlando Morando':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002533640/2026/6',
+'Paulo Teixeira':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536745/2026/6',
+'Reis':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536753/2026/6',
+'Rui Falcão':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002536763/2026/6',
+'Vitor Lippi':'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/SUDESTE/SP/20322002026/250002541145/2026/6'
 };
 var TSE_REGIONS={AC:'NORTE',AM:'NORTE',AP:'NORTE',PA:'NORTE',RO:'NORTE',RR:'NORTE',TO:'NORTE',AL:'NORDESTE',BA:'NORDESTE',CE:'NORDESTE',MA:'NORDESTE',PB:'NORDESTE',PE:'NORDESTE',PI:'NORDESTE',RN:'NORDESTE',SE:'NORDESTE',DF:'CENTRO-OESTE',GO:'CENTRO-OESTE',MS:'CENTRO-OESTE',MT:'CENTRO-OESTE',ES:'SUDESTE',MG:'SUDESTE',RJ:'SUDESTE',SP:'SUDESTE',PR:'SUL',RS:'SUL',SC:'SUL',BR:'BR'};
 var TSE_CARGO={presidente:1,governador:3,senador:5};
 var TSE_ELEICAO='20322002026';
 function tseLink(nome){
-  var url;
+  var candId,url;
   if(DEP_LINKS[nome]){
-    url=DEP_LINKS[nome];
+    var m=DEP_LINKS[nome].match(/\/(\d+)\/2026\//);
+    if(m)candId=m[1];
   } else if(PLINKS[nome]){
     var mp=PLINKS[nome];
     var path=mp.replace('https://meuspoliticos.com.br/eleicoes/2026/','');
-    var parts=path.split('/');
-    var uf=parts[0].toUpperCase();
-    var office=parts[1];
-    var candId=parts[2].split('-').pop();
-    var region=TSE_REGIONS[uf]||'BR';
-    var cargo=TSE_CARGO[office]||5;
-    url='https://divulgacandcontas.tse.jus.br/divulga/#/candidato/'+region+'/'+uf+'/'+TSE_ELEICAO+'/'+candId+'/2026/'+cargo;
-  } else {
-    url='https://www.google.com/search?q='+encodeURIComponent(nome+' eleições 2026 TSE candidato');
+    candId=path.split('/')[2].split('-').pop();
   }
+  if(candId){
+    url='politico.html?id='+candId;
+    return '<a class="tse" href="'+url+'" title="Ver perfil de '+nome+'" aria-label="Ver perfil de '+nome+'">'+ICON+'</a>';
+  }
+  url='https://www.google.com/search?q='+encodeURIComponent(nome+' eleições 2026 TSE candidato');
   return '<a class="tse" href="'+url+'" target="_blank" rel="noopener" title="Ver perfil de '+nome+'" aria-label="Ver perfil de '+nome+'">'+ICON+'</a>';
 }
+var PHOTO_BASE='https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/'+TSE_ELEICAO+'/';
+function photoSrc(nome){
+  var id,uf;
+  if(DEP_LINKS[nome]){var p=DEP_LINKS[nome].split('/');uf=p[7];id=p[9]}
+  else if(PLINKS[nome]){var path=PLINKS[nome].replace(BASE,'').split('/');uf=path[0].toUpperCase();id=path[2].split('-').pop()}
+  return id?PHOTO_BASE+id+'/'+uf:'';
+}
+function photoImg(nome,cls){var s=photoSrc(nome);return s?'<img class="cand-photo'+(cls?' '+cls:'')+'" src="'+s+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':''}
 function fmt(n){return n.toFixed(2).replace('.',',')}
 function tagCls(p){return p==='PL'?'pl':(p==='PT'?'pt':'')}
 function tag(p){return '<span class="tag '+tagCls(p)+'">'+p+'</span>'}
@@ -868,7 +934,7 @@ var pr=Object.keys(PRES).sort(function(a,b){return PRES[b][1]-PRES[a][1]}).sort(
 var PRES_NAMES={'F':'Flávio Bolsonaro','L':'Lula'};
 document.getElementById('presRows').innerHTML=pr.map(function(k){
   var p=PRES[k],f=p[0]==='F',nome=PRES_NAMES[p[0]];
-  return '<tr><td>'+k+'</td><td data-sort="'+nome+'"><span class="tag '+(f?'pl':'pt')+'">'+nome+'</span>'+tseLink(nome)+'</td><td class="n" data-sort="'+p[1]+'">'+fmt(p[1])+'</td></tr>';
+  return '<tr><td>'+k+'</td><td data-sort="'+nome+'"><span class="tag '+(f?'pl':'pt')+'">'+nome+'</span>'+tseLink(nome)+'</td><td class="n" data-sort="'+p[1]+'">'+fmt(p[1])+'</td><td class="n" data-sort="'+p[2]+'">'+fmtN(p[2])+'</td></tr>';
 }).join('');
 makeSortable(document.getElementById('presMapTable'));
 
@@ -906,14 +972,14 @@ function makeSortable(table){
 }
 document.getElementById('govRows').innerHTML=Object.keys(GOV).sort().map(function(k){
   var g=GOV[k];
-  return '<tr><td>'+k+'</td><td data-sort="'+g[0]+'">'+g[0]+tseLink(g[0])+' '+tag(g[1])+'</td><td class="n" data-sort="'+g[2]+'" style="width:80px">'+fmt(g[2])+'%</td></tr>';
+  return '<tr><td>'+k+'</td><td data-sort="'+g[0]+'">'+photoImg(g[0])+g[0]+tseLink(g[0])+' '+tag(g[1])+'</td><td class="n" data-sort="'+g[2]+'">'+fmt(g[2])+'%</td><td class="n" data-sort="'+g[3]+'">'+fmtN(g[3])+'</td></tr>';
 }).join('');
 makeSortable(document.getElementById('govTable'));
 
 document.getElementById('runRows').innerHTML=RUN.map(function(r){
   return '<tr><td>'+r[0]+'</td>'+
-    '<td data-sort="'+r[1]+'"><div class="split"><span>'+r[1]+tseLink(r[1])+' '+tag(r[2])+'</span><span class="pct-r">'+fmt(r[3])+'%</span></div></td>'+
-    '<td data-sort="'+r[4]+'"><div class="split"><span>'+r[4]+tseLink(r[4])+' '+tag(r[5])+'</span><span class="pct-r">'+fmt(r[6])+'%</span></div></td>'+
+    '<td data-sort="'+r[1]+'"><div class="split"><span>'+photoImg(r[1])+r[1]+tseLink(r[1])+' '+tag(r[2])+'</span><span class="pct-r">'+fmt(r[3])+'%</span></div><div class="small" style="text-align:right">'+fmtN(r[4])+' votos</div></td>'+
+    '<td data-sort="'+r[5]+'"><div class="split"><span>'+photoImg(r[5])+r[5]+tseLink(r[5])+' '+tag(r[6])+'</span><span class="pct-r">'+fmt(r[7])+'%</span></div><div class="small" style="text-align:right">'+fmtN(r[8])+' votos</div></td>'+
   '</tr>';
 }).join('');
 makeSortable(document.getElementById('runTable'));
@@ -922,9 +988,11 @@ var sc={}; SEN.forEach(function(r){[2,5].forEach(function(i){sc[r[i]]=(sc[r[i]]|
 var scr=Object.keys(sc).map(function(p){return [p,sc[p]]}).sort(function(a,b){return b[1]-a[1]});
 bars('senParty',scr,19,tagCls);
 document.getElementById('senRows').innerHTML=SEN.map(function(r){
+  var v1=r.length>7&&r[7]?'<div class="small" style="text-align:right">'+fmtN(r[7])+' votos</div>':'';
+  var v2=r.length>8&&r[8]?'<div class="small" style="text-align:right">'+fmtN(r[8])+' votos</div>':'';
   return '<tr><td>'+r[0]+'</td>'+
-    '<td data-sort="'+r[1]+'"><div class="split"><span>'+r[1]+tseLink(r[1])+' '+tag(r[2])+'</span><span class="pct-r">'+fmt(r[3])+'%</span></div></td>'+
-    '<td data-sort="'+r[4]+'"><div class="split"><span>'+r[4]+tseLink(r[4])+' '+tag(r[5])+'</span><span class="pct-r">'+fmt(r[6])+'%</span></div></td>'+
+    '<td data-sort="'+r[1]+'"><div class="split"><span>'+photoImg(r[1])+r[1]+tseLink(r[1])+' '+tag(r[2])+'</span><span class="pct-r">'+fmt(r[3])+'%</span></div>'+v1+'</td>'+
+    '<td data-sort="'+r[4]+'"><div class="split"><span>'+photoImg(r[4])+r[4]+tseLink(r[4])+' '+tag(r[5])+'</span><span class="pct-r">'+fmt(r[6])+'%</span></div>'+v2+'</td>'+
   '</tr>';
 }).join('');
 makeSortable(document.getElementById('senTable'));
@@ -950,7 +1018,7 @@ function stackHTML(rows){var t=rows.reduce(function(s,r){return s+r[1]},0);
   '<div class="legend stleg">'+rows.map(function(r){return '<span><i style="background:'+(PCOL[r[0]]||'var(--neutral)')+'"></i>'+r[0]+' <b>'+r[1]+'</b></span>'}).join('')+'</div></div>'}
 function barsHTML(rows){var mx=rows[0][1];return rows.map(function(r){var cl=tagCls(r[0]);return '<div class="hb '+cl+'"><span>'+r[0]+'</span><div class="t"><b style="width:'+(r[1]/mx*100)+'%"></b></div><span class="v">'+r[1]+'</span></div>'}).join('')}
 var _tblN=0;
-function tbl(l,from,to){var id='tbl'+(++_tblN);return '<div class="scroll"><table id="'+id+'" style="min-width:0"><thead><tr><th class="n">#</th><th class="sort">Eleito</th><th class="sort">Partido</th><th class="sort n">Votos</th></tr></thead><tbody>'+l.slice(from,to).map(function(r,i){return '<tr><td class="n">'+(from+i+1)+'</td><td data-sort="'+r[0].replace(/"/g,'&quot;')+'">'+r[0]+tseLink(r[0])+'</td><td data-sort="'+r[1]+'">'+tag(r[1])+'</td><td class="n" data-sort="'+r[2]+'">'+fmtN(r[2])+'</td></tr>'}).join('')+'</tbody></table></div>'}
+function tbl(l,from,to){var id='tbl'+(++_tblN);return '<div class="scroll"><table id="'+id+'" style="min-width:0"><thead><tr><th class="n">#</th><th class="sort">Eleito</th><th class="sort">Partido</th><th class="sort n">Votos</th></tr></thead><tbody>'+l.slice(from,to).map(function(r,i){return '<tr><td class="n">'+(from+i+1)+'</td><td data-sort="'+r[0].replace(/"/g,'&quot;')+'">'+photoImg(r[0])+r[0]+tseLink(r[0])+'</td><td data-sort="'+r[1]+'">'+tag(r[1])+'</td><td class="n" data-sort="'+r[2]+'">'+fmtN(r[2])+'</td></tr>'}).join('')+'</tbody></table></div>'}
 function listBlock(title,l,total,note){
   return '<div class="lb"><h4>'+title+' ('+total+')</h4>'+stackHTML(countParty(l))+'<div class="nt">'+(note||'')+'</div>'+
    '<p class="small" style="margin-block:12px 6px">10 mais votados</p>'+tbl(l,0,10)+
@@ -965,6 +1033,12 @@ blocks+='<div class="stbox"><h3>Minas Gerais</h3><div class="stcols">'+listBlock
 document.getElementById('stateBlocks').innerHTML=blocks;
 document.querySelectorAll('#stateBlocks table').forEach(makeSortable);
 makeSortable(document.getElementById('presCandTable'));
+// inject photos + links into static president table
+document.querySelectorAll('#presCandTable tbody td:first-child').forEach(function(td){
+  var nome=td.textContent.trim();
+  if(nome.charAt(0)==='▸'||nome.charAt(0)==='▾'||!nome)return;
+  td.innerHTML=photoImg(nome)+nome+tseLink(nome);
+});
 
 // espectro: classificação aproximada, como a imprensa costuma agrupar os partidos
 var SPEC={E:['Esquerda','#b2182b'],CE:['Centro-esquerda','#ef8a62'],C:['Centro','#d9b44a'],CD:['Centro-direita','#67a9cf'],D:['Direita','#2166ac'],SP:['Sem partido','#b9b3a6']};
@@ -1035,5 +1109,8 @@ if('IntersectionObserver' in window){var navIO=new IntersectionObserver(function
   var a=navLinks[e.target.id];if(a){a.classList.add('on');var n=a.parentNode;n.scrollLeft=a.offsetLeft-n.offsetLeft-n.clientWidth/2+a.offsetWidth/2}})},{rootMargin:'-30% 0px -60% 0px'});
   document.querySelectorAll('section[id]').forEach(function(s){navIO.observe(s)})}
 </script>
+
+<a href="#" class="back-top" aria-label="Voltar ao topo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></a>
+<script>!function(){var b=document.querySelector('.back-top');window.addEventListener('scroll',function(){b.classList.toggle('show',window.scrollY>600)},{passive:true})}()</script>
 
 </body></html>
