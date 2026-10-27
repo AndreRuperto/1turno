@@ -12,8 +12,7 @@
 <link rel="stylesheet" href="css/shared.css">
 
 <nav class="topnav" aria-label="Seções"><div><a href="#" class="nav-brand" aria-label="1turno"><img class="logo-light" src="assets/logo/turnos-horizontal-claro.svg" alt="turnos" height="22"><img class="logo-dark" src="assets/logo/turnos-horizontal-escuro.svg" alt="" height="22"></a><button class="nav-arr nav-arr-l" aria-label="Anterior" hidden>‹</button><div class="nav-links"><a href="#resumo">Resumo</a><a href="#presidente">Presidente</a><a href="#mapa">Mapa</a><a href="#governadores">Governadores</a><a href="#senado">Senado</a><a href="#camara">Câmara</a><a href="#congresso">Congresso 2027</a><a href="#estados">Estados</a><a href="#calendario">Calendário</a><a href="#ressalvas">Ressalvas</a><a href="#fontes">Fontes</a><a href="2turno.html" style="background:var(--accent);color:#fff;border-radius:99px">2º turno →</a></div><button class="nav-arr nav-arr-r" aria-label="Próximo" hidden>›</button><button class="help-btn" aria-label="Como usar" title="Como usar">?</button><button class="theme-toggle" aria-label="Alternar tema" title="Alternar tema">☀</button></div></nav>
-<script>!function(){var c=document.querySelector('.nav-links'),l=document.querySelector('.nav-arr-l'),r=document.querySelector('.nav-arr-r');function u(){var s=c.scrollLeft,m=c.scrollWidth-c.clientWidth;l.hidden=s<2;r.hidden=m-s<2}l.onclick=function(){c.scrollBy({left:-150,behavior:'smooth'})};r.onclick=function(){c.scrollBy({left:150,behavior:'smooth'})};c.addEventListener('scroll',u,{passive:true});new ResizeObserver(u).observe(c);u()}()</script>
-<script>!function(){var btn=document.querySelector('.theme-toggle'),root=document.documentElement;function isDark(){var t=root.getAttribute('data-theme');if(t)return t==='dark';return matchMedia('(prefers-color-scheme:dark)').matches}function update(){btn.textContent=isDark()?'☀':'☾';btn.setAttribute('aria-label',isDark()?'Mudar para tema claro':'Mudar para tema escuro')}var saved=localStorage.getItem('theme');if(saved)root.setAttribute('data-theme',saved);update();btn.onclick=function(){var next=isDark()?'light':'dark';root.setAttribute('data-theme',next);localStorage.setItem('theme',next);update()}}()</script>
+<script src="js/shared.js"></script>
 
 <div class="ob-overlay" id="onboarding" hidden><div class="ob-modal">
 <button class="ob-close" id="obX" type="button" aria-label="Fechar">&times;</button>
@@ -902,7 +901,6 @@ function photoSrc(nome){
   return id?PHOTO_BASE+id+'/'+uf:'';
 }
 function photoImg(nome,cls){var s=photoSrc(nome);return s?'<img class="cand-photo'+(cls?' '+cls:'')+'" src="'+s+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':''}
-function fmt(n){return n.toFixed(2).replace('.',',')}
 function tagCls(p){return p==='PL'?'pl':(p==='PT'?'pt':'')}
 function tag(p){return '<span class="tag '+tagCls(p)+'">'+p+'</span>'}
 var NS='http://www.w3.org/2000/svg', W=60, H=52, G=6;
@@ -947,29 +945,6 @@ var gp={}; Object.keys(GOV).forEach(function(k){gp[GOV[k][1]]=(gp[GOV[k][1]]||0)
 var gpr=Object.keys(gp).map(function(p){return [p,gp[p]]}).sort(function(a,b){return b[1]-a[1]});
 bars('govParty',gpr,5,tagCls);
 
-function makeSortable(table){
-  var tbody=table.querySelector('tbody');
-  if(!tbody)return;
-  table.querySelectorAll('thead th.sort').forEach(function(th){
-    th.addEventListener('click',function(){
-      var asc=th.getAttribute('aria-sort')!=='ascending';
-      table.querySelectorAll('thead th').forEach(function(t){t.removeAttribute('aria-sort')});
-      th.setAttribute('aria-sort',asc?'ascending':'descending');
-      var ci=Array.from(th.parentNode.children).indexOf(th);
-      var isNum=th.classList.contains('n');
-      var rows=Array.from(tbody.querySelectorAll('tr'));
-      rows.sort(function(a,b){
-        var ac=a.cells[ci],bc=b.cells[ci];
-        var av=ac?(ac.dataset.sort!==undefined?ac.dataset.sort:ac.textContent.trim()):'';
-        var bv=bc?(bc.dataset.sort!==undefined?bc.dataset.sort:bc.textContent.trim()):'';
-        if(isNum){av=parseFloat(String(av).replace(',','.'))||0;bv=parseFloat(String(bv).replace(',','.'))||0;}
-        var r=av>bv?1:av<bv?-1:0;
-        return asc?r:-r;
-      });
-      rows.forEach(function(r){tbody.appendChild(r)});
-    });
-  });
-}
 document.getElementById('govRows').innerHTML=Object.keys(GOV).sort().map(function(k){
   var g=GOV[k];
   return '<tr><td>'+k+'</td><td data-sort="'+g[0]+'">'+photoImg(g[0])+g[0]+tseLink(g[0])+' '+tag(g[1])+'</td><td class="n" data-sort="'+g[2]+'">'+fmt(g[2])+'%</td><td class="n" data-sort="'+g[3]+'">'+fmtN(g[3])+'</td></tr>';
@@ -1010,7 +985,6 @@ D.SPEL="Eduarda Campopiano|PL|1956238;Eduardo Suplicy|PT|654627;Sofia Favero|PSO
 D.SPE=[["PL",27],["PT (federação)",16],["PSD",9],["União/PP (federação)",9],["PSOL/Rede (federação)",9],["Podemos",6],["Republicanos",6],["MDB",5],["PSB",3],["Novo",1],["PRD (federação)",1],["PSDB/Cidadania (federação)",1],["Missão",1]];
 
 function parse(s){return s.split(';').map(function(x){var a=x.split('|');return [a[0],a[1],+a[2]]})}
-function fmtN(n){return n.toLocaleString('pt-BR')}
 function countParty(l){var c={};l.forEach(function(r){c[r[1]]=(c[r[1]]||0)+1});return Object.keys(c).map(function(k){return [k,c[k]]}).sort(function(a,b){return b[1]-a[1]})}
 var PCOL={PL:'var(--flavio)',PT:'var(--lula)',PSOL:'#7b2d8e',PSB:'#e8743b',PDT:'#d6336c',MDB:'#2e8b57',PSDB:'#2b9fd8',PSD:'#8a6d3b',Podemos:'#00a99d','União':'#6c7a89',PP:'#8795a1',Republicanos:'#3b6fb6',Novo:'#f0a500','Missão':'#9b59b6',PCdoB:'#e05d44',PV:'#5aa02c',Cidadania:'#5dade2',Solidariedade:'#a0522d',PRD:'#b97a57',Agir:'#c9a227',DC:'#7f8c8d'};
 function stackHTML(rows){var t=rows.reduce(function(s,r){return s+r[1]},0);
@@ -1102,12 +1076,6 @@ function drawCongress(mode){
 }
 document.querySelectorAll('.seg button').forEach(function(b){b.addEventListener('click',function(){drawCongress(b.dataset.mode)})});
 drawCongress('partido');
-// destaca a aba da seção visível
-var navLinks={};document.querySelectorAll('.nav-links a').forEach(function(a){navLinks[a.getAttribute('href').slice(1)]=a});
-if('IntersectionObserver' in window){var navIO=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;
-  Object.keys(navLinks).forEach(function(k){navLinks[k].classList.remove('on')});
-  var a=navLinks[e.target.id];if(a){a.classList.add('on');var n=a.parentNode;n.scrollLeft=a.offsetLeft-n.offsetLeft-n.clientWidth/2+a.offsetWidth/2}})},{rootMargin:'-30% 0px -60% 0px'});
-  document.querySelectorAll('section[id]').forEach(function(s){navIO.observe(s)})}
 </script>
 
 <a href="#" class="back-top" aria-label="Voltar ao topo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></a>
