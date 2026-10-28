@@ -1,0 +1,1065 @@
+<!doctype html><html lang="pt-BR"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>Análise entre turnos — Eleições 2026</title>
+<link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/favicon-180.png">
+</head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<link rel="stylesheet" href="css/shared.css">
+
+<nav class="topnav" aria-label="Seções"><div><a href="#" class="nav-brand" aria-label="turnos"><img class="logo-light" src="assets/logo/turnos-horizontal-claro.svg" alt="turnos" height="22"><img class="logo-dark" src="assets/logo/turnos-horizontal-escuro.svg" alt="" height="22"></a><button class="nav-arr nav-arr-l" aria-label="Anterior" hidden>‹</button><div class="nav-links"><a href="#resumo">Resumo</a><a href="#migracao">Migração</a><a href="#pesquisas">Pesquisas</a><a href="#transferencia">Transferência</a><a href="#crescimento">Crescimento</a><a href="#abstencao">Abstenção</a><a href="#gov-viradas">Gov: Viradas</a><a href="#gov-crescimento">Gov: Crescimento</a><a href="#participacao">Participação</a><a href="#brancos-nulos">Brancos/Nulos</a><a href="#correlacao">Correlação</a><a href="mapa.html" style="background:var(--accent);color:#fff;border-radius:99px">🗺 Mapa</a><a href="index.html" style="background:var(--accent);color:#fff;border-radius:99px">1º turno</a><a href="2turno.html" style="background:var(--accent);color:#fff;border-radius:99px">2º turno</a></div><button class="nav-arr nav-arr-r" aria-label="Próximo" hidden>›</button><button class="theme-toggle" aria-label="Alternar tema" title="Alternar tema">☀</button></div></nav>
+<script src="js/shared.js"></script>
+
+<div class="wrap">
+
+<header>
+  <div class="kicker">Análise · Dados dos Boletins de Urna</div>
+  <h1>Do 1º ao 2º turno: a radiografia completa da virada nas urnas</h1>
+  <p class="sub">Comparação detalhada entre os dois turnos, baseada nos Boletins de Urna (BUs) — os documentos que cada urna eletrônica emite ao final da votação. Diferente da <a href="2turno.html" style="color:var(--accent)">página do 2º turno</a> (que traz o resultado e a narrativa), esta página mergulha nos números brutos para entender como a virada aconteceu.</p>
+  <a href="2turno.html" style="display:inline-block;margin-top:14px;padding:10px 20px;background:var(--accent);color:#fff;border-radius:8px;font-weight:600;text-decoration:none;font-size:14px">← Resultados do 2º turno</a>
+</header>
+
+<section id="resumo">
+  <h2>Resumo</h2>
+  <div class="grid" id="stats-grid">
+    <div class="card"><div class="num" id="st-comp">—</div><div class="lbl">Eleitores que votaram no 2º turno</div><div class="small" id="st-comp-d"></div></div>
+    <div class="card"><div class="num l" id="st-dl">—</div><div class="lbl">Votos que Lula ganhou entre turnos</div></div>
+    <div class="card"><div class="num f" id="st-db">—</div><div class="lbl">Votos que Flávio ganhou entre turnos</div></div>
+    <div class="card"><div class="num" id="st-elim" style="color:var(--accent)">—</div><div class="lbl">Votos de outros candidatos no 1º turno</div></div>
+  </div>
+</section>
+
+<section id="migracao">
+  <details open><summary><h2>Migração de votos entre turnos <span class="help-tip" aria-label="Ajuda" onclick="this.classList.toggle('active');event.preventDefault();event.stopPropagation()">?<span class="help-text">O voto é secreto, então não sabemos quem mudou de candidato. Mas comparando os totais do 1º e do 2º turno em cada município, conseguimos calcular quanto cada candidato cresceu e estimar de onde vieram esses votos.</span></span></h2></summary>
+  <p>Entre o 1º e o 2º turno, milhões de votos foram redistribuídos. Eles vieram de quatro fontes: eleitores que votaram em outros candidatos no 1º turno e precisaram escolher entre Lula e Flávio; pessoas que tinham votado em branco ou nulo e desta vez escolheram um candidato; e novos eleitores que não tinham ido votar no 1º turno mas compareceram no 2º. O balanço fecha exatamente: o total de votos que entraram é igual ao total que Lula e Flávio ganharam.</p>
+
+  <h3>De onde vieram os votos</h3>
+  <div class="grid" id="mig-fontes"></div>
+  <div id="mig-fontes-bars"></div>
+
+  <h3 style="margin-top:28px">Para onde foram</h3>
+  <div class="duel" id="mig-duel"></div>
+  <div id="mig-dest-bar"></div>
+
+  <h3 style="margin-top:28px">Votos dos outros candidatos no 1T</h3>
+  <div id="mig-bars"></div>
+
+  <div class="note"><p><strong>Como funciona esta conta?</strong> O voto é secreto, então não sabemos quem votou em quem. Mas sabemos o total de votos em cada município. Comparando os números do 1º turno com os do 2º turno, município a município, conseguimos ver quanto cada candidato cresceu e de onde esses votos podem ter vindo. A conta fecha: a soma de todas as fontes (outros candidatos + brancos + nulos + novos eleitores) é exatamente igual ao total de votos que Lula e Flávio ganharam.</p></div>
+
+  <h3>Redistribuição por UF</h3>
+  <div class="scroll"><table id="migTable"><thead><tr><th class="sort">UF</th><th class="sort n">Outros cand. 1º turno</th><th class="sort n">Dif. brancos</th><th class="sort n">Dif. nulos</th><th class="sort n">Novos eleitores</th><th class="sort n" style="color:var(--lula)">Ganho Lula</th><th class="sort n" style="color:var(--flavio)">Ganho Flávio</th></tr></thead><tbody id="migRows"></tbody></table></div>
+</details></section>
+
+<section id="pesquisas">
+  <details open><summary><h2>Pesquisas vs Resultado <span class="help-tip" aria-label="Ajuda" onclick="this.classList.toggle('active');event.preventDefault();event.stopPropagation()">?<span class="help-text">Pesquisas captam intenção de voto declarada dias antes da eleição. A diferença para o resultado pode vir de: voto oculto, mudança de última hora, abstenção diferencial, ou erro amostral.</span></span></h2></summary>
+  <p>Todos os institutos de pesquisa erraram o vencedor do 2&ordm; turno. As últimas pesquisas publicadas na véspera da eleição apontavam Flávio Bolsonaro à frente — Lula venceu com 51,79%.</p>
+  <div class="grid" id="poll-summary" style="grid-template-columns:repeat(3,1fr);margin:16px 0"></div>
+  <h3 style="margin-top:20px">2&ordm; turno &mdash; Todas as pesquisas vs resultado</h3>
+  <div id="poll-dotplot" style="margin:16px 0"></div>
+  <h3 style="margin-top:24px">2&ordm; turno &mdash; Última pesquisa de cada instituto</h3>
+  <div class="scroll" style="margin-top:12px">
+    <table id="pollTable2t">
+      <thead><tr><th class="sort">Instituto</th><th class="sort">Data</th><th class="sort n">Previsão Lula</th><th class="sort n">Previsão Flávio</th><th class="sort n" style="color:var(--lula)">Resultado Lula</th><th class="sort n" style="color:var(--flavio)">Resultado Flávio</th><th class="sort n">Erro (pp)</th><th class="sort n">Margem</th><th>Acertou?</th></tr></thead>
+      <tbody id="pollRows2t"></tbody>
+    </table>
+  </div>
+  <details style="margin-top:16px"><summary style="cursor:pointer;color:var(--accent);font-weight:600;font-size:13px;list-style:none">Ver 1&ordm; turno</summary>
+    <h3 style="margin-top:12px">1&ordm; turno &mdash; Todas as pesquisas vs resultado</h3>
+    <div id="poll-dotplot-1t" style="margin:16px 0"></div>
+    <h3 style="margin-top:20px">1&ordm; turno &mdash; Última pesquisa de cada instituto</h3>
+    <div class="scroll" style="margin-top:8px">
+      <table id="pollTable1t">
+        <thead><tr><th class="sort">Instituto</th><th class="sort">Data</th><th class="sort n">Previsão Lula</th><th class="sort n">Previsão Flávio</th><th class="sort n" style="color:var(--lula)">Resultado Lula</th><th class="sort n" style="color:var(--flavio)">Resultado Flávio</th><th class="sort n">Erro (pp)</th><th class="sort n">Margem</th><th>Acertou?</th></tr></thead>
+        <tbody id="pollRows1t"></tbody>
+      </table>
+    </div>
+  </details>
+  <div class="note" style="margin-top:16px"><p>Para a narrativa completa da noite da eleição e as controvérsias da apuração, veja a <a href="2turno.html#controversia" style="color:var(--accent);font-weight:600">página do 2&ordm; turno &rarr;</a></p></div>
+  </details>
+</section>
+
+<section id="transferencia">
+  <details open><summary><h2>Transferência de votos (estimativa) <span class="help-tip" aria-label="Ajuda" onclick="this.classList.toggle('active');event.preventDefault();event.stopPropagation()">?<span class="help-text">Regressão ecológica é uma técnica estatística que estima, a partir dos totais de cada município, qual fração dos eleitores de cada candidato migrou para Lula ou Flávio. Não é 100% precisa, mas dá uma boa aproximação.</span></span></h2></summary>
+  <p>Para onde foram os votos dos candidatos eliminados no 1º turno? Usando regressão ecológica em 5.688 municípios, estimamos a fração que migrou para cada finalista.</p>
+  <div class="duel" id="transf-summary"></div>
+  <div id="transf-bars" style="margin-top:16px"></div>
+  <div class="scroll" style="margin-top:20px">
+    <table id="transfTable">
+      <thead><tr>
+        <th class="sort">Candidato</th>
+        <th class="sort n">Votos 1T</th>
+        <th class="sort n" style="color:var(--lula)">→ Lula</th>
+        <th class="sort n" style="color:var(--flavio)">→ Bolsonaro</th>
+        <th>IC 95%</th>
+        <th style="min-width:180px">Distribuição</th>
+      </tr></thead>
+      <tbody id="transfRows"></tbody>
+    </table>
+  </div>
+  <div class="note" style="margin-top:16px">
+    <p><strong>Metodologia:</strong> Regressão ecológica com restrições, usando dados de 5.688 municípios. R² = 0,997.</p>
+    <details style="margin-top:6px"><summary style="cursor:pointer;color:var(--accent);font-weight:600;font-size:13px;list-style:none">Ver mais sobre a metodologia</summary>
+    <div style="margin-top:10px;font-size:13px;line-height:1.7">
+      <p><strong>O problema:</strong> N&atilde;o &eacute; poss&iacute;vel saber diretamente para quem cada eleitor votou no 2&ordm; turno. O que temos s&atilde;o os totais por munic&iacute;pio em cada turno. A infer&ecirc;ncia ecol&oacute;gica estima os fluxos a partir desses agregados.</p>
+      <p><strong>Modelo A2 &mdash; OLS com restri&ccedil;&otilde;es e controles regionais:</strong> Para cada munic&iacute;pio, o crescimento de votos do Lula entre turnos &eacute; modelado como uma combina&ccedil;&atilde;o linear dos votos de cada candidato eliminado no 1&ordm; turno, mais a varia&ccedil;&atilde;o de brancos, nulos e comparecimento. Os coeficientes (&beta;&#7522;) representam a fra&ccedil;&atilde;o estimada dos votos de cada candidato que migrou para o Lula. Todos os coeficientes s&atilde;o restritos ao intervalo [0, 1]. Para controlar o confounding geogr&aacute;fico (ex: um candidato forte no Nordeste poderia inflar artificialmente sua transfer&ecirc;ncia para o Lula), o modelo inclui vari&aacute;veis dummy regionais (Norte, Nordeste, Centro-Oeste e Sul, com Sudeste como base). Assim, a transfer&ecirc;ncia &eacute; estimada <em>dentro</em> de cada regi&atilde;o, eliminando o vi&eacute;s entre regi&otilde;es. O modelo &eacute; resolvido via minimiza&ccedil;&atilde;o de m&iacute;nimos quadrados (scipy L-BFGS-B).</p>
+      <p><strong>Modelo A3 &mdash; Bootstrap para intervalos de confian&ccedil;a:</strong> O modelo A2 (com controles regionais) &eacute; executado 200 vezes, cada vez com uma reamostragem aleat&oacute;ria de 80% dos munic&iacute;pios (com reposi&ccedil;&atilde;o). A varia&ccedil;&atilde;o dos coeficientes entre as reamostras produz uma distribui&ccedil;&atilde;o que permite calcular intervalos de confian&ccedil;a de 95%.</p>
+      <p><strong>An&aacute;lise regional:</strong> Al&eacute;m do modelo nacional, o A2 &eacute; executado separadamente para cada regi&atilde;o (Norte, Nordeste, Centro-Oeste, Sudeste, Sul). Ao passar o mouse sobre cada candidato, uma tabela mostra como o coeficiente varia por regi&atilde;o. Quando h&aacute; grande varia&ccedil;&atilde;o regional, &eacute; sinal de que a estimativa nacional pode ser influenciada pela distribui&ccedil;&atilde;o geogr&aacute;fica do candidato.</p>
+      <p><strong>Limita&ccedil;&otilde;es:</strong></p>
+      <ul style="margin:4px 0 8px 20px">
+        <li><strong>Fal&aacute;cia ecol&oacute;gica:</strong> O modelo estima padr&otilde;es agregados, n&atilde;o comportamento individual. A transfer&ecirc;ncia real pode variar de munic&iacute;pio para munic&iacute;pio.</li>
+        <li><strong>Candidatos pequenos:</strong> Candidatos com menos de 50 mil votos t&ecirc;m estimativas com alta incerteza (intervalos de confian&ccedil;a muito amplos).</li>
+        <li><strong>Colinearidade:</strong> Candidatos de esquerda menores (UP, PSTU, PCB, PCO) tendem a ter distribui&ccedil;&atilde;o geogr&aacute;fica semelhante, dificultando a separa&ccedil;&atilde;o individual.</li>
+        <li><strong>Premissa de linearidade:</strong> O modelo assume que a fra&ccedil;&atilde;o de transfer&ecirc;ncia &eacute; constante em todos os munic&iacute;pios. Na realidade, pode haver varia&ccedil;&atilde;o regional.</li>
+      </ul>
+      <p><strong>Qualidade do ajuste:</strong> R&sup2; = 0,9973 &mdash; o modelo explica 99,73% da varia&ccedil;&atilde;o observada no crescimento de votos do Lula entre turnos.</p>
+      <p style="margin-top:10px;color:var(--muted);font-size:12px"><strong>Refer&ecirc;ncias:</strong> <a href="https://en.wikipedia.org/wiki/Ecological_inference" target="_blank">Ecological Inference &mdash; Wikipedia</a> &middot; <a href="https://gking.harvard.edu/eicamera/kinroot.html" target="_blank">Gary King &mdash; A Solution to the Ecological Inference Problem</a></p>
+    </div>
+    </details>
+  </div>
+  </details>
+</section>
+
+<section id="crescimento">
+  <details open><summary><h2>Crescimento entre turnos</h2></summary>
+  <p>Quantos votos cada candidato ganhou (ou perdeu) entre o 1º e o 2º turno, estado por estado. Quem cresceu mais em cada UF?</p>
+  <div class="duel" id="cresc-duel"></div>
+  <h3>Por UF</h3>
+  <div class="scroll"><table id="crescTable2"><thead><tr><th class="sort">UF</th><th class="sort n" style="color:var(--lula)">Lula 1º turno</th><th class="sort n" style="color:var(--lula)">Lula 2º turno</th><th class="sort n" style="color:var(--lula)">Ganho Lula</th><th class="sort n" style="color:var(--flavio)">Flávio 1º turno</th><th class="sort n" style="color:var(--flavio)">Flávio 2º turno</th><th class="sort n" style="color:var(--flavio)">Ganho Flávio</th><th class="sort">Mais cresceu</th></tr></thead><tbody id="crescRows2"></tbody></table></div>
+  <h3>Municípios onde a disputa mais mudou</h3>
+  <p class="small">Municípios onde a diferença entre os candidatos mais mudou entre turnos. Valor positivo = Flávio melhorou, negativo = Lula melhorou.</p>
+  <div class="scroll"><table id="swingTable"><thead><tr><th class="sort">Município</th><th class="sort">UF</th><th class="sort n">Margem 1º turno</th><th class="sort n">Margem 2º turno</th><th class="sort n">Mudança</th><th class="sort n">Eleitores 1º turno</th><th class="sort n">Eleitores 2º turno</th></tr></thead><tbody id="swingRows"></tbody></table></div>
+</details></section>
+
+<section id="abstencao">
+  <details open><summary><h2>Abstenção entre turnos <span class="help-tip" aria-label="Ajuda" onclick="this.classList.toggle('active');event.preventDefault();event.stopPropagation()">?<span class="help-text">Abstenção é quando o eleitor podia votar mas não compareceu. No Brasil o voto é obrigatório, mas quem falta paga uma multa pequena (R$ 3,51). Normalmente a abstenção sobe no 2º turno, mas em 2026 aconteceu o contrário.</span></span></h2></summary>
+  <p>Quantas pessoas deixaram de votar em cada turno? A abstenção é o percentual de eleitores que podiam votar mas não compareceram.</p>
+  <div class="grid" id="abs-grid"></div>
+  <h3>Por UF</h3>
+  <div class="scroll"><table id="absTable"><thead><tr><th class="sort">UF</th><th class="sort n">Eleitores aptos</th><th class="sort n">Votaram no 1º turno</th><th class="sort n">% 1º turno</th><th class="sort n">Votaram no 2º turno</th><th class="sort n">% 2º turno</th><th class="sort n">Diferença</th><th class="sort n">Variação (pontos)</th><th class="sort">Quem liderava no 1º turno</th></tr></thead><tbody id="absRows"></tbody></table></div>
+</details></section>
+
+<section id="gov-viradas">
+  <details open><summary><h2>Governadores: viradas entre turnos</h2></summary>
+  <p>Dos 6 estados que foram ao 2º turno de governador, quantos tiveram virada?</p>
+  <div class="grid" id="gov-vir-grid"></div>
+  <div class="scroll"><table id="govVirTable"><thead><tr><th class="sort">UF</th><th class="sort">Líder no 1º turno</th><th class="sort n">%</th><th class="sort">Vencedor no 2º turno</th><th class="sort n">%</th><th>Resultado</th></tr></thead><tbody id="govVirRows"></tbody></table></div>
+</details></section>
+
+<section id="gov-crescimento">
+  <details open><summary><h2>Governadores: crescimento entre turnos</h2></summary>
+  <p>Quantos votos cada finalista de governador ganhou entre o 1º e o 2º turno nos 6 estados com segundo turno.</p>
+  <div class="scroll"><table id="govCrescTable"><thead><tr><th class="sort">UF</th><th class="sort">Candidato</th><th class="sort n">Votos 1º turno</th><th class="sort n">Votos 2º turno</th><th class="sort n">Diferença</th><th class="sort n">Crescimento %</th></tr></thead><tbody id="govCrescRows"></tbody></table></div>
+</details></section>
+
+<section id="participacao">
+  <details open><summary><h2>Participação: quem foi votar?</h2></summary>
+  <p>Quantos eleitores compareceram em cada turno, estado por estado. O 2º turno costuma ter menos eleitores, mas em 2026 aconteceu o contrário.</p>
+  <div class="grid" id="part-grid"></div>
+  <div class="scroll"><table id="partTable"><thead><tr><th class="sort">UF</th><th class="sort n">Eleitores aptos</th><th class="sort n">Votaram no 1º turno</th><th class="sort n">Votaram no 2º turno</th><th class="sort n">Diferença</th><th class="sort n">Variação %</th></tr></thead><tbody id="partRows"></tbody></table></div>
+</details></section>
+
+<section id="brancos-nulos">
+  <details open><summary><h2>Brancos e nulos: quem protestou com o voto? <span class="help-tip" aria-label="Ajuda" onclick="this.classList.toggle('active');event.preventDefault();event.stopPropagation()">?<span class="help-text">Voto em branco é quando o eleitor aperta 'Branco' na urna, sem escolher candidato. Voto nulo é quando digita um número que não corresponde a nenhum candidato. Nenhum dos dois conta para decidir o vencedor.</span></span></h2></summary>
+  <p>Votar em branco ou anular o voto são formas de protesto ou indecisão. Este gráfico mostra quantos eleitores fizeram isso em cada turno. No 2º turno, com apenas dois candidatos, esses números costumam cair.</p>
+  <div class="grid" id="bn-grid"></div>
+  <div class="scroll"><table id="bnTable"><thead><tr><th class="sort">UF</th><th class="sort n">Brancos 1º turno</th><th class="sort n">Brancos 2º turno</th><th class="sort n">Diferença</th><th class="sort n">Nulos 1º turno</th><th class="sort n">Nulos 2º turno</th><th class="sort n">Diferença</th><th class="sort n">Total</th></tr></thead><tbody id="bnRows"></tbody></table></div>
+</details></section>
+
+<section id="correlacao">
+  <details open><summary><h2>Onde cada partido é forte, quem ganhou para presidente? <span class="help-tip" aria-label="Ajuda" onclick="this.classList.toggle('active');event.preventDefault();event.stopPropagation()">?<span class="help-text">Esta tabela mostra coincidências geográficas, não comportamento individual. Um eleitor pode votar no PL para deputado e em Lula para presidente. Os dados mostram que, nas regiões onde certo partido é forte, um candidato presidencial tende a ir melhor — mas isso não prova que os mesmos eleitores votaram nos dois.</span></span></h2></summary>
+  <p>Para cada partido, mostra os 5 estados onde ele mais recebeu votos para deputado federal no 1º turno. Depois, mostra como esses mesmos estados votaram para presidente no 2º turno. Isso revela padrões regionais, mas <strong>não significa que os eleitores do partido votaram necessariamente no mesmo candidato para presidente</strong> — o voto é secreto.</p>
+  <div class="scroll"><table id="corrTable"><thead><tr><th class="sort" style="vertical-align:middle">Partido</th><th class="sort n" style="vertical-align:middle">Nº</th><th class="sort n" style="vertical-align:middle">Votos para deputado (1º turno)</th><th style="vertical-align:middle">Estados mais fortes</th><th class="sort n" style="vertical-align:middle;color:var(--lula)">Lula nesses estados (2º turno)</th><th class="sort n" style="vertical-align:middle;color:var(--flavio)">Flávio nesses estados (2º turno)</th></tr></thead><tbody id="corrRows"></tbody></table></div>
+  <div class="note"><p><strong>Atenção:</strong> Esta tabela mostra coincidências geográficas, não causa e efeito. Um eleitor pode votar no PL para deputado e em Lula para presidente, ou vice-versa. Os dados dizem apenas que, nos estados onde o PL elegeu mais deputados, Flávio também foi mais votado — o que faz sentido, já que são regiões com perfil eleitoral semelhante.</p></div>
+</details></section>
+
+<section id="ressalvas">
+  <details open><summary><h2>Ressalvas</h2></summary>
+  <div class="note">
+    <p><strong>Dados processados diretamente dos Boletins de Urna (BUs) do TSE.</strong></p>
+    <ul>
+      <li>Dados de 27 estados (todas as seções apuradas). Exterior (ZZ) não está incluído porque no 1º turno só há voto para presidente no exterior, sem os demais cargos.</li>
+      <li>Estimativas de migração de votos são baseadas em comparação município a município, não em rastreamento individual — o voto é secreto.</li>
+      <li>Pequenas diferenças nos totais em relação à página do 2º turno podem ocorrer porque esta análise usa dados dos Boletins de Urna (BUs) processados diretamente, enquanto a outra página usa dados compilados pela imprensa.</li>
+    </ul>
+  </div>
+</details></section>
+
+<footer class="site-footer">
+  <div class="footer-main">
+    <div>
+      <div class="footer-brand"><a href="index.html">Turnos</a></div>
+      <div class="footer-desc">Análise entre turnos das eleições gerais de 2026, baseada nos Boletins de Urna do TSE.</div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">1º turno</a>
+      <a href="2turno.html">2º turno</a>
+      <a href="mapa.html">Mapa</a>
+      <a href="analise.html">Análise</a>
+    </div>
+    <div class="footer-right">
+      <a href="https://github.com/AndreRuperto/1turno" target="_blank" rel="noopener" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 00-3.8 23.38c.6.12.82-.26.82-.58l-.01-2.05c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.31-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 016.02 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.48 5.92.43.37.81 1.1.81 2.22l-.01 3.29c0 .32.22.7.82.58A12 12 0 0012 .3"/></svg></a>
+      <a href="https://www.linkedin.com/in/andreruperto/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77A1.75 1.75 0 000 1.73v20.54A1.75 1.75 0 001.77 24h20.45A1.76 1.76 0 0024 22.27V1.73A1.76 1.76 0 0022.22 0z"/></svg></a>
+      Projeto por <strong><a href="https://github.com/AndreRuperto" target="_blank" rel="noopener">André Ruperto</a></strong>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 André Ruperto. <a href="https://github.com/AndreRuperto/1turno">Código aberto no GitHub</a>.</div>
+</footer>
+
+</div>
+
+<script>
+var PARTY_NUMS={'10':'Republicanos','11':'PP','12':'PDT','13':'PT','14':'Missão','15':'MDB',
+  '22':'PL','23':'Cidadania','25':'PRD','27':'DC','30':'Novo','40':'PSB','43':'PV',
+  '44':'União','45':'PSDB','50':'PSOL','55':'PSD','65':'PCdoB','70':'Avante','77':'Solidariedade','80':'UP'};
+var PARTY_LOGOS={'10':'republicanos','11':'pp','12':'pdt','13':'pt','15':'mdb',
+  '22':'pl','23':'cidadania','30':'novo','40':'psb','43':'pv',
+  '44':'uniao','45':'psdb','50':'psol','55':'psd','65':'pcdob','70':'avante','77':'solidariedade','80':'up',
+  '18':'rede','20':'podemos'};
+function partyLogo(num){var f=PARTY_LOGOS[num];return f?'<img src="assets/partidos/'+f+'.png" style="width:60px;height:60px;object-fit:contain;vertical-align:middle" onerror="this.style.display=\'none\'" loading="lazy">':'';}
+var CAND_NAMES={'55':'Ronaldo Caiado','70':'Augusto Cury','14':'Renan Santos','30':'Zema','80':'Samara','27':'Clariana Barão','16':'Hertz Dias','21':'Edmilson Costa','35':'Wilson Grassi','29':'Rui Costa Pimenta','28':'Pablo Marçal'};
+var GOV_NAMES={
+  ac:{'11':'Mailza Assis','10':'Alan Rick'},
+  am:{'55':'Omar Aziz','22':'Profa Maria do Carmo'},
+  df:{'11':'Celina Leão','13':'Leandro Grass'},
+  es:{'10':'Lorenzo Pazolini','15':'Ricardo Ferraço'},
+  rn:{'44':'Allyson','13':'Cadu de Lula'},
+  to:{'44':'Profa. Dorinha','45':'Vicentinho Júnior'}
+};
+var TSE_IMG='https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/20322002026/';
+var PRES_PHOTOS={
+  '13':TSE_IMG+'280002542548/BR','22':TSE_IMG+'280002551544/BR',
+  '70':TSE_IMG+'280002551547/BR','14':TSE_IMG+'280002540694/BR',
+  '55':TSE_IMG+'280002551932/BR','30':TSE_IMG+'280002539826/BR',
+  '27':TSE_IMG+'280002552484/BR','80':TSE_IMG+'280002538811/BR',
+  '16':TSE_IMG+'280002541457/BR','21':TSE_IMG+'280002551975/BR',
+  '35':TSE_IMG+'280002548139/BR','29':TSE_IMG+'280002552487/BR',
+  '28':TSE_IMG+'280002553884/BR'
+};
+var GOV_PHOTOS={
+  ac:{'11':TSE_IMG+'10002544107/AC','10':TSE_IMG+'10002532492/AC'},
+  am:{'55':TSE_IMG+'40002532272/AM','22':TSE_IMG+'40002541626/AM'},
+  df:{'11':TSE_IMG+'70002553055/DF','13':TSE_IMG+'70002552496/DF'},
+  es:{'10':TSE_IMG+'80002552682/ES','15':TSE_IMG+'80002552172/ES'},
+  rn:{'44':TSE_IMG+'200002535255/RN','13':TSE_IMG+'200002534001/RN'},
+  to:{'44':TSE_IMG+'270002544599/TO','45':TSE_IMG+'270002544544/TO'}
+};
+function candPhoto(uf,num){var g=GOV_PHOTOS[uf];return g&&g[num]?g[num]:(PRES_PHOTOS[num]||'');}
+function tagCls(p){return p==='PL'||p==='22'?'pl':p==='PT'||p==='13'?'pt':''}
+function tag(t,cls){return '<span class="tag '+(cls||'')+'">'+t+'</span>'}
+
+var D=null;
+var TRANSF=null;
+fetch('data/turnos_data.json').then(function(r){return r.json()}).then(function(d){D=d;renderAll()}).catch(function(){
+  document.getElementById('stats-grid').innerHTML='<div class="card" style="grid-column:1/-1"><div class="num" style="color:var(--lula)">Dados não encontrados</div><div class="lbl">Execute: python build_turnos.py e copie turnos_data.json para data/</div></div>';
+});
+fetch('data/transferencia.json').then(function(r){return r.json()}).then(function(d){TRANSF=d;if(D)renderTransferencia()}).catch(function(){});
+
+function renderAll(){
+  renderStats();
+  renderMigracao();
+  renderCrescimento();
+  renderAbstencao();
+  renderGovViradas();
+  renderGovCrescimento();
+  renderParticipacao();
+  renderBrancosNulos();
+  renderCorrelacao();
+  renderPesquisas();
+  if(TRANSF)renderTransferencia();
+  // make all tables sortable
+  document.querySelectorAll('table').forEach(makeSortable);
+}
+
+function renderStats(){
+  var ufs=Object.keys(D.pres_1t),c1=0,c2=0,l1=0,l2=0,b1=0,b2=0,elim=0;
+  ufs.forEach(function(uf){
+    var p1=D.pres_1t[uf],p2=D.pres_2t[uf];if(!p1||!p2)return;
+    c1+=p1.comp;c2+=p2.comp;
+    l1+=(p1.votos['13']||0);l2+=(p2.votos['13']||0);
+    b1+=(p1.votos['22']||0);b2+=(p2.votos['22']||0);
+    Object.keys(p1.votos).forEach(function(n){if(n!=='13'&&n!=='22')elim+=p1.votos[n]});
+  });
+  document.getElementById('st-comp').textContent=fmtN(c2);
+  document.getElementById('st-comp-d').textContent=(c2>=c1?'+':'')+fmtN(c2-c1)+' em relação ao 1º turno';
+  document.getElementById('st-dl').textContent='+'+fmtN(l2-l1);
+  document.getElementById('st-db').textContent='+'+fmtN(b2-b1);
+  document.getElementById('st-elim').textContent=fmtN(elim);
+}
+
+function renderMigracao(){
+  var ufs=Object.keys(D.pres_1t).sort();
+  // Compute totals
+  var elim=0,b1=0,b2=0,n1=0,n2=0,c1=0,c2=0,dL=0,dF=0;
+  ufs.forEach(function(uf){
+    var p1=D.pres_1t[uf],p2=D.pres_2t[uf];if(!p1||!p2)return;
+    Object.keys(p1.votos).forEach(function(n){if(n!=='13'&&n!=='22')elim+=p1.votos[n]});
+    b1+=p1.brancos;b2+=p2.brancos;n1+=p1.nulos;n2+=p2.nulos;
+    c1+=p1.comp;c2+=p2.comp;
+    dL+=(p2.votos['13']||0)-(p1.votos['13']||0);
+    dF+=(p2.votos['22']||0)-(p1.votos['22']||0);
+  });
+  var dBrancos=b1-b2, dNulos=n1-n2, dComp=c2-c1;
+  var totalFontes=elim+dBrancos+dNulos+dComp;
+
+  // Fontes cards
+  var pElim=(elim/totalFontes*100).toFixed(1);
+  var pBrancos=(dBrancos/totalFontes*100).toFixed(1);
+  var pNulos=(dNulos/totalFontes*100).toFixed(1);
+  var pComp=(dComp/totalFontes*100).toFixed(1);
+  document.getElementById('mig-fontes').innerHTML=
+    '<div class="card"><div class="num" style="color:var(--accent)">'+fmtN(elim)+'</div><div class="lbl">Outros candidatos ('+pElim+'%)</div></div>'+
+    '<div class="card"><div class="num">'+fmtN(dComp)+'</div><div class="lbl">Novos eleitores — redução da abstenção ('+pComp+'%)</div></div>'+
+    '<div class="card"><div class="num">'+fmtN(dNulos)+'</div><div class="lbl">Redução de nulos ('+pNulos+'%)</div></div>'+
+    '<div class="card"><div class="num">'+fmtN(dBrancos)+'</div><div class="lbl">Redução de brancos ('+pBrancos+'%)</div></div>';
+
+  // Fontes stacked bar
+  document.getElementById('mig-fontes-bars').innerHTML=
+    '<div class="bar" style="margin-top:12px" role="img" aria-label="Fontes dos votos redistribuídos">'+
+      '<span style="width:'+pElim+'%;background:var(--accent)" title="Outros candidatos '+pElim+'%"></span>'+
+      '<span style="width:'+pComp+'%;background:var(--neutral)" title="Nova abstenção '+pComp+'%"></span>'+
+      '<span style="width:'+pNulos+'%;background:#9b59b6" title="Redução nulos '+pNulos+'%"></span>'+
+      '<span style="width:'+pBrancos+'%;background:#7f8c8d" title="Redução brancos '+pBrancos+'%"></span>'+
+    '</div>'+
+    '<div class="legend" style="margin-top:8px">'+
+      '<span><i style="background:var(--accent)"></i>Outros candidatos '+pElim+'%</span>'+
+      '<span><i style="background:var(--neutral)"></i>Abstenção '+pComp+'%</span>'+
+      '<span><i style="background:#9b59b6"></i>Nulos '+pNulos+'%</span>'+
+      '<span><i style="background:#7f8c8d"></i>Brancos '+pBrancos+'%</span>'+
+    '</div>'+
+    '<p class="small" style="margin-top:8px">Total: <strong>'+fmtN(totalFontes)+'</strong> votos redistribuídos</p>';
+
+  // Destino duel
+  var pL=(dL/totalFontes*100).toFixed(1), pF=(dF/totalFontes*100).toFixed(1);
+  var photoStyle='width:64px;height:64px;border-radius:50%;object-fit:cover;display:block;margin-bottom:6px';
+  document.getElementById('mig-duel').innerHTML=
+    '<div class="card b" style="border-top:6px solid var(--lula)"><div class="kicker l">PT</div><img src="'+PRES_PHOTOS['13']+'" alt="" style="'+photoStyle+'" onerror="this.style.display=\'none\'"><h3>Lula</h3><div class="num l">'+fmtN(dL)+'</div><div class="lbl">'+pL+'% dos votos disponíveis</div></div>'+
+    '<div class="card a" style="border-top:6px solid var(--flavio)"><div class="kicker f">PL</div><img src="'+PRES_PHOTOS['22']+'" alt="" style="'+photoStyle+'" onerror="this.style.display=\'none\'"><h3>Flávio Bolsonaro</h3><div class="num f">'+fmtN(dF)+'</div><div class="lbl">'+pF+'% dos votos disponíveis</div></div>';
+
+  // Destino bar
+  document.getElementById('mig-dest-bar').innerHTML=
+    '<div class="bar" style="margin-top:12px">'+
+      '<span style="width:'+pL+'%;background:var(--lula)"></span>'+
+      '<span style="width:'+pF+'%;background:var(--flavio)"></span>'+
+    '</div>'+
+    '<div class="legend" style="margin-top:8px">'+
+      '<span><i style="background:var(--lula)"></i>Lula '+pL+'%</span>'+
+      '<span><i style="background:var(--flavio)"></i>Flávio '+pF+'%</span>'+
+    '</div>';
+
+  // Eliminated candidates bars
+  var byC={};
+  ufs.forEach(function(uf){var p1=D.pres_1t[uf];if(!p1)return;Object.keys(p1.votos).forEach(function(n){if(n!=='13'&&n!=='22'){byC[n]=(byC[n]||0)+p1.votos[n]}})});
+  var sorted=Object.keys(byC).sort(function(a,b){return byC[b]-byC[a]});
+  var max=byC[sorted[0]]||1;
+  document.getElementById('mig-bars').innerHTML=sorted.map(function(n){
+    var w=(byC[n]/max*100).toFixed(1);
+    var pName=PARTY_NUMS[n]||n;
+    var cName=CAND_NAMES[n]||pName;
+    var cPhoto=PRES_PHOTOS[n]||'';
+    var blocked={'28':true}; // candidatos impedidos
+    var isBlocked=blocked[n];
+    var opStyle=isBlocked?'opacity:0.4;':'';
+    var imgH=cPhoto?'<img src="'+cPhoto+'" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;'+opStyle+(isBlocked?'filter:grayscale(1)':'')+'" onerror="this.style.display=\'none\'" loading="lazy">':'';
+    var nameExtra='';
+    // Bicolor bar if transfer data is available
+    var barHtml;
+    var tData=TRANSF&&TRANSF.model_a2&&TRANSF.model_a2[n];
+    if(tData){
+      var lulaP=(tData.to_lula*100).toFixed(1);
+      var bolsoP=(tData.to_bolso*100).toFixed(1);
+      var lulaW=(tData.to_lula*parseFloat(w)).toFixed(1);
+      var bolsoW=(tData.to_bolso*parseFloat(w)).toFixed(1);
+      barHtml='<div style="background:var(--neutral-soft);border-radius:4px;height:16px;overflow:hidden;display:flex">'+
+        '<div style="width:'+lulaW+'%;height:100%;background:var(--lula)" title="→ Lula '+lulaP+'%"></div>'+
+        '<div style="width:'+bolsoW+'%;height:100%;background:var(--flavio)" title="→ Bolsonaro '+bolsoP+'%"></div>'+
+      '</div>';
+    }else{
+      barHtml='<div style="background:var(--neutral-soft);border-radius:4px;height:16px;overflow:hidden"><div style="width:'+w+'%;height:100%;background:var(--accent);border-radius:4px"></div></div>';
+    }
+    return '<div style="display:grid;grid-template-columns:40px minmax(100px,180px) 1fr 80px;gap:10px;align-items:center;margin-block:6px;font-size:14px">'+
+      imgH+
+      '<span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;'+opStyle+'">'+cName+nameExtra+'<br><span class="small">'+pName+'</span></span>'+
+      barHtml+
+      '<span style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600">'+fmtN(byC[n])+'</span></div>';
+  }).join('');
+
+  // Table per UF
+  document.getElementById('migRows').innerHTML=ufs.map(function(uf){
+    var p1=D.pres_1t[uf],p2=D.pres_2t[uf];if(!p1||!p2)return '';
+    var ufElim=0;Object.keys(p1.votos).forEach(function(n){if(n!=='13'&&n!=='22')ufElim+=p1.votos[n]});
+    var ufDB=p1.brancos-p2.brancos, ufDN=p1.nulos-p2.nulos;
+    var ufDC=p2.comp-p1.comp;
+    var ufDL=(p2.votos['13']||0)-(p1.votos['13']||0);
+    var ufDF=(p2.votos['22']||0)-(p1.votos['22']||0);
+    return '<tr><td>'+uf.toUpperCase()+'</td>'+
+      '<td class="n" data-sort="'+ufElim+'">'+fmtN(ufElim)+'</td>'+
+      '<td class="n" data-sort="'+ufDB+'">'+sign(ufDB)+'</td>'+
+      '<td class="n" data-sort="'+ufDN+'">'+sign(ufDN)+'</td>'+
+      '<td class="n" data-sort="'+ufDC+'">'+sign(ufDC)+'</td>'+
+      '<td class="n" data-sort="'+ufDL+'" style="color:var(--lula)">'+sign(ufDL)+'</td>'+
+      '<td class="n" data-sort="'+ufDF+'" style="color:var(--flavio)">'+sign(ufDF)+'</td></tr>';
+  }).join('');
+}
+
+function renderCrescimento(){
+  var ufs=Object.keys(D.pres_1t).sort(),tL1=0,tL2=0,tB1=0,tB2=0;
+  var rows=[];
+  ufs.forEach(function(uf){
+    var p1=D.pres_1t[uf],p2=D.pres_2t[uf];if(!p1||!p2)return;
+    var l1=p1.votos['13']||0,l2=p2.votos['13']||0,b1=p1.votos['22']||0,b2=p2.votos['22']||0;
+    tL1+=l1;tL2+=l2;tB1+=b1;tB2+=b2;
+    rows.push({uf:uf,l1:l1,l2:l2,dL:l2-l1,b1:b1,b2:b2,dB:b2-b1});
+  });
+  document.getElementById('cresc-duel').innerHTML=
+    '<div class="card b" style="border-top:6px solid var(--lula)"><div class="kicker l">Lula</div><img src="'+PRES_PHOTOS['13']+'" style="width:56px;height:56px;border-radius:50%;object-fit:cover;margin:8px 0;border:2px solid var(--lula)" onerror="this.style.display=\'none\'"><div class="num l">+'+fmtN(tL2-tL1)+'</div><div class="lbl">'+fmtN(tL1)+' → '+fmtN(tL2)+'</div></div>'+
+    '<div class="card a" style="border-top:6px solid var(--flavio)"><div class="kicker f">Flávio Bolsonaro</div><img src="'+PRES_PHOTOS['22']+'" style="width:56px;height:56px;border-radius:50%;object-fit:cover;margin:8px 0;border:2px solid var(--flavio)" onerror="this.style.display=\'none\'"><div class="num f">+'+fmtN(tB2-tB1)+'</div><div class="lbl">'+fmtN(tB1)+' → '+fmtN(tB2)+'</div></div>';
+
+  document.getElementById('crescRows2').innerHTML=rows.map(function(r){
+    var winner=r.dL>r.dB?'Lula':'Bolsonaro';
+    var wCls=r.dL>r.dB?'pt':'pl';
+    return '<tr><td>'+r.uf.toUpperCase()+'</td>'+
+      '<td class="n" data-sort="'+r.l1+'">'+fmtN(r.l1)+'</td>'+
+      '<td class="n" data-sort="'+r.l2+'">'+fmtN(r.l2)+'</td>'+
+      '<td class="n" data-sort="'+r.dL+'" style="color:var(--lula);font-weight:600">'+sign(r.dL)+'</td>'+
+      '<td class="n" data-sort="'+r.b1+'">'+fmtN(r.b1)+'</td>'+
+      '<td class="n" data-sort="'+r.b2+'">'+fmtN(r.b2)+'</td>'+
+      '<td class="n" data-sort="'+r.dB+'" style="color:var(--flavio);font-weight:600">'+sign(r.dB)+'</td>'+
+      '<td data-sort="'+(r.dL>r.dB?1:0)+'">'+tag(winner,wCls)+'</td></tr>';
+  }).join('');
+
+  // Swings
+  if(D.swings&&D.swings.length){
+    var swingHtml=D.swings.map(function(s,i){
+      var swCls=s.swing>0?'f':'l';
+      return '<tr'+(i>=10?' class="swing-extra" hidden':'')+'>'+
+        '<td>'+s.nome+'</td><td>'+s.uf.toUpperCase()+'</td>'+
+        '<td class="n" data-sort="'+s.margin_1t+'">'+(s.margin_1t>0?'+':'')+fmt(s.margin_1t)+'%</td>'+
+        '<td class="n" data-sort="'+s.margin_2t+'">'+(s.margin_2t>0?'+':'')+fmt(s.margin_2t)+'%</td>'+
+        '<td class="n '+swCls+'" data-sort="'+s.swing+'" style="font-weight:700">'+(s.swing>0?'+':'')+fmt(s.swing)+' pontos</td>'+
+        '<td class="n" data-sort="'+s.comp_1t+'">'+fmtN(s.comp_1t)+'</td>'+
+        '<td class="n" data-sort="'+s.comp_2t+'">'+fmtN(s.comp_2t)+'</td></tr>';
+    }).join('');
+    document.getElementById('swingRows').innerHTML=swingHtml;
+    if(D.swings.length>10){
+      var btn=document.createElement('div');
+      btn.style.cssText='text-align:center;margin-top:8px';
+      btn.innerHTML='<button onclick="document.querySelectorAll(\'.swing-extra\').forEach(function(r){r.hidden=!r.hidden});this.textContent=this.textContent===\'Ver todos ('+D.swings.length+')\' ? \'Ver menos\' : \'Ver todos ('+D.swings.length+')\'" style="background:none;border:1px solid var(--line);border-radius:99px;padding:6px 16px;color:var(--accent);font:inherit;font-size:13px;font-weight:600;cursor:pointer">Ver todos ('+D.swings.length+')</button>';
+      document.getElementById('swingTable').parentNode.after(btn);
+    }
+  }
+}
+
+function renderAbstencao(){
+  var ufs=Object.keys(D.pres_1t).sort(),tC1=0,tC2=0,tA=0;
+  var rows=[];
+  ufs.forEach(function(uf){
+    var p1=D.pres_1t[uf],p2=D.pres_2t[uf];if(!p1||!p2)return;
+    var a=p2.aptos,abs1=(1-p1.comp/p1.aptos)*100,abs2=(1-p2.comp/a)*100;
+    var dPP=abs2-abs1,dA=p2.comp-p1.comp;
+    var l1=p1.votos['13']||0,b1=p1.votos['22']||0;
+    var leader=l1>b1?'Lula':'Bolsonaro';
+    tC1+=p1.comp;tC2+=p2.comp;tA+=a;
+    rows.push({uf:uf,a:a,c1:p1.comp,c2:p2.comp,abs1:abs1,abs2:abs2,dPP:dPP,dA:dA,leader:leader});
+  });
+  var tAbs1=(1-tC1/tA)*100,tAbs2=(1-tC2/tA)*100;
+  document.getElementById('abs-grid').innerHTML=
+    '<div class="card"><div class="num" style="font-size:22px">'+fmt(tAbs1)+'% → '+fmt(tAbs2)+'%</div><div class="lbl">Abstenção (1º → 2º turno)</div></div>'+
+    '<div class="card"><div class="num">'+fmtN(tC1)+'</div><div class="lbl">Votaram no 1º turno</div></div>'+
+    '<div class="card"><div class="num">'+fmtN(tC2)+'</div><div class="lbl">Votaram no 2º turno</div></div>'+
+    '<div class="card"><div class="num" style="color:var(--lula)">'+sign(tC2-tC1)+'</div><div class="lbl">Eleitores a mais no 2º turno</div></div>';
+
+  document.getElementById('absRows').innerHTML=rows.map(function(r){
+    var lCls=r.leader==='Lula'?'pt':'pl';
+    return '<tr><td>'+r.uf.toUpperCase()+'</td>'+
+      '<td class="n" data-sort="'+r.a+'">'+fmtN(r.a)+'</td>'+
+      '<td class="n" data-sort="'+r.c1+'">'+fmtN(r.c1)+'</td>'+
+      '<td class="n" data-sort="'+(r.c1/r.a*100).toFixed(2)+'">'+fmt(r.c1/r.a*100)+'%</td>'+
+      '<td class="n" data-sort="'+r.c2+'">'+fmtN(r.c2)+'</td>'+
+      '<td class="n" data-sort="'+(r.c2/r.a*100).toFixed(2)+'">'+fmt(r.c2/r.a*100)+'%</td>'+
+      '<td class="n" data-sort="'+r.dA+'">'+sign(r.dA)+'</td>'+
+      '<td class="n" data-sort="'+r.dPP.toFixed(2)+'">'+(r.dPP>0?'+':'')+r.dPP.toFixed(2)+' pontos</td>'+
+      '<td data-sort="'+r.leader+'">'+tag(r.leader,lCls)+'</td></tr>';
+  }).join('');
+}
+
+function renderGovViradas(){
+  var states2t=Object.keys(D.gov_2t||{}).filter(function(uf){return D.gov_2t[uf]&&D.gov_2t[uf].comp>0}).sort();
+  if(!states2t.length){document.getElementById('gov-vir-grid').innerHTML='<div class="card"><div class="lbl">Dados de governador do 2T não disponíveis.</div></div>';return}
+  var results=[],viradas=0;
+  states2t.forEach(function(uf){
+    var g1=D.gov_1t[uf],g2=D.gov_2t[uf];if(!g1||!g2)return;
+    var s1=Object.keys(g1.votos).sort(function(a,b){return g1.votos[b]-g1.votos[a]});
+    var s2=Object.keys(g2.votos).sort(function(a,b){return g2.votos[b]-g2.votos[a]});
+    if(s1.length<2||s2.length<1)return;
+    var l1n=s1[0],l2n=s2[0],virou=l1n!==l2n;
+    var t1=Object.values(g1.votos).reduce(function(a,b){return a+b},0)||1;
+    var t2=Object.values(g2.votos).reduce(function(a,b){return a+b},0)||1;
+    var gn=GOV_NAMES[uf]||{};
+    if(virou)viradas++;
+    results.push({uf:uf,l1:gn[l1n]||PARTY_NUMS[l1n]||l1n,l1n:l1n,l2:gn[l2n]||PARTY_NUMS[l2n]||l2n,l2n:l2n,
+      p1:fmt(g1.votos[l1n]/t1*100),p2:fmt(g2.votos[l2n]/t2*100),virou:virou});
+  });
+  document.getElementById('gov-vir-grid').innerHTML=
+    '<div class="card"><div class="num">'+states2t.length+'</div><div class="lbl">Estados com 2º turno de governador</div></div>'+
+    '<div class="card"><div class="num" style="color:var(--accent)">'+viradas+'</div><div class="lbl">Virada(s) — líder do 1T perdeu no 2T</div></div>';
+  document.getElementById('govVirRows').innerHTML=results.map(function(r){
+    var ph1=candPhoto(r.uf.toLowerCase(),r.l1n);
+    var ph2=candPhoto(r.uf.toLowerCase(),r.l2n);
+    var img1=ph1?'<img src="'+ph1+'" style="width:22px;height:22px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.style.display=\'none\'">':'';
+    var img2=ph2?'<img src="'+ph2+'" style="width:22px;height:22px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.style.display=\'none\'">':'';
+    var party1=PARTY_NUMS[r.l1n]||r.l1n;
+    var party2=PARTY_NUMS[r.l2n]||r.l2n;
+    return '<tr><td>'+r.uf.toUpperCase()+'</td><td>'+img1+r.l1+' <span class="small">('+party1+')</span></td><td class="n">'+r.p1+'%</td>'+
+      '<td>'+img2+r.l2+' <span class="small">('+party2+')</span></td><td class="n">'+r.p2+'%</td>'+
+      '<td>'+tag(r.virou?'VIROU':'CONFIRMOU',r.virou?'pt':'')+'</td></tr>';
+  }).join('');
+}
+
+function renderGovCrescimento(){
+  var states2t=Object.keys(D.gov_2t||{}).filter(function(uf){return D.gov_2t[uf]&&D.gov_2t[uf].comp>0}).sort();
+  var rows=[];
+  states2t.forEach(function(uf){
+    var g1=D.gov_1t[uf],g2=D.gov_2t[uf];if(!g1||!g2)return;
+    var s2=Object.keys(g2.votos).sort(function(a,b){return g2.votos[b]-g2.votos[a]});
+    var gn=GOV_NAMES[uf]||{};
+    s2.slice(0,2).forEach(function(num){
+      var v1=g1.votos[num]||0,v2=g2.votos[num],d=v2-v1,pD=v1?((d/v1)*100):0;
+      var name=gn[num]||PARTY_NUMS[num]||num;
+      rows.push({uf:uf,name:name,num:num,v1:v1,v2:v2,d:d,pD:pD});
+    });
+  });
+  document.getElementById('govCrescRows').innerHTML=rows.map(function(r){
+    var party=PARTY_NUMS[r.num]||r.num;
+    var photo=candPhoto(r.uf.toLowerCase(),r.num);
+    var photoHtml=photo?'<img src="'+photo+'" style="width:24px;height:24px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:6px" onerror="this.style.display=\'none\'">':'';
+    return '<tr><td>'+r.uf.toUpperCase()+'</td><td>'+photoHtml+r.name+' ('+party+')</td>'+
+      '<td class="n" data-sort="'+r.v1+'">'+fmtN(r.v1)+'</td>'+
+      '<td class="n" data-sort="'+r.v2+'">'+fmtN(r.v2)+'</td>'+
+      '<td class="n" data-sort="'+r.d+'" style="font-weight:600">'+sign(r.d)+'</td>'+
+      '<td class="n" data-sort="'+r.pD.toFixed(1)+'">'+(r.pD>0?'+':'')+r.pD.toFixed(1)+'%</td></tr>';
+  }).join('');
+}
+
+function renderParticipacao(){
+  var ufs=Object.keys(D.pres_1t).sort(),tC1=0,tC2=0,tA=0;
+  var rows=[];
+  ufs.forEach(function(uf){
+    var p1=D.pres_1t[uf],p2=D.pres_2t[uf];if(!p1||!p2)return;
+    var d=p2.comp-p1.comp,pD=p1.comp?(d/p1.comp*100):0;
+    rows.push({uf:uf,a:p2.aptos,c1:p1.comp,c2:p2.comp,d:d,pD:pD});
+    tC1+=p1.comp;tC2+=p2.comp;tA+=p2.aptos;
+  });
+  document.getElementById('part-grid').innerHTML=
+    '<div class="card"><div class="num">'+fmtN(tC1)+'</div><div class="lbl">Votaram no 1º turno</div></div>'+
+    '<div class="card"><div class="num">'+fmtN(tC2)+'</div><div class="lbl">Votaram no 2º turno</div></div>'+
+    '<div class="card"><div class="num" style="color:var(--lula)">'+sign(tC2-tC1)+'</div><div class="lbl">Diferença ('+(tC1?((tC2-tC1)/tC1*100).toFixed(2):'0')+'%)</div></div>';
+  document.getElementById('partRows').innerHTML=rows.map(function(r){
+    return '<tr><td>'+r.uf.toUpperCase()+'</td>'+
+      '<td class="n" data-sort="'+r.a+'">'+fmtN(r.a)+'</td>'+
+      '<td class="n" data-sort="'+r.c1+'">'+fmtN(r.c1)+'</td>'+
+      '<td class="n" data-sort="'+r.c2+'">'+fmtN(r.c2)+'</td>'+
+      '<td class="n" data-sort="'+r.d+'">'+sign(r.d)+'</td>'+
+      '<td class="n" data-sort="'+r.pD.toFixed(1)+'">'+(r.pD>0?'+':'')+r.pD.toFixed(1)+'%</td></tr>';
+  }).join('');
+}
+
+function renderBrancosNulos(){
+  var ufs=Object.keys(D.pres_1t).sort(),tB1=0,tB2=0,tN1=0,tN2=0;
+  var rows=[];
+  ufs.forEach(function(uf){
+    var p1=D.pres_1t[uf],p2=D.pres_2t[uf];if(!p1||!p2)return;
+    rows.push({uf:uf,b1:p1.brancos,b2:p2.brancos,dB:p2.brancos-p1.brancos,
+      n1:p1.nulos,n2:p2.nulos,dN:p2.nulos-p1.nulos,dT:(p2.brancos+p2.nulos)-(p1.brancos+p1.nulos)});
+    tB1+=p1.brancos;tB2+=p2.brancos;tN1+=p1.nulos;tN2+=p2.nulos;
+  });
+  var tDT=(tB2+tN2)-(tB1+tN1);
+  document.getElementById('bn-grid').innerHTML=
+    '<div class="card"><div class="num" style="font-size:22px">'+fmtN(tB1)+' → '+fmtN(tB2)+'</div><div class="lbl">Brancos ('+sign(tB2-tB1)+')</div></div>'+
+    '<div class="card"><div class="num" style="font-size:22px">'+fmtN(tN1)+' → '+fmtN(tN2)+'</div><div class="lbl">Nulos ('+sign(tN2-tN1)+')</div></div>'+
+    '<div class="card"><div class="num" style="color:var(--accent)">'+sign(tDT)+'</div><div class="lbl">Diferença total (brancos + nulos)</div></div>';
+  document.getElementById('bnRows').innerHTML=rows.map(function(r){
+    return '<tr><td>'+r.uf.toUpperCase()+'</td>'+
+      '<td class="n" data-sort="'+r.b1+'">'+fmtN(r.b1)+'</td>'+
+      '<td class="n" data-sort="'+r.b2+'">'+fmtN(r.b2)+'</td>'+
+      '<td class="n" data-sort="'+r.dB+'">'+sign(r.dB)+'</td>'+
+      '<td class="n" data-sort="'+r.n1+'">'+fmtN(r.n1)+'</td>'+
+      '<td class="n" data-sort="'+r.n2+'">'+fmtN(r.n2)+'</td>'+
+      '<td class="n" data-sort="'+r.dN+'">'+sign(r.dN)+'</td>'+
+      '<td class="n" data-sort="'+r.dT+'" style="font-weight:600">'+sign(r.dT)+'</td></tr>';
+  }).join('');
+}
+
+function renderCorrelacao(){
+  if(!D.depfed_partidos)return;
+  var totals={},byUF={};
+  Object.keys(D.depfed_partidos).forEach(function(uf){
+    Object.keys(D.depfed_partidos[uf]).forEach(function(num){
+      totals[num]=(totals[num]||0)+D.depfed_partidos[uf][num];
+      if(!byUF[num])byUF[num]={};
+      byUF[num][uf]=D.depfed_partidos[uf][num];
+    });
+  });
+  var top=Object.keys(totals).sort(function(a,b){return totals[b]-totals[a]}).slice(0,10);
+  document.getElementById('corrRows').innerHTML=top.map(function(num){
+    var name=PARTY_NUMS[num]||num;
+    var ufVotes=Object.keys(byUF[num]||{}).sort(function(a,b){return byUF[num][b]-byUF[num][a]}).slice(0,5);
+    var topUFs=ufVotes.map(function(u){return u.toUpperCase()});
+    var lV=0,bV=0;
+    ufVotes.forEach(function(uf){var p2=D.pres_2t[uf];if(p2){lV+=(p2.votos['13']||0);bV+=(p2.votos['22']||0)}});
+    var tV=lV+bV||1;
+    return '<tr style="vertical-align:middle"><td data-sort="'+name+'" title="'+name+'" style="padding:4px;width:68px;vertical-align:middle">'+partyLogo(num)+'</td>'+
+      '<td class="n" style="vertical-align:middle">'+num+'</td>'+
+      '<td class="n" style="vertical-align:middle" data-sort="'+totals[num]+'">'+fmtN(totals[num])+'</td>'+
+      '<td style="vertical-align:middle">'+topUFs.join(', ')+'</td>'+
+      '<td class="n" style="vertical-align:middle;color:var(--lula)" data-sort="'+(lV/tV*100).toFixed(1)+'">'+(lV/tV*100).toFixed(1)+'%</td>'+
+      '<td class="n" style="vertical-align:middle;color:var(--flavio)" data-sort="'+(bV/tV*100).toFixed(1)+'">'+(bV/tV*100).toFixed(1)+'%</td></tr>';
+  }).join('');
+}
+
+// ── Pesquisas vs Resultado ──
+var POLLS={
+  turno2:{
+    resultado:{lula:51.79,flavio:48.21},
+    // Última pesquisa de cada instituto (para tabela)
+    institutos:[
+      {nome:'Datafolha',data:'23-24/10',lula:49.0,flavio:51.0,margem:2.0,amostra:4050},
+      {nome:'Quaest',data:'23-24/10',lula:49.0,flavio:51.0,margem:2.0,amostra:3702},
+      {nome:'AtlasIntel',data:'18-23/10',lula:49.2,flavio:50.8,margem:1.0,amostra:4990},
+      {nome:'CNT/MDA',data:'23-24/10',lula:49.3,flavio:50.7,margem:2.2,amostra:2032},
+      {nome:'Futura Inteligência',data:'24/10',lula:49.9,flavio:50.1,margem:2.2,amostra:2000},
+      {nome:'Nexus/BTG',data:'24/10',lula:49.5,flavio:50.5,margem:2.2,amostra:2000},
+      {nome:'Real Time Big Data',data:'15-19/10',lula:48.0,flavio:52.0,margem:2.0,amostra:2000},
+      {nome:'Gerp',data:'24/10',lula:48.0,flavio:52.0,margem:2.0,amostra:2400}
+    ],
+    // Todas as pesquisas em ordem cronológica (para gráfico)
+    timeline:[
+      {data:'07/10',nome:'Quaest',lula:46.0},
+      {data:'09/10',nome:'AtlasIntel',lula:48.9},
+      {data:'14/10',nome:'Quaest',lula:49.0},
+      {data:'15/10',nome:'Datafolha',lula:47.0},
+      {data:'19/10',nome:'AtlasIntel',lula:48.9},
+      {data:'19/10',nome:'Real Time Big Data',lula:48.0},
+      {data:'21/10',nome:'Quaest',lula:49.0},
+      {data:'22/10',nome:'Datafolha',lula:49.0},
+      {data:'23/10',nome:'AtlasIntel',lula:49.2},
+      {data:'24/10',nome:'Datafolha',lula:49.0},
+      {data:'24/10',nome:'Quaest',lula:49.0},
+      {data:'24/10',nome:'CNT/MDA',lula:49.3},
+      {data:'24/10',nome:'Futura',lula:49.9},
+      {data:'24/10',nome:'Nexus/BTG',lula:49.5},
+      {data:'24/10',nome:'Gerp',lula:48.0}
+    ]
+  },
+  turno1:{
+    resultado:{lula:45.16,flavio:47.03},
+    institutos:[
+      {nome:'Datafolha',data:'03/10',lula:45.0,flavio:42.0,margem:2.0},
+      {nome:'Quaest',data:'02-03/10',lula:46.0,flavio:45.0,margem:2.0},
+      {nome:'AtlasIntel',data:'03/10',lula:47.0,flavio:44.1,margem:1.0},
+      {nome:'CNT/MDA',data:'02/10',lula:47.8,flavio:42.1,margem:2.0},
+      {nome:'PoderData',data:'03/10',lula:45.0,flavio:43.0,margem:1.5},
+      {nome:'Gerp',data:'03/10',lula:43.3,flavio:45.4,margem:2.0}
+    ],
+    timeline:[
+      {data:'25/09',nome:'Veritá',lula:44.6,flavio:45.1},
+      {data:'27/09',nome:'Quaest',lula:45.0,flavio:44.0},
+      {data:'28/09',nome:'Datafolha',lula:44.0,flavio:41.0},
+      {data:'28/09',nome:'AtlasIntel',lula:46.0,flavio:43.0},
+      {data:'30/09',nome:'Quaest',lula:45.5,flavio:44.5},
+      {data:'01/10',nome:'Datafolha',lula:45.0,flavio:42.0},
+      {data:'01/10',nome:'AtlasIntel',lula:46.5,flavio:43.5},
+      {data:'02/10',nome:'CNT/MDA',lula:47.8,flavio:42.1},
+      {data:'03/10',nome:'Quaest',lula:46.0,flavio:45.0},
+      {data:'03/10',nome:'Datafolha',lula:45.0,flavio:42.0},
+      {data:'03/10',nome:'AtlasIntel',lula:47.0,flavio:44.1},
+      {data:'03/10',nome:'PoderData',lula:45.0,flavio:43.0},
+      {data:'03/10',nome:'Gerp',lula:43.3,flavio:45.4}
+    ]
+  }
+};
+
+function renderPesquisas(){
+  var t2=POLLS.turno2, t1=POLLS.turno1;
+  var rL=t2.resultado.lula, rF=t2.resultado.flavio;
+
+  // Summary cards
+  var erros2t=t2.institutos.map(function(p){return Math.abs(p.lula-rL)});
+  var erroMedio2t=(erros2t.reduce(function(a,b){return a+b},0)/erros2t.length).toFixed(1);
+  var acertaram2t=t2.institutos.filter(function(p){return (p.lula>p.flavio)===(rL>rF)}).length;
+
+  var rL1=t1.resultado.lula, rF1=t1.resultado.flavio;
+  var erros1t=t1.institutos.map(function(p){return Math.abs(p.flavio-rF1)});
+  var erroMedio1t=(erros1t.reduce(function(a,b){return a+b},0)/erros1t.length).toFixed(1);
+
+  document.getElementById('poll-summary').innerHTML=
+    '<div class="card" style="border-top:4px solid var(--lula)"><div class="num" style="color:var(--lula)">0 de '+t2.institutos.length+'</div><div class="lbl">Institutos acertaram o vencedor do 2T</div></div>'+
+    '<div class="card"><div class="num" style="color:var(--accent)">'+erroMedio2t+' pp</div><div class="lbl">Erro médio no 2º turno</div></div>'+
+    '<div class="card"><div class="num" style="color:var(--muted)">'+erroMedio1t+' pp</div><div class="lbl">Erro médio no 1º turno (Flávio)</div></div>';
+
+  // Reusable poll timeline chart
+  var colors={Datafolha:'#e67e22',Quaest:'#3498db',AtlasIntel:'#2ecc71','CNT/MDA':'#9b59b6','Real Time Big Data':'#e74c3c',Futura:'#1abc9c','Nexus/BTG':'#f39c12',Gerp:'#95a5a6',PoderData:'#e91e63','Veritá':'#ff9800'};
+
+  function renderPollChart(targetId, timeline, resultadoLula, resultadoFlavio, cfg) {
+    var minY=cfg.minY, maxY=cfg.maxY, dayMin=cfg.dayMin, dayMax=cfg.dayMax, elDay=cfg.elDay, monthLabel=cfg.monthLabel||'/10';
+    var range=maxY-minY;
+    function dateX(d){var day=parseInt(d.split('/')[0]);return ((day-dayMin)/(dayMax-dayMin))*100}
+
+    var chartHtml='<div style="position:relative;height:260px;border-left:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 10px 0 45px">';
+    // Y-axis labels + grid
+    for(var g=minY;g<=maxY;g+=1){
+      var yPct=((maxY-g)/range*100);
+      var isMain=(g===50||(maxY<50&&g===Math.round((maxY+minY)/2)));
+      chartHtml+='<div style="position:absolute;left:0;right:0;top:'+yPct+'%;height:0;border-top:1px '+(isMain?'solid var(--muted)':'dashed var(--line)')+';'+(isMain?'border-width:1.5px':'opacity:0.4')+'"></div>';
+      if(g%2===0) chartHtml+='<div style="position:absolute;left:-42px;top:'+yPct+'%;transform:translateY(-50%);font-size:11px;color:var(--muted);text-align:right;width:36px">'+g+'%</div>';
+    }
+    // Result lines (Lula + Flávio)
+    var resLY=((maxY-resultadoLula)/range*100);
+    chartHtml+='<div style="position:absolute;left:0;right:0;top:'+resLY+'%;border-top:2px dashed var(--lula);z-index:1"></div>';
+    chartHtml+='<div style="position:absolute;right:0;top:'+resLY+'%;transform:translateY(-120%);font-size:11px;font-weight:700;color:var(--lula);background:var(--surface);padding:0 4px">Lula: '+resultadoLula+'%</div>';
+    var resFY=((maxY-resultadoFlavio)/range*100);
+    chartHtml+='<div style="position:absolute;left:0;right:0;top:'+resFY+'%;border-top:2px dashed var(--flavio);z-index:1"></div>';
+    chartHtml+='<div style="position:absolute;left:0;top:'+resFY+'%;transform:translateY(-120%);font-size:11px;font-weight:700;color:var(--flavio);background:var(--surface);padding:0 4px">Flávio: '+resultadoFlavio+'%</div>';
+    // X-axis date labels
+    var customLabels=cfg.customLabels||null;
+    if(customLabels){
+      Object.keys(customLabels).forEach(function(d){
+        var day=parseFloat(d);
+        var xPct=((day-dayMin)/(dayMax-dayMin)*100);
+        var label=customLabels[d];
+        var isElection=(label==='Eleição');
+        chartHtml+='<div style="position:absolute;left:'+xPct+'%;bottom:-22px;transform:translateX(-50%);font-size:10px;'+(isElection?'font-weight:600;color:var(--accent)':'color:var(--muted)')+'">'+label+'</div>';
+        chartHtml+='<div style="position:absolute;left:'+xPct+'%;top:0;bottom:0;border-left:1px dashed var(--line);opacity:0.2"></div>';
+      });
+    } else {
+      var xDays=[];for(var d=dayMin;d<=dayMax;d+=Math.max(1,Math.floor((dayMax-dayMin)/6)))xDays.push(d);
+      if(xDays[xDays.length-1]!==dayMax)xDays.push(dayMax);
+      xDays.forEach(function(day){
+        var xPct=((day-dayMin)/(dayMax-dayMin)*100);
+        var isElection=(day===elDay);
+        chartHtml+='<div style="position:absolute;left:'+xPct+'%;bottom:-22px;transform:translateX(-50%);font-size:10px;'+(isElection?'font-weight:600;color:var(--accent)':'color:var(--muted)')+'">'+
+          (isElection?'Eleição':day+monthLabel)+'</div>';
+        chartHtml+='<div style="position:absolute;left:'+xPct+'%;top:0;bottom:0;border-left:1px dashed var(--line);opacity:0.2"></div>';
+      });
+    }
+    // Plot dots — Lula (solid) + Flávio (hollow) for each poll
+    timeline.forEach(function(p){
+      var xPct=dateX(p.data);
+      var fVal=p.flavio!=null?p.flavio:(100-p.lula);
+      var fStr=fVal.toFixed(1);
+      var col=colors[p.nome]||'#888';
+      var erroLula=(resultadoLula-p.lula).toFixed(1);
+      // Lula dot (solid, with tooltip)
+      var yLula=((maxY-p.lula)/range*100);
+      chartHtml+='<div class="poll-dot" style="position:absolute;left:'+xPct+'%;top:'+yLula+'%;transform:translate(-50%,-50%);width:12px;height:12px;border-radius:50%;background:'+col+';border:2px solid var(--surface);z-index:3;cursor:pointer;transition:transform .15s" onmouseenter="this.style.transform=\'translate(-50%,-50%) scale(1.6)\'" onmouseleave="this.style.transform=\'translate(-50%,-50%) scale(1)\'">' +
+        '<div style="display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 12px;box-shadow:0 4px 16px rgba(0,0,0,.4);white-space:nowrap;z-index:10;font-size:12px;pointer-events:none">' +
+          '<div style="font-weight:700;color:'+col+'">'+p.nome+'</div>' +
+          '<div style="color:var(--muted);margin-top:2px">'+(p.origData||p.data)+'/2026</div>' +
+          '<div style="margin-top:4px">Lula: <b style="color:var(--lula)">'+p.lula+'%</b> &middot; Flávio: <b style="color:var(--flavio)">'+fStr+'%</b></div>' +
+          '<div style="color:var(--muted);font-weight:600;margin-top:2px">Erro Lula: <span style="color:var(--lula)">'+erroLula+' pp</span> &middot; Erro Flávio: <span style="color:var(--flavio)">'+(resultadoFlavio-fVal).toFixed(1)+' pp</span></div>' +
+        '</div></div>';
+;
+    });
+    chartHtml+='</div>';
+    // Legend
+    var legendHtml='<div style="display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:28px;font-size:12px;color:var(--muted);justify-content:center">';
+    var seen={};
+    timeline.forEach(function(p){if(seen[p.nome])return;seen[p.nome]=true;var col=colors[p.nome]||'#888';
+      legendHtml+='<span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+col+';vertical-align:middle;margin-right:3px"></span>'+p.nome+'</span>';
+    });
+    legendHtml+='<span style="color:var(--line)">|</span>';
+    legendHtml+='<span><span style="display:inline-block;width:14px;height:0;border-top:2px dashed var(--lula);vertical-align:middle;margin-right:3px"></span>Resultado Lula</span>';
+    legendHtml+='<span><span style="display:inline-block;width:14px;height:0;border-top:2px dashed var(--flavio);vertical-align:middle;margin-right:3px"></span>Resultado Flávio</span>';
+    legendHtml+='<span><span style="display:inline-block;width:14px;height:0;border-top:1.5px solid var(--muted);vertical-align:middle;margin-right:3px"></span>50%</span>';
+    legendHtml+='</div>';
+    document.getElementById(targetId).innerHTML=chartHtml+legendHtml;
+    // Tooltip events
+    document.getElementById(targetId).addEventListener('mouseover',function(e){
+      var dot=e.target.closest('.poll-dot');if(!dot)return;
+      var tip=dot.firstElementChild;if(tip)tip.style.display='block';
+    });
+    document.getElementById(targetId).addEventListener('mouseout',function(e){
+      var dot=e.target.closest('.poll-dot');if(!dot)return;
+      if(dot.contains(e.relatedTarget))return;
+      var tip=dot.firstElementChild;if(tip)tip.style.display='none';
+    });
+  }
+
+  // 2T chart
+  renderPollChart('poll-dotplot', t2.timeline||[], rL, rF, {minY:46, maxY:54, dayMin:7, dayMax:25, elDay:25});
+  // 1T chart - dates span Sep 25 to Oct 4, convert to day-of-year offset
+  var tl1t=(t1.timeline||[]).map(function(p){
+    var parts=p.data.split('/');var day=parseInt(parts[0]);var mon=parseInt(parts[1]||10);
+    var dayOffs=(mon===9)?(day-25):(day-25+30); // Sep 25=0, Oct 4=9
+    return {data:String(dayOffs),nome:p.nome,lula:p.lula,flavio:p.flavio,origData:p.data};
+  });
+  // Override dateX for 1T: 0=Sep25, 9=Oct4
+  var t1Labels={};
+  tl1t.forEach(function(p){
+    var parts=(t1.timeline[0]||{}).data;// just for ref
+  });
+  renderPollChart('poll-dotplot-1t', tl1t, rL1, rF1, {minY:41, maxY:49, dayMin:0, dayMax:9, elDay:9, monthLabel:'',
+    customLabels:{0:'25/09',2:'27/09',4:'29/09',5:'30/09',6:'01/10',8:'03/10',9:'Eleição'}});
+
+  // 2T table
+  document.getElementById('pollRows2t').innerHTML=t2.institutos.map(function(p){
+    var erroL=Math.abs(p.lula-rL).toFixed(1);
+    var acertou=(p.lula>p.flavio)===(rL>rF);
+    var tagH=acertou?tag('ACERTOU','pt'):tag('ERROU','pl');
+    return '<tr><td style="font-weight:600">'+p.nome+'</td>'+
+      '<td style="color:var(--muted);white-space:nowrap">'+(p.data||'—')+'</td>'+
+      '<td class="n">'+fmt(p.lula)+'%</td>'+
+      '<td class="n">'+fmt(p.flavio)+'%</td>'+
+      '<td class="n" style="color:var(--lula);font-weight:600">'+fmt(rL)+'%</td>'+
+      '<td class="n" style="color:var(--flavio);font-weight:600">'+fmt(rF)+'%</td>'+
+      '<td class="n" style="font-weight:700;color:'+(parseFloat(erroL)>2?'var(--lula)':'var(--muted)')+'">'+erroL+'</td>'+
+      '<td class="n">±'+fmt(p.margem)+'</td>'+
+      '<td>'+tagH+'</td></tr>';
+  }).join('');
+
+  // 1T table
+  document.getElementById('pollRows1t').innerHTML=t1.institutos.map(function(p){
+    var erroF=Math.abs(p.flavio-rF1).toFixed(1);
+    var acertou=(p.flavio>p.lula)===(rF1>rL1);
+    var tagH=acertou?tag('ACERTOU','pt'):tag('ERROU','pl');
+    return '<tr><td style="font-weight:600">'+p.nome+'</td>'+
+      '<td style="color:var(--muted);white-space:nowrap">'+(p.data||'—')+'</td>'+
+      '<td class="n">'+fmt(p.lula)+'%</td>'+
+      '<td class="n">'+fmt(p.flavio)+'%</td>'+
+      '<td class="n" style="color:var(--lula);font-weight:600">'+fmt(rL1)+'%</td>'+
+      '<td class="n" style="color:var(--flavio);font-weight:600">'+fmt(rF1)+'%</td>'+
+      '<td class="n" style="font-weight:700;color:'+(parseFloat(erroF)>2?'var(--lula)':'var(--muted)')+'">'+erroF+'</td>'+
+      '<td class="n">±'+fmt(p.margem)+'</td>'+
+      '<td>'+tagH+'</td></tr>';
+  }).join('');
+
+  makeSortable(document.getElementById('pollTable2t'));
+  makeSortable(document.getElementById('pollTable1t'));
+}
+
+function renderTransferencia(){
+  if(!TRANSF)return;
+  var a2=TRANSF.model_a2, ei=TRANSF.model_ei, byRegion=TRANSF.by_region||{}, meta=TRANSF.meta||{};
+  // Candidate keys only (exclude brancos, nulos, novos_eleitores)
+  var specialKeys={'brancos':true,'nulos':true,'novos_eleitores':true};
+  var candKeys=Object.keys(a2).filter(function(k){return !specialKeys[k]});
+  candKeys.sort(function(a,b){return (a2[b].votes_total||0)-(a2[a].votes_total||0)});
+
+  // Summary: total estimated votes to each finalist (all sources including brancos/nulos/novos)
+  var totalToLula=0, totalToBolso=0;
+  Object.keys(a2).forEach(function(k){
+    totalToLula+=(a2[k].votes_to_lula||0);
+    totalToBolso+=(a2[k].votes_to_bolso||0);
+  });
+  var photoStyle='width:64px;height:64px;border-radius:50%;object-fit:cover;display:block;margin-bottom:6px';
+  document.getElementById('transf-summary').innerHTML=
+    '<div class="card b" style="border-top:6px solid var(--lula)"><div class="kicker l">PT</div><img src="'+PRES_PHOTOS['13']+'" alt="" style="'+photoStyle+'" onerror="this.style.display=\'none\'"><h3>Lula</h3><div class="num l">'+fmtN(totalToLula)+'</div><div class="lbl">votos estimados recebidos</div></div>'+
+    '<div class="card a" style="border-top:6px solid var(--flavio)"><div class="kicker f">PL</div><img src="'+PRES_PHOTOS['22']+'" alt="" style="'+photoStyle+'" onerror="this.style.display=\'none\'"><h3>Flávio Bolsonaro</h3><div class="num f">'+fmtN(totalToBolso)+'</div><div class="lbl">votos estimados recebidos</div></div>';
+
+  // Candidate bars
+  var maxV=0;
+  candKeys.forEach(function(k){if(a2[k].votes_total>maxV)maxV=a2[k].votes_total});
+  maxV=maxV||1;
+  var blocked={'28':true};
+
+  document.getElementById('transf-bars').innerHTML=candKeys.map(function(n){
+    var d=a2[n], eid=ei&&ei[n];
+    var lulaP=(d.to_lula*100).toFixed(1);
+    var bolsoP=(d.to_bolso*100).toFixed(1);
+    var lulaW=lulaP;
+    var bolsoW=bolsoP;
+    var cName=d.name||CAND_NAMES[n]||n;
+    var cParty=d.party||PARTY_NUMS[n]||'';
+    var cPhoto=PRES_PHOTOS[n]||'';
+    var isBlocked=blocked[n];
+    var opStyle=isBlocked?'opacity:0.4;':'';
+    var imgH=cPhoto?'<img src="'+cPhoto+'" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;'+opStyle+(isBlocked?'filter:grayscale(1)':'')+'" onerror="this.style.display=\'none\'" loading="lazy">':'';
+    var nameExtra='';
+    var ciText='';
+    if(eid){
+      var ciLow=(eid.ci_low*100).toFixed(0);
+      var ciHigh=(eid.ci_high*100).toFixed(0);
+      ciText='<span class="small" style="color:var(--muted)">IC: '+ciLow+'%–'+ciHigh+'% → Lula</span>';
+    }
+    return '<div class="transf-row" data-cand="'+n+'" style="display:grid;grid-template-columns:40px minmax(80px,140px) 1fr auto;gap:10px;align-items:center;margin-block:8px;font-size:14px;cursor:pointer">'+
+      imgH+
+      '<span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;'+opStyle+'">'+cName+nameExtra+'<br><span class="small">'+cParty+'</span></span>'+
+      '<div>'+
+        '<div style="background:var(--neutral-soft);border-radius:4px;height:22px;overflow:hidden;display:flex">'+
+          '<div style="width:'+lulaW+'%;height:100%;background:var(--lula)" title="→ Lula '+lulaP+'%"></div>'+
+          '<div style="width:'+bolsoW+'%;height:100%;background:var(--flavio)" title="→ Bolsonaro '+bolsoP+'%"></div>'+
+        '</div>'+
+        '<div style="display:flex;justify-content:space-between;margin-top:2px">'+
+          '<span class="small" style="color:var(--lula);font-weight:600">'+lulaP+'% Lula</span>'+
+          '<span class="small" style="color:var(--flavio);font-weight:600">'+bolsoP+'% Bolsonaro</span>'+
+        '</div>'+
+      '</div>'+
+      '<span style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;min-width:90px">'+fmtN(d.votes_total)+
+        (ciText?'<br>'+ciText:'')+'</span></div>';
+  }).join('');
+
+  // Also add bars for brancos, nulos, novos_eleitores
+  var extraKeys=['brancos','nulos','novos_eleitores'];
+  var extraLabels={'brancos':'Brancos','nulos':'Nulos','novos_eleitores':'Novos eleitores'};
+  var extraIcons={
+    'brancos':'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted)"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/></svg>',
+    'nulos':'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted)"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>',
+    'novos_eleitores':'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted)"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>'
+  };
+  document.getElementById('transf-bars').innerHTML+=
+    '<div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--line)">'+
+    '<p class="small" style="margin-bottom:8px;color:var(--muted);font-weight:600">Outras fontes</p>'+
+    extraKeys.map(function(k){
+      var d=a2[k];if(!d)return '';
+      var lulaP=(d.to_lula*100).toFixed(1);
+      var bolsoP=(d.to_bolso*100).toFixed(1);
+      var lulaW=lulaP;
+      var bolsoW=bolsoP;
+      return '<div style="display:grid;grid-template-columns:48px minmax(80px,140px) 1fr auto;gap:10px;align-items:center;margin-block:8px;font-size:14px">'+
+        '<span style="display:flex;justify-content:center">'+(extraIcons[k]||'')+'</span>'+
+        '<span>'+extraLabels[k]+'</span>'+
+        '<div>'+
+          '<div style="background:var(--neutral-soft);border-radius:4px;height:22px;overflow:hidden;display:flex">'+
+            '<div style="width:'+lulaW+'%;height:100%;background:var(--lula)" title="→ Lula '+lulaP+'%"></div>'+
+            '<div style="width:'+bolsoW+'%;height:100%;background:var(--flavio)" title="→ Bolsonaro '+bolsoP+'%"></div>'+
+          '</div>'+
+          '<div style="display:flex;justify-content:space-between;margin-top:2px">'+
+            '<span class="small" style="color:var(--lula);font-weight:600">'+lulaP+'% Lula</span>'+
+            '<span class="small" style="color:var(--flavio);font-weight:600">'+bolsoP+'% Bolsonaro</span>'+
+          '</div>'+
+        '</div>'+
+        '<span style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;min-width:90px">'+fmtN(d.votes_total)+'</span></div>';
+    }).join('')+'</div>';
+
+  // Legend
+  document.getElementById('transf-bars').innerHTML+=
+    '<div class="legend" style="margin-top:12px">'+
+      '<span><i style="background:var(--lula)"></i>→ Lula</span>'+
+      '<span><i style="background:var(--flavio)"></i>→ Bolsonaro</span>'+
+    '</div>';
+
+  // Interpretive summary
+  document.getElementById('transf-bars').innerHTML+=
+    '<div style="margin-top:20px;padding:16px;background:var(--bg);border-radius:10px;border:1px solid var(--line);font-size:13px;line-height:1.7">'+
+      '<p style="font-weight:700;margin-bottom:10px">Como ler os resultados</p>'+
+      '<p>Cada candidato tem um coeficiente que indica a fração estimada dos seus votos do 1º turno que migrou para o Lula no 2º turno. Por exemplo, "53% Lula" significa que a cada 100 votos que esse candidato recebeu no 1T, estimamos que 53 foram para o Lula e 47 para o Bolsonaro.</p>'+
+      '<p>O <b>IC 95%</b> (intervalo de confiança) mostra a faixa de incerteza: se o IC é 44–81%, significa que o valor real provavelmente está entre 44% e 81%. ICs apertados (como 0–0% do Zema) indicam alta confiança. ICs largos (como 0–100%) indicam que o modelo não consegue estimar com precisão — geralmente candidatos com poucos votos.</p>'+
+      '<p style="font-weight:700;margin-top:14px;margin-bottom:8px">Interpretação por candidato</p>'+
+      '<p><b style="color:#e67e22">Augusto Cury (Avante)</b> — 3,4M votos → <b style="color:var(--lula)">100% Lula</b>. Apesar de ter declarado apoio ao Flávio entre turnos, o modelo indica que seus eleitores migraram para o Lula. IC apertado (100–100%) confirma alta confiança.</p>'+
+      '<p><b style="color:#e74c3c">Renan Santos (Missão)</b> — 2,7M votos → <b style="color:var(--flavio)">74% Bolsonaro</b>. Líder do MBL, direita. IC largo (0–68%) porque a base dele é concentrada em SP.</p>'+
+      '<p><b style="color:#2ecc71">Ronaldo Caiado (PSD)</b> — 2,6M votos → <b>53% Lula / 47% Bolsonaro</b>. Centro-direita, eleitores divididos quase meio a meio. IC 44–81% mostra incerteza moderada.</p>'+
+      '<p><b style="color:#3498db">Zema (Novo)</b> — 326K votos → <b style="color:var(--flavio)">100% Bolsonaro</b>. Liberal/direita. IC 0–0% = certeza máxima.</p>'+
+      '<p style="color:var(--muted)"><b>Candidatos menores</b> (UP, PSTU, DC, PCB, PMB, PCO) — todos mostram 100% → Lula, coerente com esquerda/extrema-esquerda. Porém o IC 0–100% indica que o modelo não tem poder estatístico para estimá-los com confiança.</p>'+
+    '</div>';
+
+  // Table rows
+  var allKeys=candKeys.concat(extraKeys);
+  document.getElementById('transfRows').innerHTML=allKeys.map(function(k){
+    var d=a2[k];if(!d)return '';
+    var eid=ei&&ei[k];
+    var isSpecial=specialKeys[k];
+    var cName=isSpecial?(extraLabels[k]||k):(d.name||CAND_NAMES[k]||k);
+    var cParty=isSpecial?'—':(d.party||PARTY_NUMS[k]||'');
+    var cPhoto=(!isSpecial&&PRES_PHOTOS[k])?PRES_PHOTOS[k]:'';
+    var isBlocked=blocked[k];
+    var imgTag=cPhoto?'<img src="'+cPhoto+'" style="width:24px;height:24px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:6px;'+(isBlocked?'opacity:0.4;filter:grayscale(1)':'')+'" onerror="this.style.display=\'none\'">':(isSpecial&&extraIcons[k]?'<span style="vertical-align:middle;margin-right:6px;display:inline-block;width:24px;height:24px">'+extraIcons[k]+'</span>':'');
+    var lulaP=(d.to_lula*100).toFixed(1);
+    var bolsoP=(d.to_bolso*100).toFixed(1);
+    var votesToLula=d.votes_to_lula||Math.round(d.votes_total*d.to_lula);
+    var votesToBolso=d.votes_to_bolso||Math.round(d.votes_total*d.to_bolso);
+    var ciText='—';
+    if(eid){
+      ciText=(eid.ci_low*100).toFixed(0)+'%–'+(eid.ci_high*100).toFixed(0)+'%';
+    }
+    // Mini bar for table
+    var miniBar='<div style="background:var(--neutral-soft);border-radius:3px;height:14px;overflow:hidden;display:flex;min-width:120px">'+
+      '<div style="width:'+lulaP+'%;height:100%;background:var(--lula)"></div>'+
+      '<div style="width:'+bolsoP+'%;height:100%;background:var(--flavio)"></div>'+
+    '</div>';
+    return '<tr'+(isBlocked?' style="opacity:0.5"':'')+(isSpecial?' style="font-style:italic"':'')+'>'+
+      '<td data-sort="'+cName+'">'+imgTag+cName+(cParty&&cParty!=='—'?' <span class="small">('+cParty+')</span>':'')+'</td>'+
+      '<td class="n" data-sort="'+d.votes_total+'">'+fmtN(d.votes_total)+'</td>'+
+      '<td class="n" data-sort="'+votesToLula+'" style="color:var(--lula)">'+fmtN(votesToLula)+' ('+lulaP+'%)</td>'+
+      '<td class="n" data-sort="'+votesToBolso+'" style="color:var(--flavio)">'+fmtN(votesToBolso)+' ('+bolsoP+'%)</td>'+
+      '<td class="n">'+ciText+'</td>'+
+      '<td>'+miniBar+'</td></tr>';
+  }).join('');
+
+  // Re-sort tables to pick up the new one
+  makeSortable(document.getElementById('transfTable'));
+
+  // Regional tooltip on hover
+  var regionTip=document.createElement('div');
+  regionTip.style.cssText='display:none;position:fixed;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;box-shadow:0 8px 24px rgba(0,0,0,.35);z-index:2000;font-size:13px;min-width:380px;pointer-events:none;white-space:nowrap';
+  document.body.appendChild(regionTip);
+
+  var regionNames=['Norte','Nordeste','Centro-Oeste','Sudeste','Sul'];
+
+  document.getElementById('transf-bars').addEventListener('mouseover',function(e){
+    var row=e.target.closest('.transf-row');
+    if(!row)return;
+    var cand=row.dataset.cand;
+    if(!cand||!byRegion)return;
+
+    var natD=a2[cand];
+    if(!natD)return;
+    var natP=(natD.to_lula*100).toFixed(1);
+
+    var html='<div style="font-weight:700;margin-bottom:8px">'+
+      (natD.name||cand)+' — por região</div>'+
+      '<table style="width:100%;border-collapse:collapse;font-size:12px">'+
+      '<tr style="color:var(--muted)"><td style="padding:3px 6px">Região</td><td style="padding:3px 6px;text-align:right">→ Lula</td><td style="padding:3px 6px;text-align:right">→ Bolsonaro</td><td style="padding:3px 6px;text-align:right">Municípios</td></tr>';
+
+    regionNames.forEach(function(reg){
+      var rd=byRegion[reg];
+      if(!rd||!rd.coefficients||!rd.coefficients[cand])return;
+      var coef=rd.coefficients[cand].to_lula;
+      var lP=(coef*100).toFixed(1);
+      var bP=((1-coef)*100).toFixed(1);
+      var lCol=coef>0.5?'var(--lula)':'var(--flavio)';
+      var barW=Math.max(2,coef*100);
+      html+='<tr style="border-top:1px solid var(--line)">'+
+        '<td style="padding:4px 6px;font-weight:500">'+reg+'</td>'+
+        '<td style="padding:4px 6px;text-align:right;color:var(--lula);font-weight:600">'+lP+'%</td>'+
+        '<td style="padding:4px 6px;text-align:right;color:var(--flavio);font-weight:600">'+bP+'%</td>'+
+        '<td style="padding:4px 6px;text-align:right;color:var(--muted)">'+rd.n_municipalities+'</td></tr>';
+    });
+
+    html+='<tr style="border-top:2px solid var(--line);font-weight:700">'+
+      '<td style="padding:4px 6px">Nacional</td>'+
+      '<td style="padding:4px 6px;text-align:right;color:var(--lula)">'+natP+'%</td>'+
+      '<td style="padding:4px 6px;text-align:right;color:var(--flavio)">'+(100-parseFloat(natP)).toFixed(1)+'%</td>'+
+      '<td style="padding:4px 6px;text-align:right;color:var(--muted)">'+meta.n_municipalities+'</td></tr>';
+
+    html+='</table>';
+    regionTip.innerHTML=html;
+
+    // Position
+    var rect=row.getBoundingClientRect();
+    regionTip.style.left='-9999px';
+    regionTip.style.top='0';
+    regionTip.style.display='block';
+    var tipW=regionTip.offsetWidth;
+    var tipH=regionTip.offsetHeight;
+    var top=rect.bottom+6;
+    if(top+tipH>window.innerHeight-10) top=rect.top-tipH-6;
+    var left=rect.left+rect.width/2-tipW/2;
+    if(left+tipW>window.innerWidth-10) left=window.innerWidth-tipW-10;
+    if(left<10) left=10;
+    regionTip.style.top=top+'px';
+    regionTip.style.left=left+'px';
+  });
+
+  document.getElementById('transf-bars').addEventListener('mouseout',function(e){
+    var row=e.target.closest('.transf-row');
+    if(!row||row.contains(e.relatedTarget))return;
+    regionTip.style.display='none';
+  });
+}
+
+function sign(n){return (n>=0?'+':'')+fmtN(n)}
+</script>
+</body></html>

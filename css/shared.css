@@ -211,6 +211,14 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
 .pat-var{font-size:12px;font-weight:600}
 .pat-var.up{color:#2e8b57} .pat-var.dn{color:var(--flavio)}
 @media(max-width:560px){.pol-header{flex-direction:column;text-align:center}.pol-photo{margin:0 auto}}
+.tlx{display:flex;position:relative;overflow-x:auto;padding-bottom:12px;scrollbar-width:thin}
+.tlx::before{content:'';position:absolute;top:22px;left:0;right:0;height:3px;background:var(--line)}
+.tlx-item{flex:none;position:relative;min-width:120px;max-width:160px;padding-top:42px;text-align:center}
+.tlx-item::before{content:'';position:absolute;top:16px;left:50%;transform:translateX(-50%);width:13px;height:13px;border-radius:50%;background:var(--neutral);border:3px solid var(--bg);z-index:1}
+.tlx-item:last-child::before{background:var(--accent)}
+.tlx-year{font-family:var(--serif);font-weight:700;font-size:16px}
+.tlx-cargo{font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+.tlx-body{font-size:13px;line-height:1.5;color:var(--fg);margin-top:4px}
 
 /* ── timeline (shared between 2turno.html and politico.html) ── */
 .tl{position:relative;padding-left:28px;border-left:3px solid var(--line);margin-left:8px}
@@ -250,3 +258,10 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
 .tl2-cat-juridico .tl2-icon{background:color-mix(in srgb,#9673a6 20%,transparent);color:#9673a6}
 .tl2-cat-crise .tl2-icon{background:color-mix(in srgb,var(--lula) 20%,transparent);color:var(--lula)}
 @media(max-width:560px){.tl2-head{gap:8px;padding:10px 12px}.tl2-detail{padding:0 12px 12px 12px}}
+
+/* ── Help tips ── */
+.help-tip{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--neutral-soft);color:var(--muted);font-family:var(--serif);font-size:13px;font-weight:700;cursor:pointer;margin-left:8px;vertical-align:middle;position:relative;border:1px solid var(--line);flex-shrink:0}
+.help-tip:hover{background:var(--line);color:var(--fg)}
+.help-tip .help-text{display:none;position:absolute;left:50%;top:calc(100% + 8px);transform:translateX(-50%);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-family:var(--sans);font-size:13px;font-weight:400;color:var(--fg);line-height:1.5;width:min(320px,90vw);box-shadow:0 4px 16px rgba(0,0,0,.15);z-index:20;text-align:left;white-space:normal}
+.help-tip .help-text::before{content:'';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-bottom-color:var(--line)}
+.help-tip.active .help-text{display:block}

@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
 <link rel="stylesheet" href="css/shared.css">
 
-<nav class="topnav" aria-label="Seções"><div><a href="#" class="nav-brand" aria-label="1turno"><img class="logo-light" src="assets/logo/turnos-horizontal-claro.svg" alt="turnos" height="22"><img class="logo-dark" src="assets/logo/turnos-horizontal-escuro.svg" alt="" height="22"></a><button class="nav-arr nav-arr-l" aria-label="Anterior" hidden>‹</button><div class="nav-links"><a href="#resumo">Resumo</a><a href="#presidente">Presidente</a><a href="#mapa">Mapa</a><a href="#governadores">Governadores</a><a href="#senado">Senado</a><a href="#camara">Câmara</a><a href="#congresso">Congresso 2027</a><a href="#estados">Estados</a><a href="#calendario">Calendário</a><a href="#ressalvas">Ressalvas</a><a href="#fontes">Fontes</a><a href="2turno.html" style="background:var(--accent);color:#fff;border-radius:99px">2º turno →</a></div><button class="nav-arr nav-arr-r" aria-label="Próximo" hidden>›</button><button class="help-btn" aria-label="Como usar" title="Como usar">?</button><button class="theme-toggle" aria-label="Alternar tema" title="Alternar tema">☀</button></div></nav>
+<nav class="topnav" aria-label="Seções"><div><a href="#" class="nav-brand" aria-label="1turno"><img class="logo-light" src="assets/logo/turnos-horizontal-claro.svg" alt="turnos" height="22"><img class="logo-dark" src="assets/logo/turnos-horizontal-escuro.svg" alt="" height="22"></a><button class="nav-arr nav-arr-l" aria-label="Anterior" hidden>‹</button><div class="nav-links"><a href="#resumo">Resumo</a><a href="#presidente">Presidente</a><a href="#mapa">Mapa</a><a href="#governadores">Governadores</a><a href="#senado">Senado</a><a href="#camara">Câmara</a><a href="#congresso">Congresso 2027</a><a href="#estados">Estados</a><a href="#calendario">Calendário</a><a href="#ressalvas">Ressalvas</a><a href="#fontes">Fontes</a><a href="mapa.html" style="background:var(--accent);color:#fff;border-radius:99px">🗺 Mapa</a><a href="analise.html" style="background:var(--accent);color:#fff;border-radius:99px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M11 13H7"/><path d="M19 9h-4"/><path d="M3 3v16a2 2 0 0 0 2 2h16"/><rect x="15" y="5" width="4" height="12" rx="1"/><rect x="7" y="8" width="4" height="9" rx="1"/></svg>Análise</a><a href="2turno.html" style="background:var(--accent);color:#fff;border-radius:99px">2º turno →</a></div><button class="nav-arr nav-arr-r" aria-label="Próximo" hidden>›</button><button class="help-btn" aria-label="Como usar" title="Como usar">?</button><button class="theme-toggle" aria-label="Alternar tema" title="Alternar tema">☀</button></div></nav>
 <script src="js/shared.js"></script>
 
 <div class="ob-overlay" id="onboarding" hidden><div class="ob-modal">
@@ -51,7 +51,7 @@
 <section id="presidente">
   <details open><summary><h2>Presidente da República</h2></summary>
   <div class="duel">
-    <div class="card a"><div class="kicker f">PL</div><img class="cand-photo" src="https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/20322002026/280002551544/BR" alt="" onerror="this.style.display='none'"><h3>Flávio Bolsonaro</h3><div class="num f">47,03%</div><div class="lbl">56.104.503 votos válidos. Venceu em 14 estados e no DF</div></div>
+    <div class="card a"><div class="kicker f">PL</div><img class="cand-photo" src="https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/20322002026/280002551544/BR" alt="" onerror="this.style.display='none'"><h3>Flávio Bolsonaro</h3><div class="num f">47,03%</div><div class="lbl">56.104.503 votos válidos <span class="help-tip" aria-label="Ajuda" style="width:18px;height:18px;font-size:11px">?<span class="help-text">Votos válidos são os votos que contam para decidir o vencedor: exclui votos em branco e nulos. Os percentuais nesta página são calculados sobre os votos válidos.</span></span>. Venceu em 14 estados e no DF</div></div>
     <div class="card b"><div class="kicker l">PT</div><img class="cand-photo" src="https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/20322002026/280002542548/BR" alt="" onerror="this.style.display='none'"><h3>Lula</h3><div class="num l">45,15%</div><div class="lbl">53.846.396 votos válidos. Venceu em 12 estados</div></div>
   </div>
   <div>
@@ -88,7 +88,7 @@
 </details></section>
 
 <section id="mapa">
-  <details open><summary><h2>Mapa: quem liderou em cada estado</h2></summary>
+  <details open><summary><h2>Mapa: quem liderou em cada estado <span class="help-tip" aria-label="Ajuda">?<span class="help-text">Este é um cartograma: cada estado tem o mesmo tamanho, independente da área real. Isso facilita comparar estados pequenos como Sergipe com estados grandes como Amazonas. Os tons mais escuros indicam vitória com mais de 60% dos votos.</span></span></h2></summary>
   <p>Cada quadrado é uma UF (cartograma, não respeita a área real). O número é o percentual de votos válidos do vencedor no estado. Tom escuro indica 60% ou mais.</p>
   <div class="maps">
     <div>
@@ -135,24 +135,24 @@
   </table></div>
   <h3>Os 6 segundos turnos (25/10)</h3>
   <div class="scroll"><table id="runTable">
-    <thead><tr><th class="sort" aria-sort="ascending">UF</th><th class="sort"><div class="split"><span>1º colocado</span><span>%</span></div></th><th class="sort"><div class="split"><span>2º colocado</span><span>%</span></div></th></tr></thead>
+    <thead><tr><th class="sort" aria-sort="ascending">UF</th><th class="sort">1º colocado</th><th class="sort">2º colocado</th></tr></thead>
     <tbody id="runRows"></tbody>
   </table></div>
   <p class="small">RN é o 2º turno mais apertado do país (menos de 1 ponto). DF, AC e ES começaram com o líder acima de 49,6%. O RJ foi retirado do 2º turno após redistribuição de votos com a desistência de recurso de Garotinho.</p>
 </details></section>
 
 <section id="senado">
-  <details open><summary><h2>Senado: 54 eleitos</h2></summary>
+  <details open><summary><h2>Senado: 54 eleitos <span class="help-tip" aria-label="Ajuda">?<span class="help-text">O Brasil elege 2 senadores por estado a cada 8 anos, alternando entre 1 e 2 vagas. Em 2026, foram 2 vagas por estado, totalizando 54 senadores eleitos.</span></span></h2></summary>
   <p>Eleição majoritária, dois por UF. O PL elegeu 19, quase o dobro da bancada que tinha. Somando os 9 senadores do partido com mandato até 2031, o PL terá 28 das 81 cadeiras a partir de 2027, mais de um terço da Casa.</p>
   <div id="senParty"></div>
   <div class="scroll"><table id="senTable">
-    <thead><tr><th class="sort" aria-sort="ascending">UF</th><th class="sort"><div class="split"><span>Senador 1</span><span>% / Votos</span></div></th><th class="sort"><div class="split"><span>Senador 2</span><span>% / Votos</span></div></th></tr></thead>
+    <thead><tr><th class="sort" aria-sort="ascending">UF</th><th class="sort">Senador 1</th><th class="sort">Senador 2</th></tr></thead>
     <tbody id="senRows"></tbody>
   </table></div>
 </details></section>
 
 <section id="camara">
-  <details open><summary><h2>Câmara dos Deputados: 513 eleitos</h2></summary>
+  <details open><summary><h2>Câmara dos Deputados: 513 eleitos <span class="help-tip" aria-label="Ajuda">?<span class="help-text">O hemiciclo é uma representação visual das cadeiras do parlamento. Cada bolinha é um deputado eleito. As cores indicam o partido. Passe o mouse sobre as bolinhas para ver detalhes.</span></span></h2></summary>
   <p>Eleição proporcional. O PL elegeu 121, a maior bancada de um único partido desde 1990. A federação PT/PCdoB/PV vem em segundo com 88 (70 do PT).</p>
   <div id="camBars"></div>
   <div class="grid">
@@ -164,7 +164,7 @@
 </details></section>
 
 <section id="congresso">
-  <details open><summary><h2>Como fica o Congresso em 2027</h2></summary>
+  <details open><summary><h2>Como fica o Congresso em 2027 <span class="help-tip" aria-label="Ajuda">?<span class="help-text">O Congresso Nacional tem duas casas: a Câmara dos Deputados (513 cadeiras, renovada a cada 4 anos) e o Senado Federal (81 cadeiras, renovado parcialmente). Para aprovar leis, é preciso maioria em ambas as casas.</span></span></h2></summary>
   <p>Cada ponto é uma cadeira, da esquerda para a direita (ordem aproximada, não oficial). Passe o mouse ou toque num ponto para ver o partido.</p>
   <div class="seg" role="group" aria-label="Colorir cadeiras por"><button type="button" data-mode="partido" aria-pressed="true">Por partido</button><button type="button" data-mode="esp3" aria-pressed="false">Esquerda, centro e direita</button><button type="button" data-mode="esp" aria-pressed="false">Espectro detalhado</button></div>
   <p class="small" id="specNote" hidden>Classificação aproximada, não oficial, baseada em como a imprensa costuma agrupar os partidos. Na versão de três grupos, centro-esquerda conta como esquerda e centro-direita como direita. Federações seguem o partido principal (PT/PCdoB/PV na esquerda, União/PP na centro-direita). O posicionamento de partidos de centro como PSD, MDB e Podemos varia conforme o tema e a fonte.</p>
@@ -194,7 +194,7 @@
   <details open><summary><h2>Calendário</h2></summary>
   <div class="scroll"><table>
     <tbody>
-      <tr><td>25/10/2026</td><td>2º turno: presidente e 7 governos estaduais</td></tr>
+      <tr><td>25/10/2026</td><td>2º turno: presidente e 6 governos (AC, AM, DF, ES, RN, TO)</td></tr>
       <tr><td>até 18/12/2026</td><td>Diplomação dos eleitos</td></tr>
       <tr><td>05/01/2027</td><td>Posse do presidente</td></tr>
       <tr><td>06/01/2027</td><td>Posse dos governadores</td></tr>
@@ -251,6 +251,8 @@
     <div class="footer-links">
       <a href="index.html">1º turno</a>
       <a href="2turno.html">2º turno</a>
+      <a href="mapa.html">Mapa</a>
+      <a href="analise.html">Análise</a>
     </div>
     <div class="footer-right">
       <a href="https://github.com/AndreRuperto/1turno" target="_blank" rel="noopener" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 00-3.8 23.38c.6.12.82-.26.82-.58l-.01-2.05c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.31-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 016.02 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.48 5.92.43.37.81 1.1.81 2.22l-.01 3.29c0 .32.22.7.82.58A12 12 0 0012 .3"/></svg></a>

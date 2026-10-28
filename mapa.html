@@ -1,0 +1,1727 @@
+<!doctype html><html lang="pt-BR"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>Mapa Eleitoral — Eleições 2026</title>
+<link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/favicon-180.png">
+</head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<link rel="stylesheet" href="css/shared.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="js/shared.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+/* ── Map page layout ── */
+html,body{height:100%;overflow:hidden}
+body{padding:0!important;overflow:hidden;height:100vh;display:flex;flex-direction:column}
+
+.map-wrap{display:grid;grid-template-columns:1fr 340px;flex:1;overflow:hidden;min-height:0}
+#map{background:#14130f}
+
+.side{background:var(--surface);border-left:1px solid var(--line);overflow-y:auto;z-index:1000}
+
+/* ── Banner (ESTADO/MUNICIPIO toggle) ── */
+.banner{display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 20px;background:var(--surface);border-bottom:1px solid var(--line);z-index:9999;position:relative;overflow:visible}
+.banner h1{font-family:var(--serif);font-size:1.05em;font-weight:700;margin:0}
+.banner h1 b{color:var(--lula)}
+.banner .tm{color:var(--muted);font-size:.82em;margin-left:8px}
+.banner .seg{margin-left:auto}
+
+/* ── National result panel ── */
+.nat{text-align:center;padding:14px;border-bottom:1px solid var(--line)}
+.nat .bdg{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75em;font-weight:600;background:var(--lula-soft);color:var(--lula);border:1px solid var(--lula)}
+.nat .vs{display:flex;justify-content:center;gap:24px;margin-top:12px}
+.nat .cd{text-align:center}
+.nat .cd .photo{width:48px;height:48px;border-radius:50%;object-fit:cover;margin-bottom:4px;background:var(--neutral-soft);border:2px solid var(--line)}
+.nat .cd .p{font-family:var(--serif);font-size:1.4em;font-weight:700}
+.nat .cd .n{font-size:.7em;color:var(--muted)}
+.nat .cd .v{font-size:.68em;color:var(--muted);margin-top:1px}
+.nat .cd.l .p{color:var(--lula)}
+.nat .cd.l .photo{border-color:var(--lula)}
+.nat .cd.f .p{color:var(--flavio)}
+.nat .cd.f .photo{border-color:var(--flavio)}
+.nat .result-bar{display:flex;height:5px;border-radius:3px;overflow:hidden;margin-top:10px}
+
+/* ── Sidebar panels ── */
+.pnl{padding:14px;border-bottom:1px solid var(--line)}
+.pnl-t{font-size:.72em;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px;font-weight:600}
+
+/* ── Region list ── */
+.rlist{display:flex;flex-direction:column;gap:4px}
+.ri-wrap{border-radius:6px;overflow:hidden}
+.ri{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;background:var(--bg);cursor:pointer;user-select:none}
+.ri:hover{filter:brightness(1.08)}
+.ri .ap{width:30px;height:30px;border-radius:50%;border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:.55em;font-weight:700;color:var(--accent);flex-shrink:0}
+.ri .rn{flex:1;font-size:.82em;font-weight:500}
+.ri .rp{display:flex;gap:8px;font-size:.82em;font-weight:700}
+.ri .rp .r{color:var(--lula)}
+.ri .rp .b{color:var(--flavio)}
+.ri .rb{width:100%;height:3px;border-radius:2px;overflow:hidden;display:flex;margin-top:2px}
+.ri .chevron{font-size:.7em;color:var(--muted);transition:transform .2s;flex-shrink:0}
+.ri.open .chevron{transform:rotate(180deg)}
+.ri-detail{display:none;background:var(--bg);padding:6px 12px 8px 48px;font-size:.78em;border-radius:0 0 6px 6px;margin-top:-2px}
+.ri-detail.show{display:block}
+.ri-detail .adv{font-weight:700}
+.ri-detail .adv-votes{color:var(--muted);margin-top:2px}
+
+/* ── State list ── */
+.slist{max-height:280px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--neutral) transparent}
+.sr{display:flex;align-items:center;gap:6px;padding:4px 8px;border-radius:5px;cursor:pointer;font-size:.8em}
+.sr:hover{background:var(--neutral-soft)}
+.sr .su{width:24px;font-weight:700}
+.sr .sb{flex:1;height:5px;border-radius:2px;overflow:hidden;display:flex}
+.sr .sp{width:44px;text-align:right;font-weight:600}
+
+/* ── Info box (bottom-left overlay) ── */
+.info-box{position:absolute;bottom:30px;left:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px;z-index:1000;min-width:280px;display:none;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.info-box .ib-title{font-family:var(--serif);font-weight:700;font-size:1.05em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.info-box .ib-vs{display:flex;justify-content:center;gap:24px;margin:8px 0 10px}
+.info-box .ib-cd{text-align:center}
+.info-box .ib-cd img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:3px solid var(--neutral-soft);margin-bottom:4px}
+.info-box .ib-cd.l img{border-color:var(--lula)}
+.info-box .ib-cd.f img{border-color:var(--flavio)}
+.info-box .ib-cd .ib-pct{font-family:var(--serif);font-size:1.15em;font-weight:700}
+.info-box .ib-cd.l .ib-pct{color:var(--lula)}
+.info-box .ib-cd.f .ib-pct{color:var(--flavio)}
+.info-box .ib-cd .ib-name{font-size:.68em;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.info-box .ib-cd .ib-votes{font-size:.72em;color:var(--muted);font-variant-numeric:tabular-nums}
+.info-box .ib-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;margin:0 0 8px}
+.info-box .ib-row{display:flex;justify-content:space-between;font-size:.82em;padding:2px 0}
+.info-box .ib-row .d{color:var(--muted)}
+
+/* ── Legend overlay ── */
+.legend-box{position:absolute;bottom:30px;right:360px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 14px;z-index:1000;font-size:.75em;box-shadow:0 2px 12px rgba(0,0,0,.2)}
+.legend-box .lg-title{font-weight:600;margin-bottom:6px;color:var(--muted)}
+.legend-box .lg-row{display:flex;align-items:center;gap:6px;padding:1px 0;cursor:pointer;border-radius:3px}
+.legend-box .lg-row:hover{background:var(--neutral-soft)}
+.legend-box .lg-row.active{outline:2px solid var(--accent);outline-offset:-1px}
+.legend-box .lg-box{width:16px;height:12px;border-radius:2px}
+
+/* ── Zoom hint ── */
+.dd{position:relative}
+.dd-btn{padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px;transition:background .15s,border-color .15s}
+.dd-btn:hover{border-color:var(--accent);background:var(--neutral-soft)}
+.dd-btn.active{border-color:var(--accent);color:var(--accent)}
+.dd-arrow{font-size:10px;color:var(--muted);transition:transform .2s}
+.dd.open .dd-arrow{transform:rotate(180deg)}
+.dd-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px 0;min-width:220px;box-shadow:0 8px 24px rgba(0,0,0,.45);z-index:9999}
+.dd.open .dd-menu{display:block}
+.dd-item{padding:7px 16px;font-size:13px;cursor:pointer;transition:background .1s;color:var(--fg);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.dd-item svg{flex-shrink:0}
+.dd-item:hover{background:var(--neutral-soft)}
+.dd-item.on{background:var(--neutral-soft);color:var(--accent);font-weight:600}
+.dd-label{padding:6px 16px 2px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.dd-sep{height:1px;background:var(--line);margin:4px 12px}
+
+.zoom-hint{position:absolute;top:50px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 14px;z-index:1000;font-size:.78em;color:var(--muted);pointer-events:none;opacity:1;transition:opacity 1s}
+
+/* ── State labels (UF overlays) ── */
+.uf-label{background:none;border:none;font-family:var(--sans);font-weight:700;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.7),0 0 2px rgba(0,0,0,.5);white-space:nowrap;text-align:center;line-height:1.2;pointer-events:none}
+
+/* ── Leaflet overrides (always dark map bg) ── */
+.leaflet-container{background:#14130f!important;font-family:var(--sans)!important}
+.leaflet-control-zoom a{background:var(--surface)!important;color:var(--fg)!important;border-color:var(--line)!important}
+.leaflet-control-zoom a:hover{background:var(--bg)!important}
+.leaflet-popup-content-wrapper{background:var(--surface);color:var(--fg);border-radius:8px;box-shadow:0 3px 14px rgba(0,0,0,.3)}
+.leaflet-popup-tip{background:var(--surface)}
+
+/* ── Tooltip (dark-tooltip) ── */
+.dark-tooltip{background:var(--surface)!important;border:1px solid var(--line)!important;color:var(--fg)!important;border-radius:6px!important;padding:8px 12px 8px 10px!important;font-family:var(--sans)!important;font-size:.85em!important;box-shadow:0 4px 12px rgba(0,0,0,.4)!important;white-space:nowrap!important;width:max-content!important;max-width:none!important;overflow:visible!important;box-sizing:content-box!important}
+.dark-tooltip .leaflet-tooltip-tip{display:none}
+.dark-tooltip img.flag{width:18px;height:12px;vertical-align:middle;margin-right:3px;border-radius:2px;box-shadow:0 0 2px rgba(0,0,0,.3)}
+
+/* ── Governor photo tooltip ── */
+.gov-photo{position:relative;cursor:pointer}
+.gov-photo:hover{transform:scale(1.15);z-index:10;transition:transform .1s}
+.gov-tip{display:none;position:fixed;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.35);z-index:2000;white-space:nowrap;min-width:180px;max-width:300px;pointer-events:none}
+.gov-tip .gt-name{font-family:var(--serif);font-weight:700;font-size:.9em;margin-bottom:2px}
+.gov-tip .gt-state{font-size:.75em;color:var(--muted)}
+.gov-tip .gt-bar{display:flex;height:4px;border-radius:2px;overflow:hidden;margin:6px 0 4px}
+.gov-tip .gt-row{display:flex;justify-content:space-between;font-size:.75em;gap:12px}
+.gov-tip .gt-row .d{color:var(--muted)}
+
+/* ── Search ── */
+.search-wrap{position:relative;margin-right:8px}
+.search-wrap input{background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:6px 12px 6px 30px;color:var(--fg);font:inherit;font-size:13px;width:320px;outline:none}
+.search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(138,109,28,.15)}
+.search-wrap input::placeholder{color:var(--muted)}
+.search-wrap .s-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;width:15px;height:15px}
+.search-results{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;max-height:280px;overflow-y:auto;z-index:2000;display:none;box-shadow:0 8px 24px rgba(0,0,0,.2);scrollbar-width:thin;scrollbar-color:var(--neutral) transparent}
+.search-results .sr-section{padding:6px 12px 4px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none}
+.search-results .sr-section:hover{color:var(--fg)}
+.search-results .sr-section .sr-chevron{font-size:10px;transition:transform .2s}
+.search-results .sr-section.collapsed .sr-chevron{transform:rotate(-90deg)}
+.search-results .sr-item{padding:8px 12px;font-size:13px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.search-results .sr-item:last-child{border-radius:0 0 10px 10px}
+.search-results .sr-item:hover,.search-results .sr-item.sel{background:var(--neutral-soft)}
+.search-results .sr-item .sr-uf{color:var(--muted);font-size:.9em;margin-left:2px}
+.search-results .sr-item .sr-pct{font-weight:600;font-size:.9em;font-variant-numeric:tabular-nums;flex-shrink:0}
+
+/* ── Responsive ── */
+@media(max-width:800px){
+  .map-wrap{grid-template-columns:1fr;height:auto}
+  #map{height:60vh}
+  .side{max-height:40vh}
+  .legend-box{right:10px;bottom:80px}
+  .banner{flex-wrap:wrap;gap:6px}
+}
+</style>
+
+<nav class="topnav" aria-label="Navegação" style="margin:0;position:sticky;top:0;z-index:10"><div style="max-width:none"><a href="index.html" class="nav-brand" aria-label="turnos"><img class="logo-light" src="assets/logo/turnos-horizontal-claro.svg" alt="turnos" height="22"><img class="logo-dark" src="assets/logo/turnos-horizontal-escuro.svg" alt="" height="22"></a><button class="nav-arr nav-arr-l" aria-label="Anterior" hidden>&#x2039;</button><div class="nav-links"><a href="index.html">1&ordm; turno</a><a href="2turno.html">2&ordm; turno</a><a href="mapa.html" class="on">Mapa</a><a href="analise.html">An&aacute;lise</a></div><button class="nav-arr nav-arr-r" aria-label="Pr&oacute;ximo" hidden>&#x203A;</button><button class="theme-toggle" aria-label="Alternar tema" title="Alternar tema">&#x2600;</button></div></nav>
+
+<div class="banner" id="banner">
+  <h1><b>Lula</b> &eacute; eleito presidente</h1>
+  <span class="tm">2&ordm; turno &middot; 25/10/2026</span>
+  <div style="display:flex;gap:8px;margin-left:auto;flex-shrink:0;align-items:center">
+    <div class="search-wrap">
+      <svg class="s-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="search-input" placeholder="Buscar estado ou munic&iacute;pio..." autocomplete="off">
+      <div class="search-results" id="search-results"></div>
+    </div>
+    <div class="seg" id="cargoToggle">
+      <button id="btnPresidente" aria-pressed="true">Presidente</button>
+      <button id="btnGovernador" aria-pressed="false">Governador</button>
+    </div>
+    <div class="seg" id="viewToggle">
+      <button id="btnEstado" aria-pressed="true">Estado</button>
+      <button id="btnMunicipio" aria-pressed="false">Munic&iacute;pio</button>
+    </div>
+    <div class="dd" id="dd-highlights">
+      <button class="dd-btn" id="dd-btn">&#9733; Destaques <span class="dd-arrow">&#9662;</span></button>
+      <div class="dd-menu" id="dd-menu">
+        <div class="dd-item" data-val=""><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;opacity:.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> Limpar filtro</div>
+        <div class="dd-sep"></div>
+        <div class="dd-item" data-val="pop"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><path d="M12 21V9"/><path d="M22 21V10a1 1 0 0 0-1-1h-3"/><path d="M6 21V10a1 1 0 0 0-1-1H2"/><rect x="1" y="21" width="22" height="0"/></svg> Mais populoso</div>
+        <div class="dd-sep"></div>
+        <div class="dd-label" style="color:var(--lula)">LULA</div>
+        <div class="dd-item" data-val="lq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--lula)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M7 20V4l10 8-10 8z"/></svg> Mais votos (qtd)</div>
+        <div class="dd-item" data-val="lp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--lula)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 2v10l7 4"/></svg> Maior %</div>
+        <div class="dd-sep"></div>
+        <div class="dd-label" style="color:var(--flavio)">BOLSONARO</div>
+        <div class="dd-item" data-val="fq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--flavio)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M7 20V4l10 8-10 8z"/></svg> Mais votos (qtd)</div>
+        <div class="dd-item" data-val="fp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--flavio)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 2v10l7 4"/></svg> Maior %</div>
+        <div class="dd-sep"></div>
+        <div class="dd-label" style="color:var(--accent)">MARGEM</div>
+        <div class="dd-item" data-val="mq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> Maior margem (qtd)</div>
+        <div class="dd-item" data-val="mp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Maior margem (%)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="map-wrap">
+  <div id="map" style="position:relative">
+    <div class="zoom-hint" id="zoom-hint">Use scroll ou pinch para dar zoom &middot; Clique em um estado para ampliar</div>
+  </div>
+  <div class="side">
+    <div class="nat">
+      <div class="bdg">100% apurado &middot; 2&ordm; turno</div>
+      <div class="vs">
+        <div class="cd l">
+          <img class="photo" src="https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/20322002026/280002542548/BR" alt="Lula">
+          <div class="p">51,79%</div>
+          <div class="n">LULA (PT)</div>
+          <div class="v">64.255.787</div>
+        </div>
+        <div style="color:var(--muted);font-size:1.3em;align-self:center">&times;</div>
+        <div class="cd f">
+          <img class="photo" src="https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/20322002026/280002551544/BR" alt="Flávio Bolsonaro">
+          <div class="p">48,21%</div>
+          <div class="n">F. BOLSONARO (PL)</div>
+          <div class="v">59.825.688</div>
+        </div>
+      </div>
+      <div class="result-bar"><span style="width:51.79%;background:var(--lula);display:block;height:100%"></span><span style="width:48.21%;background:var(--flavio);display:block;height:100%"></span></div>
+    </div>
+    <div class="pnl">
+      <div class="pnl-t">Por regi&atilde;o</div>
+      <div class="rlist" id="rlist"></div>
+    </div>
+    <div class="pnl">
+      <div class="pnl-t">Por estado</div>
+      <div class="slist" id="slist"></div>
+    </div>
+  </div>
+</div>
+
+<div class="info-box" id="info-box"></div>
+
+
+<div class="legend-box" id="legend-box">
+  <div class="lg-title">Margem de vit&oacute;ria <span class="help-tip" aria-label="Ajuda" style="width:18px;height:18px;font-size:11px">?<span class="help-text">Os tons indicam a intensidade da vitória. Cores escuras significam que o candidato teve mais de 60% dos votos naquele estado ou município. Cores claras indicam disputa mais equilibrada, abaixo de 60%.</span></span></div>
+  <div class="lg-row" data-filter="lula30"><div class="lg-box" style="background:rgb(210,40,40)"></div> Lula +30%</div>
+  <div class="lg-row" data-filter="lula15"><div class="lg-box" style="background:rgb(170,35,35)"></div> Lula +15%</div>
+  <div class="lg-row" data-filter="lula5"><div class="lg-box" style="background:rgb(130,30,30)"></div> Lula +5%</div>
+  <div class="lg-row" data-filter="marginal"><div class="lg-box" style="background:rgb(100,60,100)"></div> Marginal</div>
+  <div class="lg-row" data-filter="flavio5"><div class="lg-box" style="background:rgb(25,70,160)"></div> Bolsonaro +5%</div>
+  <div class="lg-row" data-filter="flavio15"><div class="lg-box" style="background:rgb(25,85,200)"></div> Bolsonaro +15%</div>
+  <div class="lg-row" data-filter="flavio30"><div class="lg-box" style="background:rgb(25,95,220)"></div> Bolsonaro +30%</div>
+</div>
+
+<script>
+// ── Gov tooltip positioning ──
+// Floating tooltip element (appended to body to avoid sidebar overflow clipping)
+var govTipEl = document.createElement('div');
+govTipEl.className = 'gov-tip';
+document.body.appendChild(govTipEl);
+
+document.querySelector('.side').addEventListener('mouseover', function(e) {
+  var photo = e.target.closest('.gov-photo');
+  if (!photo) { govTipEl.style.display = 'none'; return; }
+  var src = photo.querySelector('.gov-tip-data');
+  if (!src) { govTipEl.style.display = 'none'; return; }
+  govTipEl.innerHTML = src.innerHTML;
+  var rect = photo.getBoundingClientRect();
+  var sideEl = document.querySelector('.side');
+  var sideRect = sideEl.getBoundingClientRect();
+  // Measure
+  govTipEl.style.left = '-9999px';
+  govTipEl.style.top = '0';
+  govTipEl.style.display = 'block';
+  var tipW = govTipEl.offsetWidth;
+  var tipH = govTipEl.offsetHeight;
+  // Position below photo, clamped within sidebar bounds
+  var top = rect.bottom + 6;
+  if (top + tipH > window.innerHeight - 10) top = rect.top - tipH - 6;
+  var left = rect.left + rect.width/2 - tipW/2;
+  if (left + tipW > sideRect.right - 8) left = sideRect.right - tipW - 8;
+  if (left < sideRect.left + 8) left = sideRect.left + 8;
+  govTipEl.style.top = top + 'px';
+  govTipEl.style.left = left + 'px';
+});
+document.querySelector('.side').addEventListener('mouseleave', function() {
+  govTipEl.style.display = 'none';
+});
+
+// ── Image fallback ──
+function imgFallback(img, label, color) {
+  var span = document.createElement('span');
+  span.title = img.title;
+  span.textContent = label;
+  span.style.cssText = 'display:inline-flex;align-items:center;justify-content:center;width:'+img.width+'px;height:'+img.height+'px;border-radius:50%;border:2px solid '+color+';font-size:10px;font-weight:700;color:'+color+';background:var(--neutral-soft)';
+  img.replaceWith(span);
+}
+
+// ── Election data by UF ──
+// Keys: a=aptos, c=comparecimento, v=válidos, b=brancos, n=nulos, l=lula, f=flávio
+const D_UF={
+  AC:{a:613715,c:453654,v:432228,b:5016,n:16410,l:144513,f:287715},
+  AL:{a:2442081,c:1951632,v:1896761,b:16983,n:37888,l:1152621,f:744140},
+  AM:{a:2798661,c:2192059,v:2121028,b:18324,n:52707,l:1145783,f:975245},
+  AP:{a:576910,c:429975,v:421642,b:3320,n:5013,l:222968,f:198674},
+  BA:{a:11312891,c:9422047,v:9094019,b:92721,n:235307,l:6485258,f:2608761},
+  CE:{a:6996521,c:6024843,v:5855602,b:56386,n:112855,l:4036124,f:1819478},
+  DF:{a:2258995,c:1868280,v:1804766,b:22386,n:41128,l:825224,f:979542},
+  ES:{a:2991515,c:2409214,v:2296469,b:33080,n:79665,l:1001965,f:1294504},
+  GO:{a:5080385,c:4047280,v:3930889,b:43214,n:73177,l:1585555,f:2345334},
+  MA:{a:5183049,c:4127771,v:4038202,b:30855,n:58714,l:2808231,f:1229971},
+  MG:{a:16372144,c:13044203,v:12592885,b:164141,n:287177,l:6351099,f:6241786},
+  MS:{a:2024437,c:1594460,v:1556865,b:14958,n:22637,l:628973,f:927892},
+  MT:{a:2637879,c:2085334,v:2045266,b:15431,n:24637,l:694167,f:1351099},
+  PA:{a:6262063,c:4989573,v:4890389,b:36501,n:62683,l:2690449,f:2199940},
+  PB:{a:3248434,c:2743560,v:2659269,b:25943,n:58348,l:1794059,f:865210},
+  PE:{a:7223227,c:6126467,v:5950067,b:56758,n:119642,l:4117513,f:1832554},
+  PI:{a:2704695,c:2239830,v:2179848,b:16137,n:43845,l:1653989,f:525859},
+  PR:{a:8613628,c:7059339,v:6857948,b:82572,n:118819,l:2566504,f:4291444},
+  RJ:{a:12857526,c:10077449,v:9734426,b:111682,n:231341,l:4565393,f:5169033},
+  RN:{a:2659867,c:2232823,v:2151005,b:19939,n:61879,l:1413596,f:737409},
+  RO:{a:1265926,c:988489,v:968828,b:8361,n:11300,l:294446,f:674382},
+  RR:{a:401540,c:308597,v:303180,b:2176,n:3241,l:83505,f:219675},
+  RS:{a:8522318,c:6889638,v:6698930,b:89463,n:101245,l:2824552,f:3874378},
+  SC:{a:5734687,c:4762303,v:4638385,b:48674,n:75244,l:1418314,f:3220071},
+  SE:{a:1740093,c:1466659,v:1422395,b:13135,n:31129,l:989041,f:433354},
+  SP:{a:34123591,c:27364389,v:26258452,b:389606,n:716331,l:12119274,f:14139178},
+  TO:{a:1182041,c:954763,v:910878,b:8059,n:35826,l:442962,f:467916},
+  ZZ:{a:914206,c:380612,v:370853,b:4663,n:5096,l:199709,f:171144}
+};
+
+// ── Governor data by UF (photo URLs from TSE) ──
+// Governor photos - TSE candidate IDs (winner + runner-up for 2nd round states)
+const TSE_IMG='https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/20322002026/';
+const GOV_TID={
+  AC:'10002544107',AL:'20002553350',AM:'40002532272',AP:'30002530014',
+  BA:'50002536314',CE:'60002543969',DF:'70002553055',ES:'80002552682',
+  GO:'90002540993',MA:'100002545679',MG:'130002552296',MS:'120002536582',
+  MT:'110002551480',PA:'140002549930',PB:'150002551789',PE:'170002537227',
+  PI:'180002532987',PR:'160002540833',RJ:'190002542887',RN:'200002534001',
+  RO:'220002541939',RR:'230002549223',RS:'210002547857',SC:'240002537073',
+  SE:'260002542491',SP:'250002541303',TO:'270002544544'
+};
+const GOV_TID_R={
+  AC:'10002532492',AM:'40002541626',DF:'70002552496',
+  ES:'80002552172',RN:'200002535255',TO:'270002544599'
+};
+function govPhoto(uf){var t=GOV_TID[uf];return t?TSE_IMG+t+'/'+uf:'';}
+function govPhotoR(uf){var t=GOV_TID_R[uf];return t?TSE_IMG+t+'/'+uf:'';}
+const D_GOV={
+  AC:{w:'Mailza Assis',wp:'PP',pct:66.2,r:'Alan Rick',rp:'REPUBLICANOS',rpct:33.8,turno:2,wv:272635,rv:139108,a:613336,c:453334,b:11979,n:29612},
+  AL:{w:'JHC',wp:'PSDB',pct:52.2,r:'Renan Filho',rp:'MDB',rpct:47.4,turno:1},
+  AM:{w:'Omar Aziz',wp:'PSD',pct:61.4,r:'Prof. Maria do Carmo',rp:'PL',rpct:38.6,turno:2,wv:1273975,rv:800328,a:2796187,c:2189860,b:39610,n:75947},
+  AP:{w:'Dr. Furlan',wp:'PSD',pct:62.8,r:'Clécio',rp:'UNIÃO',rpct:37.0,turno:1},
+  BA:{w:'Jerônimo Rodrigues',wp:'PT',pct:55.8,r:'ACM Neto',rp:'UNIÃO',rpct:43.7,turno:1},
+  CE:{w:'Elmano de Freitas',wp:'PT',pct:53.2,r:'Ciro Gomes',rp:'PSDB',rpct:46.2,turno:1},
+  DF:{w:'Celina Leão',wp:'PP',pct:57.2,r:'Leandro Grass',rp:'PT',rpct:42.8,turno:2,wv:987142,rv:739130,a:2244176,c:1854323,b:55771,n:72280},
+  ES:{w:'Lorenzo Pazolini',wp:'REPUBLICANOS',pct:52.2,r:'Ricardo Ferraço',rp:'MDB',rpct:47.8,turno:2,wv:1151818,rv:1056119,a:2987603,c:2405654,b:64871,n:132846},
+  GO:{w:'Daniel Vilela',wp:'MDB',pct:59.2,r:'Wilder Morais',rp:'PL',rpct:22.0,turno:1},
+  MA:{w:'Eduardo Braide',wp:'PSD',pct:54.0,r:'Orleans Brandão',rp:'MDB',rpct:34.8,turno:1},
+  MG:{w:'Cleitinho Azevedo',wp:'REPUBLICANOS',pct:55.4,r:'Patrus Ananias',rp:'PT',rpct:26.3,turno:1},
+  MS:{w:'Eduardo Riedel',wp:'PP',pct:67.1,r:'Fábio Trad',rp:'PT',rpct:23.7,turno:1},
+  MT:{w:'Otaviano Pivetta',wp:'REPUBLICANOS',pct:60.8,r:'Wellington Fagundes',rp:'PL',rpct:23.2,turno:1},
+  PA:{w:'Dr. Daniel',wp:'PODE',pct:51.4,r:'Hana Ghassan',rp:'MDB',rpct:46.5,turno:1},
+  PB:{w:'Lucas Ribeiro',wp:'PP',pct:64.3,r:'Efraim Filho',rp:'PL',rpct:24.2,turno:1},
+  PE:{w:'Raquel Lyra',wp:'PSD',pct:53.3,r:'João Campos',rp:'PSB',rpct:44.8,turno:1},
+  PI:{w:'Rafael Fonteles',wp:'PT',pct:70.9,r:'Joel Rodrigues',rp:'PP',rpct:27.5,turno:1},
+  PR:{w:'Sergio Moro',wp:'PL',pct:50.1,r:'Sandro Alex',rp:'PSD',rpct:25.4,turno:1},
+  RJ:{w:'Douglas Ruas',wp:'PL',pct:49.3,r:'Eduardo Paes',rp:'PSD',rpct:42.8,turno:1},
+  RN:{w:'Cadu de Lula',wp:'PT',pct:50.8,r:'Allyson',rp:'UNIÃO',rpct:49.2,turno:2,wv:1073024,rv:1040399,a:2656286,c:2229510,b:35873,n:80214},
+  RO:{w:'Marcos Rogério',wp:'PL',pct:56.9,r:'Adailton Furia',rp:'PSD',rpct:20.1,turno:1},
+  RR:{w:'Arthur Henrique',wp:'PL',pct:69.1,r:'Soldado Sampaio',rp:'REPUBLICANOS',rpct:29.3,turno:1},
+  RS:{w:'Zucco',wp:'PL',pct:58.0,r:'Juliana Brizola',rp:'PDT',rpct:31.7,turno:1},
+  SC:{w:'Jorginho Mello',wp:'PL',pct:69.0,r:'Gelson Merísio',rp:'PSB',rpct:15.7,turno:1},
+  SE:{w:'Fábio',wp:'PSD',pct:59.3,r:'Valmir',rp:'REPUBLICANOS',rpct:37.5,turno:1},
+  SP:{w:'Tarcísio',wp:'REPUBLICANOS',pct:62.7,r:'Fernando Haddad',rp:'PT',rpct:36.4,turno:1},
+  TO:{w:'Vicentinho Júnior',wp:'PSDB',pct:64.5,r:'Prof. Dorinha',rp:'UNIÃO',rpct:35.5,turno:2,wv:562083,rv:309076,a:1180466,c:953385,b:20323,n:61903}
+};
+
+// ── Party color mapping ──
+const PARTY_COLORS={
+  PT:'#cc0000',PL:'#1d4690',PSD:'#0077b6',MDB:'#228b22',PP:'#3498db',
+  REPUBLICANOS:'#00897b',PSDB:'#2980b9',PDT:'#d35400',PSB:'#e74c3c',
+  'UNIÃO':'#5e35b1',PODE:'#16a085',NOVO:'#e67e22',AVANTE:'#e67e22'
+};
+function partyColor(p){return PARTY_COLORS[p]||'#7d776c'}
+
+// Full state names with proper accents
+const NM={
+  AC:'Acre',AL:'Alagoas',AM:'Amazonas',AP:'Amapá',BA:'Bahia',CE:'Ceará',
+  DF:'Distrito Federal',ES:'Espírito Santo',GO:'Goiás',MA:'Maranhão',
+  MG:'Minas Gerais',MS:'Mato Grosso do Sul',MT:'Mato Grosso',PA:'Pará',
+  PB:'Paraíba',PE:'Pernambuco',PI:'Piauí',PR:'Paraná',RJ:'Rio de Janeiro',
+  RN:'Rio Grande do Norte',RO:'Rondônia',RR:'Roraima',RS:'Rio Grande do Sul',
+  SC:'Santa Catarina',SE:'Sergipe',SP:'São Paulo',TO:'Tocantins'
+};
+
+const REGS={
+  'Norte':['AC','AM','AP','PA','RO','RR','TO'],
+  'Nordeste':['AL','BA','CE','MA','PB','PE','PI','RN','SE'],
+  'Centro-Oeste':['DF','GO','MS','MT'],
+  'Sudeste':['ES','MG','RJ','SP'],
+  'Sul':['PR','RS','SC'],
+  'Exterior':['ZZ']
+};
+
+// State flag URLs (Wikimedia Commons)
+const FLAGS={
+  AC:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Bandeira_do_Acre.svg/40px-Bandeira_do_Acre.svg.png',
+  AL:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Bandeira_de_Alagoas.svg/40px-Bandeira_de_Alagoas.svg.png',
+  AM:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Bandeira_do_Amazonas.svg/40px-Bandeira_do_Amazonas.svg.png',
+  AP:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Bandeira_do_Amap%C3%A1.svg/40px-Bandeira_do_Amap%C3%A1.svg.png',
+  BA:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Bandeira_da_Bahia.svg/40px-Bandeira_da_Bahia.svg.png',
+  CE:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Bandeira_do_Cear%C3%A1.svg/40px-Bandeira_do_Cear%C3%A1.svg.png',
+  DF:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Bandeira_do_Distrito_Federal_%28Brasil%29.svg/40px-Bandeira_do_Distrito_Federal_%28Brasil%29.svg.png',
+  ES:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Bandeira_do_Esp%C3%ADrito_Santo.svg/40px-Bandeira_do_Esp%C3%ADrito_Santo.svg.png',
+  GO:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Flag_of_Goi%C3%A1s.svg/40px-Flag_of_Goi%C3%A1s.svg.png',
+  MA:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Bandeira_do_Maranh%C3%A3o.svg/40px-Bandeira_do_Maranh%C3%A3o.svg.png',
+  MG:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Bandeira_de_Minas_Gerais.svg/40px-Bandeira_de_Minas_Gerais.svg.png',
+  MS:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Bandeira_de_Mato_Grosso_do_Sul.svg/40px-Bandeira_de_Mato_Grosso_do_Sul.svg.png',
+  MT:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Bandeira_de_Mato_Grosso.svg/40px-Bandeira_de_Mato_Grosso.svg.png',
+  PA:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Bandeira_do_Par%C3%A1.svg/40px-Bandeira_do_Par%C3%A1.svg.png',
+  PB:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Bandeira_da_Para%C3%ADba.svg/40px-Bandeira_da_Para%C3%ADba.svg.png',
+  PE:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bandeira_de_Pernambuco.svg/40px-Bandeira_de_Pernambuco.svg.png',
+  PI:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Bandeira_do_Piau%C3%AD.svg/40px-Bandeira_do_Piau%C3%AD.svg.png',
+  PR:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Bandeira_do_Paran%C3%A1.svg/40px-Bandeira_do_Paran%C3%A1.svg.png',
+  RJ:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bandeira_do_estado_do_Rio_de_Janeiro.svg/40px-Bandeira_do_estado_do_Rio_de_Janeiro.svg.png',
+  RN:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Bandeira_do_Rio_Grande_do_Norte.svg/40px-Bandeira_do_Rio_Grande_do_Norte.svg.png',
+  RO:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Bandeira_de_Rond%C3%B4nia.svg/40px-Bandeira_de_Rond%C3%B4nia.svg.png',
+  RR:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Bandeira_de_Roraima.svg/40px-Bandeira_de_Roraima.svg.png',
+  RS:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Bandeira_do_Rio_Grande_do_Sul.svg/40px-Bandeira_do_Rio_Grande_do_Sul.svg.png',
+  SC:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Bandeira_de_Santa_Catarina.svg/40px-Bandeira_de_Santa_Catarina.svg.png',
+  SE:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Bandeira_de_Sergipe.svg/40px-Bandeira_de_Sergipe.svg.png',
+  SP:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Bandeira_do_estado_de_S%C3%A3o_Paulo.svg/40px-Bandeira_do_estado_de_S%C3%A3o_Paulo.svg.png',
+  TO:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Bandeira_do_Tocantins.svg/40px-Bandeira_do_Tocantins.svg.png'
+};
+
+// State centroids for labels
+const CENTROIDS={
+  AC:[-9.0,-70.5],AL:[-9.6,-36.6],AM:[-3.5,-65.0],AP:[1.5,-51.8],
+  BA:[-12.6,-41.7],CE:[-5.2,-39.3],DF:[-15.8,-47.8],ES:[-19.6,-40.6],
+  GO:[-15.9,-49.8],MA:[-5.1,-44.5],MG:[-18.5,-44.5],MS:[-20.8,-54.8],
+  MT:[-12.7,-55.9],PA:[-4.5,-52.5],PB:[-7.1,-36.6],PE:[-8.3,-37.9],
+  PI:[-7.5,-42.7],PR:[-24.6,-51.5],RJ:[-22.2,-42.7],RN:[-5.8,-36.6],
+  RO:[-11.0,-63.0],RR:[2.5,-61.0],RS:[-29.5,-53.5],SC:[-27.3,-50.3],
+  SE:[-10.6,-37.4],SP:[-22.3,-49.0],TO:[-10.2,-48.3]
+};
+
+// Candidate photo URLs (TSE)
+const PHOTO_LULA='https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/20322002026/280002542548/BR';
+const PHOTO_FLAVIO='https://divulgacandcontas.tse.jus.br/divulga/rest/arquivo/img/20322002026/280002551544/BR';
+
+// Candidate profile IDs
+const ID_LULA='280002542548';
+const ID_FLAVIO='280002551544';
+
+// fmt and fmtN come from shared.js; pct is map-specific
+const pct=(a,b)=>(a/b*100).toFixed(1);
+const fmtV=n=>n.toLocaleString('pt-BR'); // alias for vote formatting
+
+// ── Color function ──
+function elColor(lula, flavio) {
+  const total = lula + flavio;
+  if (total === 0) return '#333';
+  const margin = (lula - flavio) / total;
+  if (margin > 0) {
+    const t = Math.min(1, margin * 2.5 + 0.1);
+    return 'rgb('+Math.round(90+t*120)+','+Math.round(28+t*12)+','+Math.round(28+t*12)+')';
+  } else {
+    const t = Math.min(1, -margin * 2.5 + 0.1);
+    return 'rgb('+Math.round(15+t*10)+','+Math.round(50+t*45)+','+Math.round(120+t*100)+')';
+  }
+}
+
+// ── Margin category for legend filter ──
+function marginCategory(lula, flavio) {
+  const total = lula + flavio;
+  if (total === 0) return 'marginal';
+  const m = (lula - flavio) / total * 100;
+  if (m > 30) return 'lula30';
+  if (m > 15) return 'lula15';
+  if (m > 5) return 'lula5';
+  if (m >= -5) return 'marginal';
+  if (m >= -15) return 'flavio5';
+  if (m >= -30) return 'flavio15';
+  return 'flavio30';
+}
+
+// ── Map setup ──
+const map = L.map('map', {
+  center: [-14.5, -51],
+  zoom: 4,
+  minZoom: 3,
+  maxZoom: 14,
+  zoomControl: true,
+  attributionControl: false,
+  preferCanvas: true
+});
+
+// Esri Dark Gray tiles
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+  maxZoom: 16
+}).addTo(map);
+
+// Labels layer (on top, toggled with municipality view)
+const labelLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+  maxZoom: 16,
+  pane: 'shadowPane'
+});
+
+let stateLayer = null;
+let stateBordersLayer = null;
+let munLayer = null;
+let munLoaded = false;
+let raLayer = null;
+let raLoaded = false;
+let zzLayer = null;
+let zzLoaded = false;
+let stateLabels = [];
+const DF_BOUNDS = L.latLngBounds([[-16.05, -48.30], [-15.50, -47.30]]);
+
+// Current view mode
+let viewMode = 'estado'; // 'estado' or 'municipio'
+let activeFilter = null; // legend filter
+let cargoMode = 'presidente'; // 'presidente' or 'governador'
+
+// ── PRESIDENTE/GOVERNADOR toggle ──
+var btnPres = document.getElementById('btnPresidente');
+var btnGov = document.getElementById('btnGovernador');
+btnPres.addEventListener('click', function(){
+  if(cargoMode==='presidente')return;
+  cargoMode='presidente';
+  btnPres.setAttribute('aria-pressed','true');
+  btnGov.setAttribute('aria-pressed','false');
+  updateMapForCargo();
+});
+btnGov.addEventListener('click', function(){
+  if(cargoMode==='governador')return;
+  cargoMode='governador';
+  btnGov.setAttribute('aria-pressed','true');
+  btnPres.setAttribute('aria-pressed','false');
+  updateMapForCargo();
+});
+
+// ── ESTADO/MUNICIPIO toggle ──
+const btnEstado = document.getElementById('btnEstado');
+const btnMunicipio = document.getElementById('btnMunicipio');
+btnEstado.addEventListener('click', function() {
+  if (viewMode === 'estado') return;
+  viewMode = 'estado';
+  btnEstado.setAttribute('aria-pressed', 'true');
+  btnMunicipio.setAttribute('aria-pressed', 'false');
+  updateLayers();
+});
+btnMunicipio.addEventListener('click', function() {
+  if (viewMode === 'municipio') return;
+  viewMode = 'municipio';
+  btnMunicipio.setAttribute('aria-pressed', 'true');
+  btnEstado.setAttribute('aria-pressed', 'false');
+  if (!munLoaded) loadMunicipalities();
+  updateLayers();
+});
+
+// ── Info box ──
+const infoBox = document.getElementById('info-box');
+function showInfo(name, uf, lula, flavio, aptos, comp, brancos, nulos) {
+  const total = lula + flavio;
+  if (total === 0) return;
+  const lP = pct(lula, total), fP = pct(flavio, total);
+  const isL = lula > flavio;
+  const diff = Math.abs(lula - flavio);
+  const flagHtml = uf && FLAGS[uf] ? '<img class="flag" src="'+FLAGS[uf]+'" alt=""> ' : '';
+  infoBox.innerHTML =
+    '<div class="ib-title">' + flagHtml + name + (uf ? ' (' + uf + ')' : '') + '</div>' +
+    '<div class="ib-vs">' +
+      '<div class="ib-cd l">' +
+        '<img src="'+PHOTO_LULA+'" alt="Lula" onerror="this.style.display=\'none\'">' +
+        '<div class="ib-pct">'+lP+'%</div>' +
+        '<div class="ib-name">Lula</div>' +
+        '<div class="ib-votes">'+fmtV(lula)+'</div>' +
+      '</div>' +
+      '<div class="ib-cd f">' +
+        '<img src="'+PHOTO_FLAVIO+'" alt="Bolsonaro" onerror="this.style.display=\'none\'">' +
+        '<div class="ib-pct">'+fP+'%</div>' +
+        '<div class="ib-name">Bolsonaro</div>' +
+        '<div class="ib-votes">'+fmtV(flavio)+'</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="ib-bar"><div style="width:'+lP+'%;background:var(--lula)"></div><div style="width:'+fP+'%;background:var(--flavio)"></div></div>' +
+    '<div class="ib-row"><span class="d">Margem</span><span style="color:'+(isL?'var(--lula)':'var(--flavio)')+';font-weight:700">'+(isL?'Lula':'Bolsonaro')+' +'+fmtV(diff)+'</span></div>' +
+    '<div class="ib-row"><span class="d">Comparecimento</span><span>'+pct(comp,aptos)+'%</span></div>' +
+    '<div class="ib-row"><span class="d">Brancos/Nulos</span><span>'+fmtV(brancos)+'/'+fmtV(nulos)+'</span></div>';
+  infoBox.style.display = 'block';
+}
+function hideInfo() { infoBox.style.display = 'none'; }
+
+function showGovInfo(name, uf, g){
+  var flagHtml = uf && FLAGS[uf] ? '<img class="flag" src="'+FLAGS[uf]+'" alt=""> ' : '';
+  var wPhoto = govPhoto(uf);
+  var rPhoto = govPhotoR(uf);
+  var html = '<div class="ib-title">'+flagHtml+name+' ('+uf+')</div>';
+
+  if (g.turno === 2 && rPhoto && g.wv) {
+    // 2º turno: identical layout to presidente (photos, %, name, votes, bar, margin, comp, brancos)
+    var diff = Math.abs(g.wv - g.rv);
+    var isW = g.wv > g.rv;
+    html +=
+      '<div class="ib-vs">'+
+        '<div class="ib-cd" style="flex:1">'+
+          '<img src="'+wPhoto+'" style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:3px solid '+partyColor(g.wp)+';margin-bottom:4px" onerror="this.style.display=\'none\'">'+
+          '<div class="ib-pct" style="color:'+partyColor(g.wp)+'">'+g.pct.toFixed(1)+'%</div>'+
+          '<div class="ib-name">'+g.w+'</div>'+
+          '<div class="ib-votes">'+fmtV(g.wv)+'</div>'+
+        '</div>'+
+        '<div class="ib-cd" style="flex:1">'+
+          '<img src="'+rPhoto+'" style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:3px solid '+partyColor(g.rp)+';margin-bottom:4px" onerror="this.style.display=\'none\'">'+
+          '<div class="ib-pct" style="color:'+partyColor(g.rp)+'">'+g.rpct.toFixed(1)+'%</div>'+
+          '<div class="ib-name">'+g.r+'</div>'+
+          '<div class="ib-votes">'+fmtV(g.rv)+'</div>'+
+        '</div>'+
+      '</div>';
+  } else {
+    // 1º turno: only winner photo, runner-up as secondary text
+    html +=
+      '<div style="display:flex;align-items:center;gap:14px;margin:10px 0">'+
+        (wPhoto ? '<img src="'+wPhoto+'" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:3px solid '+partyColor(g.wp)+';flex-shrink:0" onerror="this.style.display=\'none\'">' : '')+
+        '<div>'+
+          '<div style="font-family:var(--serif);font-size:1.3em;font-weight:700;color:'+partyColor(g.wp)+'">'+g.pct.toFixed(1)+'%</div>'+
+          '<div style="font-weight:600">'+g.w+'</div>'+
+          '<div style="font-size:.78em;color:'+partyColor(g.wp)+'">'+g.wp+'</div>'+
+        '</div>'+
+      '</div>';
+  }
+
+  html += '<div class="ib-bar"><div style="width:'+g.pct+'%;background:'+partyColor(g.wp)+'"></div><div style="width:'+g.rpct+'%;background:'+partyColor(g.rp)+'"></div></div>';
+
+  if (g.turno === 2 && g.wv) {
+    var diff2 = Math.abs(g.wv - g.rv);
+    html +=
+      '<div class="ib-row"><span class="d">Margem</span><span style="color:'+partyColor(g.wp)+';font-weight:700">'+g.w+' +'+fmtV(diff2)+'</span></div>'+
+      '<div class="ib-row"><span class="d">Comparecimento</span><span>'+pct(g.c,g.a)+'%</span></div>'+
+      '<div class="ib-row"><span class="d">Brancos/Nulos</span><span>'+fmtV(g.b)+'/'+fmtV(g.n)+'</span></div>';
+  } else {
+    html +=
+      '<div class="ib-row"><span class="d">2º lugar</span><span>'+g.r+' <span style="color:'+partyColor(g.rp)+'">'+g.rp+'</span> '+g.rpct.toFixed(1)+'%</span></div>'+
+      '<div class="ib-row"><span class="d">Turno</span><span>Eleito no 1º turno</span></div>';
+  }
+
+  infoBox.innerHTML = html;
+  infoBox.style.display='block';
+}
+
+// ── Tooltip with flag ──
+function makeTooltip(uf, name, lula, flavio, total) {
+  var flagHtml = uf && FLAGS[uf] ? '<img class="flag" src="'+FLAGS[uf]+'" alt=""> ' : '';
+  if (cargoMode==='governador' && uf && D_GOV[uf]) {
+    var g = D_GOV[uf];
+    return flagHtml + '<b>' + (name || uf) + '</b>' + (uf && name ? ' (' + uf + ')' : '') + '<br>' +
+      '<span style="color:'+partyColor(g.wp)+'">'+g.w+' ('+g.wp+') '+g.pct.toFixed(1)+'%</span>';
+  }
+  var isL = lula > flavio;
+  var wp = isL ? pct(lula, total) : pct(flavio, total);
+  return flagHtml + '<b>' + (name || uf) + '</b>' + (uf && name ? ' (' + uf + ')' : '') + '<br>' +
+    (isL
+      ? '<span style="color:var(--lula)">Lula '+wp+'%</span>'
+      : '<span style="color:var(--flavio)">Bolsonaro '+wp+'%</span>');
+}
+
+// ── Legend filter ──
+document.querySelectorAll('.legend-box .lg-row').forEach(function(row) {
+  row.addEventListener('click', function() {
+    var f = row.dataset.filter;
+    if (activeFilter === f) {
+      activeFilter = null;
+      row.classList.remove('active');
+    } else {
+      document.querySelectorAll('.legend-box .lg-row').forEach(function(r){r.classList.remove('active')});
+      activeFilter = f;
+      row.classList.add('active');
+    }
+    applyFilter();
+  });
+});
+
+function applyFilter() {
+  if (cargoMode==='governador') return; // no margin filter in governor mode
+  if (stateLayer) {
+    stateLayer.eachLayer(function(layer) {
+      var uf = layer.feature.properties.s;
+      var d = D_UF[uf];
+      if (!d) return;
+      if (activeFilter && marginCategory(d.l, d.f) !== activeFilter) {
+        layer.setStyle({fillOpacity: 0.08, weight: 0.5});
+      } else {
+        layer.setStyle({fillOpacity: 0.55, weight: 1.5});
+      }
+    });
+  }
+  if (munLayer) {
+    munLayer.eachLayer(function(layer) {
+      var p = layer.feature.properties;
+      if (!p.d) return;
+      var lula = p.d[2], flavio = p.d[3];
+      if (activeFilter && marginCategory(lula, flavio) !== activeFilter) {
+        layer.setStyle({fillOpacity: 0.05, weight: 0.1});
+      } else {
+        layer.setStyle({fillOpacity: 0.6, weight: 0.3});
+      }
+    });
+  }
+}
+
+// ── State labels (UF + %) ──
+var stateLabelsLayer = null;
+
+function buildStateLabels() {
+  var group = L.layerGroup();
+  for (var uf in CENTROIDS) {
+    var labelHtml;
+    if (cargoMode==='governador') {
+      var g = D_GOV[uf];
+      if (!g) continue;
+      var col = partyColor(g.wp);
+      labelHtml = '<div style="font-size:13px">'+uf+'</div><div style="font-size:9px;opacity:.85">'+g.w+'</div>';
+    } else {
+      var d = D_UF[uf];
+      if (!d) continue;
+      var isL = d.l > d.f;
+      var wp = isL ? pct(d.l, d.v) : pct(d.f, d.v);
+      labelHtml = '<div style="font-size:13px">'+uf+'</div><div style="font-size:10px;opacity:.85">'+wp+'%</div>';
+    }
+    var icon = L.divIcon({
+      className: 'uf-label',
+      html: labelHtml,
+      iconSize: [60, 28],
+      iconAnchor: [30, 14]
+    });
+    var marker = L.marker(CENTROIDS[uf], {icon: icon, interactive: false});
+    group.addLayer(marker);
+  }
+  return group;
+}
+
+function addStateLabels() {
+  removeStateLabels();
+  stateLabelsLayer = buildStateLabels();
+  stateLabelsLayer.addTo(map);
+}
+function removeStateLabels() {
+  if (stateLabelsLayer) {
+    map.removeLayer(stateLabelsLayer);
+    stateLabelsLayer = null;
+  }
+  // Also clean up legacy array-based labels
+  stateLabels.forEach(function(m){ map.removeLayer(m); });
+  stateLabels = [];
+}
+
+// ── Recolor municipalities for governor mode ──
+function recolorMunGov(){
+  if(!munLayer)return;
+  munLayer.eachLayer(function(layer){
+    var p=layer.feature.properties;
+    if(!p.u||!p.c) return;
+    var g=D_GOV[p.u];
+    if(!g){layer.setStyle({fillColor:'#333',fillOpacity:0.3});return}
+    var mgd=munGovData[p.c];
+    if(mgd){
+      var wVotes=mgd[0],rVotes=mgd[1];
+      var isWinner=wVotes>rVotes;
+      var fillCol=isWinner?partyColor(g.wp):partyColor(g.rp);
+      var margin=Math.abs(wVotes-rVotes)/(wVotes+rVotes);
+      var opacity=0.35+margin*0.5;
+      layer.setStyle({fillColor:fillCol,fillOpacity:Math.min(0.8,opacity)});
+    } else {
+      layer.setStyle({fillColor:partyColor(g.wp),fillOpacity:0.55});
+    }
+  });
+}
+
+// ── Cargo toggle: restyle map for presidente/governador ──
+function updateMapForCargo(){
+  // Re-style states
+  if(stateLayer){
+    stateLayer.eachLayer(function(layer){
+      var uf=layer.feature.properties.s;
+      if(cargoMode==='presidente'){
+        var d=D_UF[uf];
+        if(!d)return;
+        layer.setStyle({fillColor:elColor(d.l,d.f),fillOpacity:0.55});
+      } else {
+        var g=D_GOV[uf];
+        if(!g)return;
+        layer.setStyle({fillColor:partyColor(g.wp),fillOpacity:0.65});
+      }
+    });
+  }
+  // Update state labels
+  removeStateLabels();
+  if(map.getZoom()<=6 || (cargoMode==='governador' && !munLayer)){
+    addStateLabels();
+  }
+  // In governor mode, hide municipality layer (governors are state-level)
+  if(cargoMode==='governador'){
+    // Hide ZZ layer (exterior has no governor)
+    if(zzLayer && map.hasLayer(zzLayer)) map.removeLayer(zzLayer);
+    // Apply layer visibility based on current viewMode
+    if(viewMode==='estado'){
+      if(munLayer && map.hasLayer(munLayer)) map.removeLayer(munLayer);
+      if(map.hasLayer(labelLayer)) map.removeLayer(labelLayer);
+      if(stateBordersLayer && map.hasLayer(stateBordersLayer)) map.removeLayer(stateBordersLayer);
+      if(stateLayer && !map.hasLayer(stateLayer)) stateLayer.addTo(map);
+    } else {
+      // municipio mode in governor: show municipalities + borders
+      if(munLayer && !map.hasLayer(munLayer)) munLayer.addTo(map);
+      if(stateLayer && map.hasLayer(stateLayer)) map.removeLayer(stateLayer);
+      if(stateBordersLayer && !map.hasLayer(stateBordersLayer)) stateBordersLayer.addTo(map);
+      if(stateBordersLayer) stateBordersLayer.bringToFront();
+      recolorMunGov();
+    }
+    // Hide legend (margin categories are for presidente only)
+    document.getElementById('legend-box').style.display='none';
+    // Update sidebar panel title
+    document.querySelector('.nat .bdg').textContent='Governadores eleitos · 1º e 2º turno';
+  } else {
+    document.getElementById('btnMunicipio').disabled=false;
+    document.getElementById('btnMunicipio').style.opacity='1';
+    document.getElementById('legend-box').style.display='';
+    // Show ZZ layer back
+    if(zzLayer && !map.hasLayer(zzLayer)) zzLayer.addTo(map);
+    document.querySelector('.nat .bdg').textContent='100% apurado · 2º turno';
+    // Re-style municipalities back to presidente colors
+    if(munLayer){
+      munLayer.eachLayer(function(layer){
+        var p=layer.feature.properties;
+        if(!p.d){layer.setStyle({fillColor:'#333',fillOpacity:0.3});return;}
+        var lula=p.d[2],flavio=p.d[3];
+        layer.setStyle({fillColor:elColor(lula,flavio),fillOpacity:0.6});
+      });
+    }
+    updateLayers(); // restore based on viewMode
+  }
+  // Update banner title
+  if(cargoMode==='presidente'){
+    document.querySelector('.banner h1').innerHTML='<b>Lula</b> é eleito presidente';
+    document.querySelector('.banner .tm').textContent='2º turno · 25/10/2026';
+  } else {
+    document.querySelector('.banner h1').innerHTML='Governadores eleitos';
+    document.querySelector('.banner .tm').textContent='Eleições 2026';
+  }
+  // Update sidebar content
+  updateSidebarForCargo();
+}
+
+function updateSidebarForCargo(){
+  var natEl = document.querySelector('.nat .vs');
+  var barEl = document.querySelector('.nat .result-bar');
+  if(cargoMode==='governador'){
+    // Count governors by party
+    var partyCounts={};
+    for(var uf in D_GOV){
+      var g=D_GOV[uf];
+      partyCounts[g.wp]=(partyCounts[g.wp]||0)+1;
+    }
+    var sorted=Object.keys(partyCounts).sort(function(a,b){return partyCounts[b]-partyCounts[a]});
+    // Group governors by party
+    var partyGovs={};
+    for(var uf in D_GOV){
+      var g=D_GOV[uf];
+      if(!partyGovs[g.wp]) partyGovs[g.wp]=[];
+      partyGovs[g.wp].push({uf:uf,name:g.w,photo:govPhoto(uf)});
+    }
+    // Render: one row per party with photos + count
+    natEl.style.flexDirection='column';
+    natEl.style.alignItems='stretch';
+    natEl.style.gap='0';
+    var html='';
+    for(var i=0;i<sorted.length;i++){
+      var p=sorted[i];
+      var govs=partyGovs[p]||[];
+      html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">';
+      html+='<div style="font-family:var(--serif);font-size:1.1em;font-weight:700;color:'+partyColor(p)+';min-width:20px;text-align:right">'+partyCounts[p]+'</div>';
+      html+='<div style="font-size:.65em;color:var(--muted);min-width:50px;white-space:nowrap">'+p+'</div>';
+      html+='<div style="display:flex;flex-wrap:wrap;gap:3px;flex:1;justify-content:center">';
+      for(var j=0;j<govs.length;j++){
+        var gv=govs[j];
+        var g=D_GOV[gv.uf];
+        var turnoLabel=g.turno===2?'2º turno':'1º turno';
+        var wPct=g.pct,rPct=g.rpct||0;
+        var barW=(wPct/(wPct+rPct)*100).toFixed(1);
+        var barR=(100-parseFloat(barW)).toFixed(1);
+        var fl=FLAGS[gv.uf]?'<img class="flag" src="'+FLAGS[gv.uf]+'" alt="" style="width:16px;height:11px;vertical-align:middle;margin-right:3px;border-radius:2px">':'';
+        html+='<div class="gov-photo">';
+        html+='<img src="'+(gv.photo||'')+'" style="width:28px;height:28px;min-width:28px;min-height:28px;border-radius:50%;object-fit:cover;display:block;border:2px solid '+partyColor(p)+'" onerror="imgFallback(this,\''+gv.uf+'\',\''+partyColor(p)+'\')">';
+        html+='<div class="gov-tip-data" hidden>';
+        html+='<div class="gt-name">'+fl+(NM[gv.uf]||gv.uf)+'</div>';
+        html+='<div class="gt-state" style="color:'+partyColor(g.wp)+'">'+g.w+' ('+g.wp+') · '+turnoLabel+'</div>';
+        if(g.turno===2 && g.wv){
+          html+='<div class="gt-bar"><div style="width:'+barW+'%;background:'+partyColor(g.wp)+'"></div><div style="width:'+barR+'%;background:'+partyColor(g.rp)+'"></div></div>';
+          html+='<div class="gt-row"><span style="color:'+partyColor(g.wp)+'">'+wPct+'%</span><span class="d">×</span><span style="color:'+partyColor(g.rp)+'">'+rPct+'%</span></div>';
+          html+='<div class="gt-row"><span class="d">'+g.r+' ('+g.rp+')</span></div>';
+        } else {
+          html+='<div class="gt-row" style="margin-top:4px"><span style="font-weight:600;color:'+partyColor(g.wp)+'">'+wPct+'%</span><span class="d">dos válidos</span></div>';
+        }
+        html+='</div></div>';
+      }
+      html+='</div></div>';
+    }
+    natEl.innerHTML=html;
+    // Update bar to show party proportions
+    var barHtml='';
+    for(var i=0;i<sorted.length;i++){
+      var p=sorted[i];
+      var pctW=(partyCounts[p]/27*100).toFixed(1);
+      barHtml+='<span style="width:'+pctW+'%;background:'+partyColor(p)+';display:block;height:100%"></span>';
+    }
+    barEl.innerHTML=barHtml;
+  } else {
+    // Restore original presidente content
+    natEl.style.flexDirection='';
+    natEl.style.alignItems='';
+    natEl.style.gap='';
+    natEl.innerHTML=
+      '<div class="cd l">'+
+        '<img class="photo" src="'+PHOTO_LULA+'" alt="Lula">'+
+        '<div class="p">51,79%</div>'+
+        '<div class="n">LULA (PT)</div>'+
+        '<div class="v">64.255.787</div>'+
+      '</div>'+
+      '<div style="color:var(--muted);font-size:1.3em;align-self:center">&times;</div>'+
+      '<div class="cd f">'+
+        '<img class="photo" src="'+PHOTO_FLAVIO+'" alt="Flávio Bolsonaro">'+
+        '<div class="p">48,21%</div>'+
+        '<div class="n">F. BOLSONARO (PL)</div>'+
+        '<div class="v">59.825.688</div>'+
+      '</div>';
+    barEl.innerHTML='<span style="width:51.79%;background:var(--lula);display:block;height:100%"></span><span style="width:48.21%;background:var(--flavio);display:block;height:100%"></span>';
+  }
+  // Update region & state lists
+  updateRegionListForCargo();
+  updateStateListForCargo();
+}
+
+function updateRegionListForCargo(){
+  var el=document.getElementById('rlist');
+  el.innerHTML='';
+  if(cargoMode==='governador'){
+    // Group governors by region
+    for(var name in REGS){
+      var ufs=REGS[name];
+      if(name==='Exterior')continue;
+      var partyCounts={};
+      for(var i=0;i<ufs.length;i++){
+        var g=D_GOV[ufs[i]];
+        if(g) partyCounts[g.wp]=(partyCounts[g.wp]||0)+1;
+      }
+      var sorted=Object.keys(partyCounts).sort(function(a,b){return partyCounts[b]-partyCounts[a]});
+      var wrap=document.createElement('div');wrap.className='ri-wrap';
+      var ri=document.createElement('div');ri.className='ri';
+      var barHtml='';
+      for(var j=0;j<sorted.length;j++){
+        var p=sorted[j];
+        var w=(partyCounts[p]/ufs.length*100).toFixed(1);
+        barHtml+='<div style="width:'+w+'%;background:'+partyColor(p)+'"></div>';
+      }
+      var topParty=sorted[0];
+      ri.innerHTML=
+        '<div class="ap" style="border-color:'+partyColor(topParty)+';color:'+partyColor(topParty)+'">'+ufs.length+'</div>'+
+        '<div style="flex:1"><div class="rn">'+name+'</div>'+
+        '<div class="rb">'+barHtml+'</div></div>'+
+        '<div class="rp"><span style="color:'+partyColor(topParty)+';font-weight:700">'+topParty+'</span></div>'+
+        '<div class="chevron">&#9660;</div>';
+      var detail=document.createElement('div');detail.className='ri-detail';
+      var detailHtml='';
+      for(var i=0;i<ufs.length;i++){
+        var g=D_GOV[ufs[i]];
+        if(g) detailHtml+='<div style="padding:2px 0"><span style="font-weight:700;color:'+partyColor(g.wp)+'">'+ufs[i]+'</span> '+g.w+' ('+g.wp+') '+g.pct.toFixed(1)+'%</div>';
+      }
+      detail.innerHTML=detailHtml;
+      (function(r,d){r.addEventListener('click',function(){r.classList.toggle('open');d.classList.toggle('show')})})(ri,detail);
+      wrap.appendChild(ri);wrap.appendChild(detail);
+      el.appendChild(wrap);
+    }
+  } else {
+    buildRegions();
+  }
+}
+
+function updateStateListForCargo(){
+  var el=document.getElementById('slist');
+  el.innerHTML='';
+  if(cargoMode==='governador'){
+    var sorted=Object.keys(D_GOV).sort(function(a,b){return D_GOV[b].pct-D_GOV[a].pct});
+    for(var i=0;i<sorted.length;i++){
+      var uf=sorted[i];
+      var g=D_GOV[uf];
+      var row=document.createElement('div');row.className='sr';
+      row.innerHTML=
+        '<div class="su">'+uf+'</div>'+
+        '<div class="sb"><div style="width:'+g.pct+'%;background:'+partyColor(g.wp)+'"></div><div style="width:'+g.rpct+'%;background:'+partyColor(g.rp)+'"></div></div>'+
+        '<div class="sp" style="color:'+partyColor(g.wp)+'">'+g.pct.toFixed(1)+'%</div>';
+      (function(u){row.addEventListener('click',function(){
+        if(stateLayer){
+          stateLayer.eachLayer(function(layer){
+            if(layer.feature.properties.s===u){
+              map.fitBounds(layer.getBounds(),{padding:[20,20]});
+            }
+          });
+        }
+      })})(uf);
+      el.appendChild(row);
+    }
+  } else {
+    buildStateList();
+  }
+}
+
+// ── State layer ──
+function loadStates() {
+  fetch('data/brazil-simple.json')
+    .then(function(r){return r.json()})
+    .then(function(geo) {
+      stateLayer = L.geoJSON(geo, {
+        style: function(feat) {
+          var uf = feat.properties.s;
+          if (cargoMode==='governador') {
+            var g = D_GOV[uf];
+            return {
+              fillColor: g ? partyColor(g.wp) : '#333',
+              fillOpacity: 0.65,
+              weight: 1.5,
+              color: 'rgba(20,19,15,0.8)',
+              opacity: 1
+            };
+          }
+          var d = D_UF[uf];
+          return {
+            fillColor: d ? elColor(d.l, d.f) : '#333',
+            fillOpacity: 0.55,
+            weight: 1.5,
+            color: 'rgba(20,19,15,0.8)',
+            opacity: 1
+          };
+        },
+        onEachFeature: function(feat, layer) {
+          var uf = feat.properties.s;
+          var d = D_UF[uf];
+          if (!d) return;
+          var total = d.l + d.f;
+          var isL = d.l > d.f;
+
+          layer.bindTooltip(
+            makeTooltip(uf, NM[uf], d.l, d.f, total),
+            {sticky:true,className:'dark-tooltip',maxWidth:500}
+          );
+
+          layer.on('mouseover', function() {
+            if(cargoMode==='governador'){
+              var g=D_GOV[uf];
+              layer.setStyle({weight:3, color:'#fff'});
+              if(g) showGovInfo(NM[uf]||uf, uf, g);
+            } else {
+              layer.setStyle({weight: 3, color: isL?'var(--lula)':'var(--flavio)'});
+              showInfo(NM[uf]||uf, uf, d.l, d.f, d.a, d.c, d.b, d.n);
+            }
+            // Update tooltip content dynamically
+            layer.setTooltipContent(makeTooltip(uf, NM[uf], d.l, d.f, total));
+          });
+          layer.on('mouseout', function() {
+            if(cargoMode==='governador'){
+              var g=D_GOV[uf];
+              if(g) layer.setStyle({fillColor:partyColor(g.wp),fillOpacity:0.65,weight:1.5,color:'rgba(20,19,15,0.8)'});
+            } else {
+              if (stateLayer) stateLayer.resetStyle(layer);
+            }
+            if (activeFilter && cargoMode==='presidente') applyFilter();
+            hideInfo();
+          });
+          layer.on('click', function() {
+            map.fitBounds(layer.getBounds(), {padding: [20, 20]});
+          });
+        }
+      }).addTo(map);
+      addStateLabels();
+    });
+}
+
+// ── State borders (internal only) ──
+function loadStateBorders() {
+  fetch('data/state_borders.json')
+    .then(function(r){return r.json()})
+    .then(function(geo) {
+      stateBordersLayer = L.geoJSON(geo, {
+        style: {
+          weight: 2.5,
+          color: '#ffffff',
+          opacity: 0.5,
+          fill: false
+        },
+        interactive: false
+      });
+    });
+}
+
+// ── Municipality layer ──
+function loadMunicipalities() {
+  if (munLoaded) return;
+  munLoaded = true;
+  document.getElementById('zoom-hint').textContent = 'Carregando municípios...';
+
+  fetch('data/mun_geo.json')
+    .then(function(r){return r.json()})
+    .then(function(geo) {
+      munLayer = L.geoJSON(geo, {
+        style: function(feat) {
+          var d = feat.properties.d;
+          if (!d) return {fillColor:'#333',fillOpacity:0.5,weight:0.3,color:'rgba(20,19,15,0.6)'};
+          var lula = d[2], flavio = d[3];
+          return {
+            fillColor: elColor(lula, flavio),
+            fillOpacity: 0.6,
+            weight: 0.3,
+            color: 'rgba(20,19,15,0.6)',
+            opacity: 1
+          };
+        },
+        onEachFeature: function(feat, layer) {
+          var p = feat.properties;
+          if (!p.d) return;
+          var aptos=p.d[0], comp=p.d[1], lula=p.d[2], flavio=p.d[3], brancos=p.d[4], nulos=p.d[5];
+          var total = lula + flavio;
+          if (total === 0) return;
+
+          layer.bindTooltip(
+            makeTooltip(p.u, p.n, lula, flavio, total),
+            {sticky:true,className:'dark-tooltip',maxWidth:500}
+          );
+
+          layer.on('mouseover', function() {
+            if (!currentHighlight) {
+              layer.setStyle({weight: 2, color: 'var(--accent)'});
+              layer.bringToFront();
+            }
+            if (cargoMode==='governador') {
+              var g=D_GOV[p.u];
+              var mgd=munGovData[p.c];
+              if(g && mgd){
+                var totalG=mgd[0]+mgd[1];
+                var wPct=(mgd[0]/totalG*100).toFixed(1);
+                var rPct=(mgd[1]/totalG*100).toFixed(1);
+                var munGov={w:g.w,wp:g.wp,pct:parseFloat(wPct),r:g.r,rp:g.rp,rpct:parseFloat(rPct),turno:g.turno,wv:mgd[0],rv:mgd[1],a:p.d[0],c:p.d[1],b:p.d[4],n:p.d[5]};
+                showGovInfo(p.n||'', p.u, munGov);
+                // Update tooltip with municipal data
+                var flg=FLAGS[p.u]?'<img class="flag" src="'+FLAGS[p.u]+'" alt=""> ':'';
+                layer.setTooltipContent(flg+'<b>'+(p.n||'')+'</b> ('+p.u+')<br><span style="color:'+partyColor(g.wp)+'">'+g.w+' '+wPct+'%</span>');
+              } else if(g){
+                showGovInfo(p.n||'', p.u, g);
+              }
+            } else {
+              showInfo(p.n||'', p.u||'', lula, flavio, aptos, comp, brancos, nulos);
+              // Restore presidente tooltip (may have been changed by governor mode)
+              layer.setTooltipContent(makeTooltip(p.u, p.n, lula, flavio, total));
+            }
+          });
+          layer.on('mouseout', function() {
+            if (!currentHighlight) {
+              if (cargoMode==='governador') {
+                // Restore governor colors instead of resetStyle
+                var g=D_GOV[p.u];
+                var mgd=munGovData[p.c];
+                if(mgd && g){
+                  var isW=mgd[0]>mgd[1];
+                  layer.setStyle({fillColor:isW?partyColor(g.wp):partyColor(g.rp),fillOpacity:0.6,weight:0.4,color:'rgba(20,19,15,0.5)'});
+                } else if(g){
+                  layer.setStyle({fillColor:partyColor(g.wp),fillOpacity:0.55,weight:0.4,color:'rgba(20,19,15,0.5)'});
+                }
+              } else {
+                if (munLayer) munLayer.resetStyle(layer);
+                if (activeFilter) applyFilter();
+              }
+            }
+            hideInfo();
+          });
+          layer.on('click', function() {
+            var isL = lula > flavio;
+            var candidateId = isL ? ID_LULA : ID_FLAVIO;
+            window.open('politico.html?id='+candidateId, '_blank');
+          });
+        }
+      });
+
+      document.getElementById('zoom-hint').style.opacity = '0';
+      updateLayers();
+      // Notify search index that municipalities are ready
+      if (typeof window._onMunReady === 'function') window._onMunReady();
+    })
+    .catch(function(err) {
+      document.getElementById('zoom-hint').textContent = 'Erro ao carregar municípios: ' + err.message;
+    });
+}
+
+// ── RA layer (DF Administrative Regions) ──
+function loadRA() {
+  if (raLoaded) return;
+  raLoaded = true;
+  fetch('data/ra_geo.json')
+    .then(function(r){return r.json()})
+    .then(function(geo) {
+      raLayer = L.geoJSON(geo, {
+        style: function(feat) {
+          var d = feat.properties.d;
+          if (!d) return {fillColor:'#333',fillOpacity:0.3,weight:0.5,color:'rgba(255,255,255,0.3)'};
+          var lula=d[2], flavio=d[3];
+          return {
+            fillColor: elColor(lula, flavio),
+            fillOpacity: 0.65,
+            weight: 1,
+            color: 'rgba(255,255,255,0.4)',
+            opacity: 0.8
+          };
+        },
+        onEachFeature: function(feat, layer) {
+          var p = feat.properties;
+          if (!p.d) return;
+          var aptos=p.d[0], comp=p.d[1], lula=p.d[2], flavio=p.d[3], brancos=p.d[4], nulos=p.d[5];
+          var total = lula+flavio;
+          if (total===0) return;
+
+          layer.bindTooltip(
+            makeTooltip('DF', p.n+' (DF)', lula, flavio, total),
+            {sticky:true, className:'dark-tooltip'}
+          );
+          layer.on('mouseover', function() {
+            layer.setStyle({weight:2.5,color:'var(--accent)'});
+            layer.bringToFront();
+            showInfo(p.n,'DF',lula,flavio,aptos,comp,brancos,nulos);
+          });
+          layer.on('mouseout', function() {
+            if(raLayer) raLayer.resetStyle(layer);
+            hideInfo();
+          });
+        }
+      });
+      updateRA();
+    });
+}
+
+function updateRA() {
+  var z = map.getZoom();
+  var viewInDF = z >= 8 && map.getBounds().intersects(DF_BOUNDS);
+  if (viewInDF && raLayer) {
+    if (!map.hasLayer(raLayer)) raLayer.addTo(map);
+    raLayer.bringToFront();
+  } else if (raLayer && map.hasLayer(raLayer)) {
+    map.removeLayer(raLayer);
+  }
+}
+
+// ── ZZ (Exterior) layer ──
+function loadZZ() {
+  if (zzLoaded) return;
+  zzLoaded = true;
+  fetch('data/zz_data.json')
+    .then(function(r){return r.json()})
+    .then(function(cities){
+      zzLayer = L.layerGroup();
+      for (var i=0;i<cities.length;i++) {
+        var c = cities[i];
+        var aptos=c.d[0],comp=c.d[1],lula=c.d[2],flavio=c.d[3],brancos=c.d[4],nulos=c.d[5];
+        var total = lula+flavio;
+        if (total===0) continue;
+        var isL = lula>flavio;
+        var wp = isL ? pct(lula,total) : pct(flavio,total);
+        var r = Math.max(4, Math.min(18, Math.sqrt(total/50)));
+        var marker = L.circleMarker([c.lat, c.lon], {
+          radius: r,
+          fillColor: elColor(lula, flavio),
+          fillOpacity: 0.85,
+          weight: 1.5,
+          color: '#fff',
+          opacity: 0.6
+        });
+        marker.bindTooltip(
+          '<b>'+c.n+'</b> (Exterior)<br>'+
+          (isL ? '<span style="color:var(--lula)">Lula '+wp+'%</span>' : '<span style="color:var(--flavio)">Bolsonaro '+wp+'%</span>'),
+          {sticky:true, className:'dark-tooltip'}
+        );
+        (function(c,lula,flavio,aptos,comp,brancos,nulos,marker){
+          marker.on('mouseover', function(){
+            marker.setStyle({weight:3, color:'var(--accent)'});
+            showInfo(c.n,'ZZ',lula,flavio,aptos,comp,brancos,nulos);
+          });
+          marker.on('mouseout', function(){
+            marker.setStyle({weight:1.5, color:'#fff'});
+            hideInfo();
+          });
+        })(c,lula,flavio,aptos,comp,brancos,nulos,marker);
+        zzLayer.addLayer(marker);
+      }
+      zzLayer.addTo(map);
+    });
+}
+
+// ── Toggle layers based on zoom and view mode ──
+function updateLayers() {
+  // Governor mode: re-style states with party colors when switching back from municipio
+  var z = map.getZoom();
+  var showMun = viewMode === 'municipio' || z >= 6;
+
+  // Sync toggle buttons with actual state (auto-switch on zoom)
+  if (showMun && viewMode !== 'municipio') {
+    viewMode = 'municipio';
+    btnMunicipio.setAttribute('aria-pressed', 'true');
+    btnEstado.setAttribute('aria-pressed', 'false');
+  } else if (!showMun && z < 5 && viewMode !== 'estado') {
+    viewMode = 'estado';
+    btnEstado.setAttribute('aria-pressed', 'true');
+    btnMunicipio.setAttribute('aria-pressed', 'false');
+  }
+
+  if (showMun && munLayer) {
+    if (!map.hasLayer(munLayer)) munLayer.addTo(map);
+    if (stateLayer && map.hasLayer(stateLayer)) map.removeLayer(stateLayer);
+    if (!map.hasLayer(labelLayer)) labelLayer.addTo(map);
+    if (stateBordersLayer && !map.hasLayer(stateBordersLayer)) stateBordersLayer.addTo(map);
+    if (stateBordersLayer) stateBordersLayer.bringToFront();
+    removeStateLabels();
+  } else {
+    if (munLayer && map.hasLayer(munLayer)) map.removeLayer(munLayer);
+    if (stateLayer && !map.hasLayer(stateLayer)) stateLayer.addTo(map);
+    if (map.hasLayer(labelLayer)) map.removeLayer(labelLayer);
+    if (stateBordersLayer && map.hasLayer(stateBordersLayer)) map.removeLayer(stateBordersLayer);
+    if (z <= 6) addStateLabels();
+    else removeStateLabels();
+  }
+  if (activeFilter) applyFilter();
+  // Re-apply governor colors if in governor mode
+  if (cargoMode==='governador') {
+    if (stateLayer) {
+      stateLayer.eachLayer(function(layer){
+        var uf=layer.feature.properties.s;
+        var g=D_GOV[uf];
+        if(g) layer.setStyle({fillColor:partyColor(g.wp),fillOpacity:0.65});
+      });
+    }
+    // Color municipalities by governor results
+    if (munLayer && map.hasLayer(munLayer)) recolorMunGov();
+  }
+}
+
+map.on('zoomend', function() {
+  var z = map.getZoom();
+  if (z >= 5 && !munLoaded) loadMunicipalities();
+  if (cargoMode==='presidente' && z >= 7 && !raLoaded && map.getBounds().intersects(DF_BOUNDS)) loadRA();
+  updateLayers();
+  if (cargoMode==='presidente') updateRA();
+  // Update state labels based on zoom
+  if (z <= 8) addStateLabels();
+  else removeStateLabels();
+});
+
+map.on('moveend', function() {
+  if (cargoMode==='presidente') {
+    var z = map.getZoom();
+    if (z >= 7 && !raLoaded && map.getBounds().intersects(DF_BOUNDS)) loadRA();
+    updateRA();
+  }
+});
+
+loadStates();
+loadStateBorders();
+loadZZ();
+
+// ── Highlights dropdown ──
+var munGovData={};
+fetch('data/mun_gov_geo.json').then(function(r){return r.json()}).then(function(d){munGovData=d});
+
+var highlightsData=null;
+var highlightMarkers=L.layerGroup();
+var ddEl=document.getElementById('dd-highlights');
+var ddBtn=document.getElementById('dd-btn');
+var ddMenu=document.getElementById('dd-menu');
+var currentHighlight='';
+
+fetch('data/highlights.json').then(function(r){return r.json()}).then(function(d){highlightsData=d});
+
+ddBtn.addEventListener('click',function(e){e.stopPropagation();ddEl.classList.toggle('open')});
+document.addEventListener('click',function(){ddEl.classList.remove('open')});
+ddMenu.addEventListener('click',function(e){e.stopPropagation()});
+
+ddMenu.querySelectorAll('.dd-item').forEach(function(item){
+  item.addEventListener('click',function(){
+    var mode=this.dataset.val;
+    ddMenu.querySelectorAll('.dd-item').forEach(function(i){i.classList.remove('on')});
+    if(mode){this.classList.add('on');ddBtn.classList.add('active')}
+    else{ddBtn.classList.remove('active')}
+    ddEl.classList.remove('open');
+    currentHighlight=mode;
+    applyHighlight(mode);
+  });
+});
+
+function applyHighlight(mode){
+  highlightMarkers.clearLayers();
+  highlightMarkers.remove();
+  if(!mode||!highlightsData){
+    if(munLayer)munLayer.eachLayer(function(ly){munLayer.resetStyle(ly)});
+    if(activeFilter)applyFilter();
+    return;
+  }
+  if(cargoMode!=='presidente'){document.getElementById('btnPresidente').click()}
+  if(viewMode!=='municipio'){
+    viewMode='municipio';
+    btnMunicipio.setAttribute('aria-pressed','true');
+    btnEstado.setAttribute('aria-pressed','false');
+    if(!munLoaded)loadMunicipalities();
+    updateLayers();
+  }
+  function go(){
+    if(!munLayer){setTimeout(go,500);return}
+    munLayer.eachLayer(function(ly){ly.setStyle({fillOpacity:.12,fillColor:'#333'})});
+    // Build targets by name+uf for matching
+    var tgts={};
+    for(var uf in highlightsData){
+      var h=highlightsData[uf][mode];
+      if(!h)continue;
+      var key=h[1].toUpperCase()+'|'+uf;
+      tgts[key]={uf:uf,nm:h[1],val:h[2],side:h[3]||''};
+    }
+    var pts=[];var found=0;
+    munLayer.eachLayer(function(ly){
+      var p=ly.feature.properties;
+      if(!p.d||!p.n||!p.u)return;
+      var key=p.n.toUpperCase()+'|'+p.u;
+      if(tgts[key]){
+        var t=tgts[key],lula=p.d[2],flavio=p.d[3];
+        ly.setStyle({fillColor:elColor(lula,flavio),fillOpacity:.95,weight:2.5,color:'#ffd740'});
+        var c=ly.getBounds().getCenter();pts.push(c);found++;
+        var lb=t.nm;
+        if(mode==='pop')lb+=' ('+fmtV(t.val)+')';
+        else if(mode==='lq')lb+=' ('+fmtV(t.val)+' Lula)';
+        else if(mode==='lp')lb+=' ('+t.val+'% Lula)';
+        else if(mode==='fq')lb+=' ('+fmtV(t.val)+' Bolsonaro)';
+        else if(mode==='fp')lb+=' ('+t.val+'% Bolsonaro)';
+        else if(mode==='mq')lb+=' (+'+fmtV(t.val)+' '+(t.side==='L'?'Lula':'Bolsonaro')+')';
+        else if(mode==='mp')lb+=' (+'+t.val+'% '+(t.side==='L'?'Lula':'Bolsonaro')+')';
+        var flg=FLAGS[t.uf]?'<img src="'+FLAGS[t.uf]+'" style="width:16px;height:11px;vertical-align:middle;margin-right:4px;border-radius:1px">':'';
+highlightMarkers.addLayer(L.marker(c,{icon:L.divIcon({className:'',html:'<div style="font-size:10px;font-family:var(--sans);font-weight:600;color:#fff;background:rgba(0,0,0,.85);padding:4px 10px;border-radius:5px;white-space:nowrap;border:1px solid rgba(255,215,64,.5);text-shadow:none;pointer-events:none">'+flg+lb+'</div>',iconSize:null,iconAnchor:[0,12]}),interactive:false}));
+        delete tgts[key];
+      }
+    });
+    highlightMarkers.addTo(map);
+    if(pts.length>0)map.fitBounds(L.latLngBounds(pts),{padding:[50,50],maxZoom:6});
+    console.log('Highlights: found '+found+'/27');
+  }
+  go();
+}
+
+// ── Sidebar: Regions ──
+function buildRegions(){
+  var el=document.getElementById('rlist');
+  for(var name in REGS){
+    var ufs=REGS[name];
+    var tl=0,tf=0,tv=0;
+    for(var i=0;i<ufs.length;i++){var d=D_UF[ufs[i]];if(d){tl+=d.l;tf+=d.f;tv+=d.v}}
+    if(tv===0)continue;
+    var lP=pct(tl,tv),fP=pct(tf,tv),isL=tl>tf;
+    var diff=Math.abs(tl-tf);
+    var winner=isL?'Lula':'Bolsonaro';
+    var wColor=isL?'var(--lula)':'var(--flavio)';
+    var wrap=document.createElement('div');wrap.className='ri-wrap';
+    var ri=document.createElement('div');ri.className='ri';
+    ri.innerHTML=
+      '<div class="ap">100%</div>'+
+      '<div style="flex:1"><div class="rn">'+name+'</div>'+
+      '<div class="rb"><div style="width:'+lP+'%;background:var(--lula)"></div><div style="width:'+fP+'%;background:var(--flavio)"></div></div></div>'+
+      '<div class="rp"><span class="r" style="font-weight:'+(isL?800:400)+'">'+lP+'%</span>'+
+      '<span class="b" style="font-weight:'+(!isL?800:400)+'">'+fP+'%</span></div>'+
+      '<div class="chevron">&#9660;</div>';
+    var detail=document.createElement('div');detail.className='ri-detail';
+    detail.innerHTML='<div class="adv" style="color:'+wColor+'">'+winner+' venceu com vantagem de '+fmtV(diff)+' votos</div>'+
+      '<div class="adv-votes">'+fmtV(tl)+' &times; '+fmtV(tf)+' ('+fmtV(tv)+' válidos)</div>';
+    (function(r,d){r.addEventListener('click',function(){r.classList.toggle('open');d.classList.toggle('show')})})(ri,detail);
+    wrap.appendChild(ri);wrap.appendChild(detail);
+    el.appendChild(wrap);
+  }
+}
+
+// ── Sidebar: State list ──
+function buildStateList(){
+  var el=document.getElementById('slist');
+  var sorted=Object.keys(D_UF).filter(function(u){return u!=='ZZ'}).sort(function(a,b){
+    return Math.max(D_UF[b].l,D_UF[b].f)/D_UF[b].v - Math.max(D_UF[a].l,D_UF[a].f)/D_UF[a].v;
+  });
+  for(var i=0;i<sorted.length;i++){
+    var uf=sorted[i];
+    var d=D_UF[uf],isL=d.l>d.f;
+    var lP=pct(d.l,d.v),fP=pct(d.f,d.v),wp=isL?lP:fP;
+    var row=document.createElement('div');row.className='sr';
+    row.innerHTML=
+      '<div class="su">'+uf+'</div>'+
+      '<div class="sb"><div style="width:'+lP+'%;background:var(--lula)"></div><div style="width:'+fP+'%;background:var(--flavio)"></div></div>'+
+      '<div class="sp" style="color:'+(isL?'var(--lula)':'var(--flavio)')+'">'+wp+'%</div>';
+    (function(u){row.addEventListener('click',function(){
+      if (stateLayer) {
+        stateLayer.eachLayer(function(layer){
+          if (layer.feature.properties.s === u) {
+            map.fitBounds(layer.getBounds(),{padding:[20,20]});
+          }
+        });
+      }
+    })})(uf);
+    el.appendChild(row);
+  }
+}
+
+buildRegions();
+buildStateList();
+
+// ── Search ──
+(function(){
+  var input = document.getElementById('search-input');
+  var box = document.getElementById('search-results');
+  var index = [];
+  var selIdx = -1;
+  var lastMatches = [];
+
+  // Add states
+  for (var uf in D_UF) {
+    if (uf === 'ZZ') continue;
+    var d = D_UF[uf], isL = d.l > d.f;
+    var wp = isL ? pct(d.l, d.v) : pct(d.f, d.v);
+    index.push({name: NM[uf]||uf, uf: uf, type: 'estado', pct: wp, isL: isL});
+  }
+
+  function buildMunIndex() {
+    if (!munLayer) return;
+    munLayer.eachLayer(function(layer) {
+      var p = layer.feature.properties;
+      if (!p.d || !p.n) return;
+      var lula = p.d[2], flavio = p.d[3], total = lula + flavio;
+      if (total === 0) return;
+      var isL = lula > flavio;
+      var wp = isL ? pct(lula, total) : pct(flavio, total);
+      index.push({name: p.n, uf: p.u, type: 'municipio', pct: wp, isL: isL, layer: layer});
+    });
+  }
+
+  function norm(s) {
+    return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+
+  var sectionsCollapsed = {estado: false, municipio: false};
+
+  function renderItem(m, i) {
+    var fl = FLAGS[m.uf] ? '<img class="flag" src="'+FLAGS[m.uf]+'" alt="" style="width:18px;height:12px;vertical-align:middle;margin-right:3px;border-radius:2px"> ' : '';
+    var label, col;
+
+    if (cargoMode === 'governador' && m.type === 'estado') {
+      var g = D_GOV[m.uf];
+      if (g) {
+        label = g.w + ' (' + g.wp + ')';
+        col = partyColor(g.wp);
+      } else {
+        label = m.pct + '%'; col = m.isL ? 'var(--lula)' : 'var(--flavio)';
+      }
+    } else if (cargoMode === 'governador' && m.type === 'municipio') {
+      var g2 = D_GOV[m.uf];
+      if (g2) {
+        var mgd = munGovData[m.munCode];
+        if (mgd) {
+          var total = mgd[0] + mgd[1];
+          var wPct = (mgd[0] / total * 100).toFixed(1);
+          var isW = mgd[0] > mgd[1];
+          label = (isW ? g2.wp : g2.rp) + ' ' + wPct + '%';
+          col = partyColor(isW ? g2.wp : g2.rp);
+        } else {
+          label = g2.wp;
+          col = partyColor(g2.wp);
+        }
+      } else {
+        label = m.pct + '%'; col = m.isL ? 'var(--lula)' : 'var(--flavio)';
+      }
+    } else {
+      label = m.pct + '%';
+      col = m.isL ? 'var(--lula)' : 'var(--flavio)';
+    }
+
+    return '<div class="sr-item" data-i="' + i + '">' +
+      '<span>' + fl + m.name + ' <span class="sr-uf">(' + m.uf + ')</span></span>' +
+      '<span class="sr-pct" style="color:' + col + '">' + label + '</span>' +
+      '</div>';
+  }
+
+  function search(q) {
+    if (!q || q.length < 2) { box.style.display = 'none'; return; }
+    var nq = norm(q);
+    var matches = index.filter(function(x) {
+      return norm(x.name).indexOf(nq) >= 0 || norm(x.uf).indexOf(nq) >= 0;
+    });
+    matches.sort(function(a, b) {
+      return a.name.length - b.name.length;
+    });
+    var estados = matches.filter(function(m){return m.type==='estado'}).slice(0, 10);
+    var municipios = matches.filter(function(m){return m.type==='municipio'}).slice(0, 20);
+    lastMatches = [];
+    selIdx = -1;
+    if (estados.length === 0 && municipios.length === 0) { box.style.display = 'none'; return; }
+
+    var html = '';
+    if (estados.length > 0) {
+      var collapsed = sectionsCollapsed.estado;
+      html += '<div class="sr-section'+(collapsed?' collapsed':'')+'" data-sec="estado"><span>Estados ('+estados.length+')</span><span class="sr-chevron">▼</span></div>';
+      if (!collapsed) {
+        for (var i = 0; i < estados.length; i++) {
+          lastMatches.push(estados[i]);
+          html += renderItem(estados[i], lastMatches.length - 1);
+        }
+      }
+    }
+    if (municipios.length > 0) {
+      var collapsed2 = sectionsCollapsed.municipio;
+      html += '<div class="sr-section'+(collapsed2?' collapsed':'')+'" data-sec="municipio"><span>Municípios ('+municipios.length+')</span><span class="sr-chevron">▼</span></div>';
+      if (!collapsed2) {
+        for (var j = 0; j < municipios.length; j++) {
+          lastMatches.push(municipios[j]);
+          html += renderItem(municipios[j], lastMatches.length - 1);
+        }
+      }
+    }
+
+    box.innerHTML = html;
+    box.style.display = 'block';
+    box.querySelectorAll('.sr-item').forEach(function(el) {
+      el.addEventListener('click', function() { pick(lastMatches[+el.dataset.i]); });
+    });
+    box.querySelectorAll('.sr-section').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var sec = el.dataset.sec;
+        sectionsCollapsed[sec] = !sectionsCollapsed[sec];
+        search(input.value);
+      });
+    });
+  }
+
+  function pick(item) {
+    box.style.display = 'none';
+    input.value = item.name;
+    input.blur();
+    if (item.type === 'estado' && stateLayer) {
+      stateLayer.eachLayer(function(layer) {
+        if (layer.feature.properties.s === item.uf) {
+          map.fitBounds(layer.getBounds(), {padding: [20, 20]});
+          var d = D_UF[item.uf];
+          if (d) showInfo(NM[item.uf]||item.uf, item.uf, d.l, d.f, d.a, d.c, d.b, d.n);
+        }
+      });
+    } else if (item.type === 'municipio') {
+      if (item.layer) {
+        map.fitBounds(item.layer.getBounds(), {padding: [40, 40], maxZoom: 10});
+      } else {
+        // Layer not loaded yet — zoom to state, which triggers mun load
+        if (stateLayer) {
+          stateLayer.eachLayer(function(layer) {
+            if (layer.feature.properties.s === item.uf) {
+              map.fitBounds(layer.getBounds(), {padding: [20, 20]});
+            }
+          });
+        }
+      }
+      var dd = item.munData || (item.layer && item.layer.feature.properties.d);
+      if (dd) showInfo(item.name, item.uf, dd[2], dd[3], dd[0], dd[1], dd[4], dd[5]);
+    }
+  }
+
+  input.addEventListener('input', function() { search(input.value); });
+  input.addEventListener('keydown', function(e) {
+    var items = box.querySelectorAll('.sr-item');
+    if (e.key === 'ArrowDown') { e.preventDefault(); selIdx = Math.min(selIdx + 1, items.length - 1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); selIdx = Math.max(selIdx - 1, 0); }
+    else if (e.key === 'Enter' && selIdx >= 0) { e.preventDefault(); items[selIdx].click(); return; }
+    else if (e.key === 'Escape') { box.style.display = 'none'; input.blur(); return; }
+    else return;
+    items.forEach(function(el, i) { el.classList.toggle('sel', i === selIdx); });
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.search-wrap')) box.style.display = 'none';
+  });
+
+  // Load mun index immediately from GeoJSON (don't wait for map layer)
+  fetch('data/mun_geo.json').then(function(r){return r.json()}).then(function(geo){
+    for (var i = 0; i < geo.features.length; i++) {
+      var f = geo.features[i];
+      var p = f.properties;
+      if (!p.d || !p.n) continue;
+      var lula = p.d[2], flavio = p.d[3], total = lula + flavio;
+      if (total === 0) continue;
+      var isL = lula > flavio;
+      var wp = isL ? pct(lula, total) : pct(flavio, total);
+      index.push({name: p.n, uf: p.u, type: 'municipio', pct: wp, isL: isL, munCode: p.c, munData: p.d});
+    }
+  });
+
+  // When munLayer loads, link layers to search index for zoom-on-click
+  window._onMunReady = function() {
+    if (!munLayer) return;
+    munLayer.eachLayer(function(layer) {
+      var p = layer.feature.properties;
+      if (!p.c) return;
+      for (var i = 0; i < index.length; i++) {
+        if (index[i].munCode === p.c) { index[i].layer = layer; break; }
+      }
+    });
+  };
+})();
+</script>
+</body>
+</html>

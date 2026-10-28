@@ -11,8 +11,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
 <link rel="stylesheet" href="css/shared.css">
 
-<nav class="topnav" aria-label="Seções"><div><a href="index.html" class="nav-brand" aria-label="turnos"><img class="logo-light" src="assets/logo/turnos-horizontal-claro.svg" alt="turnos" height="22"><img class="logo-dark" src="assets/logo/turnos-horizontal-escuro.svg" alt="" height="22"></a><button class="nav-arr nav-arr-l" aria-label="Anterior" hidden>‹</button><div class="nav-links"><a href="#perfil">Perfil</a><a href="#resultado">Resultado</a><a href="#patrimonio">Patrimônio</a><a href="#candidaturas">Candidaturas</a></div><button class="nav-arr nav-arr-r" aria-label="Próximo" hidden>›</button><a href="javascript:history.back()" style="flex:none;display:flex;align-items:center;padding-block:10px;padding-inline:10px;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;white-space:nowrap">← Voltar</a><button class="theme-toggle" aria-label="Alternar tema" title="Alternar tema">☀</button></div></nav>
+<nav class="topnav" aria-label="Seções"><div><a href="index.html" class="nav-brand" aria-label="turnos"><img class="logo-light" src="assets/logo/turnos-horizontal-claro.svg" alt="turnos" height="22"><img class="logo-dark" src="assets/logo/turnos-horizontal-escuro.svg" alt="" height="22"></a><button class="nav-arr nav-arr-l" aria-label="Anterior" hidden>‹</button><div class="nav-links"><a href="#perfil">Perfil</a><a href="#resultado">Resultado</a><a href="#patrimonio">Patrimônio</a><a href="#candidaturas">Candidaturas</a></div><button class="nav-arr nav-arr-r" aria-label="Próximo" hidden>›</button><a id="backBtn" href="index.html" style="flex:none;display:flex;align-items:center;padding-block:10px;padding-inline:10px;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;white-space:nowrap">← Voltar</a><button class="theme-toggle" aria-label="Alternar tema" title="Alternar tema">☀</button></div></nav>
 <script src="js/shared.js"></script>
+<script>!function(){var b=document.getElementById('backBtn'),ref=document.referrer;if(ref&&ref.indexOf(location.host)!==-1){b.href='javascript:void(0)';b.onclick=function(e){e.preventDefault();history.back()}}}()</script>
 
 <div class="wrap">
 
@@ -223,49 +224,111 @@ function renderResultado(p){
     html+=renderRoundCard(r,label,'');
   }
 
-  // Bar for primary result
-  var r=p.resultado||p.resultado2t;
-  if(r&&r.pct!=null){
-    var pct=parseFloat(r.pct);
-    html+='<div style="margin-top:14px">';
-    html+='<div class="bar" role="img" aria-label="Percentual de votos: '+fmt(pct)+'%">';
-    html+='<span style="width:'+fmt(pct)+'%;background:var(--accent)"></span>';
-    html+='</div>';
-    html+='<div class="legend" style="margin-top:8px"><span>'+fmt(pct)+'% dos votos válidos</span></div>';
-    html+='</div>';
-  }
 
   el.innerHTML=html;
 }
 
 function renderRoundCard(r,label,side){
   var cls='card'+(side?' '+side:'');
-  var html='<div class="'+cls+'">';
+  var html='<div class="'+cls+'" style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start">';
+  html+='<div>';
   html+='<div class="kicker">'+escH(label)+'</div>';
   if(r.votos!=null) html+='<div class="num">'+fmtN(r.votos)+'</div><div class="lbl">votos</div>';
-  if(r.pct!=null) html+='<div class="num" style="font-size:22px;margin-top:8px">'+fmt(parseFloat(r.pct))+'%</div>';
+  html+='</div>';
+  html+='<div style="text-align:right">';
+  if(r.pct!=null) html+='<div class="num" style="font-size:28px">'+fmt(parseFloat(r.pct))+'%</div>';
   if(r.situacao) html+='<div class="tag" style="margin-top:8px">'+escH(r.situacao)+'</div>';
+  html+='</div>';
   html+='</div>';
   return html;
 }
 
+function toggleBens(btn,idx){
+  var row=btn.closest('tr').nextElementSibling;
+  if(row&&row.classList.contains('bens-row')){
+    row.remove();btn.textContent='▸';return;
+  }
+  var itens=window._patrimonioItens&&window._patrimonioItens[idx];
+  if(!itens||!itens.length){return;}
+  btn.textContent='▾';
+  // Lucide SVG icons by asset type
+  var _ico={};
+  function ico(paths){return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:.6">'+paths+'</svg>'}
+  _ico['Casa']=_ico['Imóvel']=_ico['Imóvel residencial']=_ico['Imóvel comercial']=_ico['Prédio residencial']=_ico['Construção']=ico('<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>');
+  _ico['Apartamento']=ico('<rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>');
+  _ico['Terreno']=_ico['Terra nua']=_ico['Imóvel rural']=_ico['Propriedade rural']=ico('<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>');
+  _ico['Veículo']=_ico['Moto']=ico('<path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/>');
+  _ico['Depósito']=_ico['Conta corrente']=_ico['Poupança']=_ico['Poupança/Depósitos']=ico('<line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>');
+  _ico['Renda fixa']=_ico['CDB']=_ico['LCA']=_ico['LCI']=_ico['Investimentos']=_ico['Fundos']=_ico['Fundo multimercado']=_ico['Fundo de ações']=_ico['Fundo renda fixa']=_ico['Fundo de cotas']=ico('<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>');
+  _ico['Quotas']=_ico['Quotas de capital']=_ico['Participações']=ico('<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>');
+  _ico['VGBL']=_ico['PGBL']=_ico['Previdência']=ico('<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>');
+  _ico['Dinheiro']=_ico['Moeda estrangeira']=_ico['Dinheiro estrangeiro']=ico('<rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/>');
+  _ico['Ações']=ico('<path d="M9 5v4"/><rect width="4" height="6" x="7" y="9" rx="1"/><path d="M9 15v2"/><path d="M17 3v2"/><rect width="4" height="8" x="15" y="5" rx="1"/><path d="M17 13v3"/><path d="M3 3v16a2 2 0 0 0 2 2h16"/>');
+  _ico['Consórcio']=ico('<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/>');
+  _ico['Semoventes']=_ico['Rebanho bovino']=_ico['Rebanho ovino']=_ico['Equinos']=_ico['Reprodução']=_ico['Bens rurais']=ico('<path d="m10 11 11 .9a1 1 0 0 1 .8 1.1l-.665 4.158a1 1 0 0 1-.988.842H20"/><path d="M16 18h-5"/><path d="M18 5a1 1 0 0 0-1 1v5.573"/><path d="M3 4h8.129a1 1 0 0 1 .99.863L13 11.246"/><path d="M4 11V4"/><path d="M7 15h.01"/><path d="M8 10.1V4"/><circle cx="18" cy="18" r="2"/><circle cx="7" cy="15" r="5"/>');
+  _ico['Crédito']=_ico['Empréstimo']=_ico['Outros créditos']=ico('<path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/>');
+  _ico['Criptomoeda']=ico('<path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893-3.94-.694m5.155-6.2L8.29 4.26m5.908 1.042.348-1.97M7.48 20.364l3.126-17.727"/>');
+  _ico['Debêntures']=ico('<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>');
+  var _dfl=ico('<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>');
+  var _icoPatterns=[
+    [/casa|imóvel|imóveis|imovel|prédio|predio|constru|galpão|galpao|loja/i, _ico['Casa']],
+    [/apart/i, _ico['Apartamento']],
+    [/terreno|terra nua|lote/i, _ico['Terreno']],
+    [/veículo|veiculo|moto(?!$)|auto/i, _ico['Veículo']],
+    [/depósito|deposito|conta corr|poupan/i, _ico['Depósito']],
+    [/renda fixa|cdb|lca|lci|tesouro|fundo|fidc|investim|aplica/i, _ico['Renda fixa']],
+    [/quota|quinhõ|participa|holding|cooperat/i, _ico['Quotas']],
+    [/vgbl|pgbl|previd/i, _ico['VGBL']],
+    [/dinheiro|espécie|especie|moeda/i, _ico['Dinheiro']],
+    [/ação|ações|acoes|açõe/i, _ico['Ações']],
+    [/consórcio|consorcio/i, _ico['Consórcio']],
+    [/semovente|rebanho|bovino|ovino|equino|reproduç|atividade rural|rural|bens rurais/i, _ico['Semoventes']],
+    [/crédito|credito|emprést|emprest/i, _ico['Crédito']],
+    [/cripto|bitcoin/i, _ico['Criptomoeda']],
+    [/debên|deben/i, _ico['Debêntures']],
+    [/embarca|náutic|nautic/i, _ico['Embarcação']||_dfl],
+    [/jóia|joia|arte|ouro/i, _dfl],
+    [/sala/i, _ico['Casa']],
+    [/aeronave/i, ico('<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>')]
+  ];
+  function tipoIco(t){
+    if(_ico[t])return _ico[t];
+    for(var i=0;i<_icoPatterns.length;i++){if(_icoPatterns[i][0].test(t))return _icoPatterns[i][1];}
+    return _dfl;
+  }
+  // Group by type
+  var groups={};
+  itens.forEach(function(a){
+    var k=a.t||'Outros';
+    if(!groups[k])groups[k]={items:[],total:0};
+    groups[k].items.push(a);
+    groups[k].total+=(a.v||0);
+  });
+  var sorted=Object.keys(groups).sort(function(a,b){return groups[b].items.length-groups[a].items.length||groups[b].total-groups[a].total});
+  var html='<tr class="bens-row"><td colspan="4" style="padding:4px 12px 16px">';
+  html+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px;margin-top:4px">';
+  sorted.forEach(function(tipo){
+    var g=groups[tipo];
+    html+='<div style="background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px">';
+    html+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)">'+tipoIco(tipo)+escH(tipo)+'</span><span style="font-size:13px;font-weight:600;color:var(--fg)">'+fmtR(g.total)+'</span></div>';
+    g.items.forEach(function(a){
+      html+='<div style="display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted);padding:2px 0;border-top:1px solid var(--line)">';
+      html+='<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+escH(a.d||tipo)+'</span>';
+      if(a.v!=null)html+='<span style="white-space:nowrap;font-variant-numeric:tabular-nums">'+fmtR(a.v)+'</span>';
+      html+='</div>';
+    });
+    html+='</div>';
+  });
+  html+='</div></td></tr>';
+  btn.closest('tr').insertAdjacentHTML('afterend',html);
+}
+
 function renderPatrimonio(p){
   var el=document.getElementById('patrimonioContent');
-  // Collect bens data from candidaturas
   var anos=[];
   if(p.candidaturas&&p.candidaturas.length){
     p.candidaturas.forEach(function(c){
-      if(c.bens!=null){
-        anos.push({ano:c.ano,total:c.bens,itens:c.bensItens||[]});
-      }
-    });
-  }
-  // Also check top-level patrimonio array
-  if(p.patrimonio&&p.patrimonio.length){
-    p.patrimonio.forEach(function(pat){
-      // Avoid duplicating if already added from candidaturas
-      var existing=anos.find(function(a){return a.ano===pat.ano});
-      if(!existing) anos.push({ano:pat.ano,total:pat.total,itens:pat.itens||[]});
+      if(c.bens!=null) anos.push({ano:c.ano,total:c.bens,itens:c.bensItens||[]});
     });
   }
 
@@ -275,14 +338,13 @@ function renderPatrimonio(p){
   }
 
   anos.sort(function(a,b){return a.ano-b.ano});
-  var maxVal=Math.max.apply(null,anos.map(function(a){return a.total}));
+  window._patrimonioItens={};
 
   var html='<div class="scroll"><table style="min-width:0"><thead><tr>';
-  html+='<th>Ano</th><th class="n">Valor total</th><th>Barra</th><th class="n">Variação</th>';
+  html+='<th style="width:30px"></th><th>Ano</th><th class="n">Valor declarado</th><th class="n">Variação</th>';
   html+='</tr></thead><tbody>';
 
   anos.forEach(function(a,i){
-    var pct=maxVal>0?(a.total/maxVal*100):0;
     var varHtml='';
     if(i>0){
       var prev=anos[i-1].total;
@@ -293,21 +355,14 @@ function renderPatrimonio(p){
         varHtml='<span class="pat-var '+cls2+'">'+sign+fmt(v)+'%</span>';
       }
     }
+    var hasItens=a.itens&&a.itens.length>0;
+    if(hasItens)window._patrimonioItens[i]=a.itens;
     html+='<tr>';
+    html+='<td>'+(hasItens?'<button onclick="toggleBens(this,'+i+')" style="background:none;border:0;color:var(--muted);cursor:pointer;font-size:14px;padding:0" title="Ver '+a.itens.length+' bens declarados">▸</button>':'')+'</td>';
     html+='<td><strong>'+escH(String(a.ano))+'</strong></td>';
     html+='<td class="n">'+fmtR(a.total)+'</td>';
-    html+='<td style="width:200px;min-width:120px"><div style="background:var(--neutral-soft);border-radius:4px;height:18px;overflow:hidden"><div class="pat-bar" style="width:'+fmt(pct)+'%"></div></div></td>';
     html+='<td class="n">'+varHtml+'</td>';
     html+='</tr>';
-    if(a.itens&&a.itens.length){
-      html+='<tr><td colspan="4" style="padding-top:0;padding-bottom:12px">';
-      html+='<details><summary style="font-size:13px;color:var(--muted);cursor:pointer">Ver '+a.itens.length+' bem(ns) declarado(s)</summary>';
-      html+='<ul style="margin:8px 0 0;padding-left:18px;font-size:13px;display:flex;flex-direction:column;gap:4px">';
-      a.itens.forEach(function(item){
-        html+='<li>'+escH(item.descricao||'')+(item.valor!=null?' — '+fmtR(item.valor):'')+'</li>';
-      });
-      html+='</ul></details></td></tr>';
-    }
   });
 
   html+='</tbody></table></div>';
@@ -323,14 +378,14 @@ function renderCandidaturas(p){
 
   var sorted=p.candidaturas.slice().sort(function(a,b){return (a.ano||0)-(b.ano||0)});
 
-  var html='<div class="tl">';
+  var html='<div class="tlx">';
   sorted.forEach(function(c){
-    html+='<div class="tl-item">';
-    html+='<div class="tl-date">'+escH(String(c.ano||''))+'<span class="tl-tag">'+escH(c.cargo||'')+(c.estado?' · '+escH(c.estado):'')+'</span></div>';
-    html+='<div class="tl-body">';
-    if(c.partido) html+='<strong>'+escH(c.partido)+'</strong> ';
+    html+='<div class="tlx-item">';
+    html+='<div class="tlx-year">'+escH(String(c.ano||''))+'</div>';
+    html+='<div class="tlx-cargo">'+escH(c.cargo||'')+(c.estado?' · '+escH(c.estado):'')+'</div>';
+    html+='<div class="tlx-body">';
+    if(c.partido) html+='<strong>'+escH(c.partido)+'</strong><br>';
     if(c.resultado) html+='<span class="tag">'+escH(c.resultado)+'</span>';
-    if(c.votos!=null) html+=' <span class="small">'+fmtN(c.votos)+' votos</span>';
     html+='</div>';
     html+='</div>';
   });

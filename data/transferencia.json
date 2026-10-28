@@ -1,0 +1,884 @@
+{
+  "model_a2": {
+    "55": {
+      "to_lula": 0.5327,
+      "to_bolso": 0.4673,
+      "votes_total": 2605126,
+      "votes_to_lula": 1387681,
+      "votes_to_bolso": 1217445,
+      "name": "Ronaldo Caiado",
+      "party": "PSD"
+    },
+    "70": {
+      "to_lula": 1.0,
+      "to_bolso": 0.0,
+      "votes_total": 3448521,
+      "votes_to_lula": 3448521,
+      "votes_to_bolso": 0,
+      "name": "Augusto Cury",
+      "party": "Avante"
+    },
+    "14": {
+      "to_lula": 0.2604,
+      "to_bolso": 0.7396,
+      "votes_total": 2675871,
+      "votes_to_lula": 696773,
+      "votes_to_bolso": 1979098,
+      "name": "Renan Santos",
+      "party": "Missão"
+    },
+    "28": {
+      "to_lula": 1.0,
+      "to_bolso": 0.0,
+      "votes_total": 5246,
+      "votes_to_lula": 5246,
+      "votes_to_bolso": 0,
+      "name": "Pablo Marçal",
+      "party": "PRTB"
+    },
+    "30": {
+      "to_lula": 0.0,
+      "to_bolso": 1.0,
+      "votes_total": 326473,
+      "votes_to_lula": 0,
+      "votes_to_bolso": 326473,
+      "name": "Zema",
+      "party": "Novo"
+    },
+    "80": {
+      "to_lula": 1.0,
+      "to_bolso": 0.0,
+      "votes_total": 122911,
+      "votes_to_lula": 122911,
+      "votes_to_bolso": 0,
+      "name": "Samara",
+      "party": "UP"
+    },
+    "27": {
+      "to_lula": 1.0,
+      "to_bolso": 0.0,
+      "votes_total": 40041,
+      "votes_to_lula": 40041,
+      "votes_to_bolso": 0,
+      "name": "Clariana Barão",
+      "party": "DC"
+    },
+    "16": {
+      "to_lula": 1.0,
+      "to_bolso": 0.0,
+      "votes_total": 43103,
+      "votes_to_lula": 43103,
+      "votes_to_bolso": 0,
+      "name": "Hertz Dias",
+      "party": "PSTU"
+    },
+    "21": {
+      "to_lula": 1.0,
+      "to_bolso": 0.0,
+      "votes_total": 22690,
+      "votes_to_lula": 22690,
+      "votes_to_bolso": 0,
+      "name": "Edmilson Costa",
+      "party": "PCB"
+    },
+    "35": {
+      "to_lula": 1.0,
+      "to_bolso": 0.0,
+      "votes_total": 16881,
+      "votes_to_lula": 16881,
+      "votes_to_bolso": 0,
+      "name": "Wilson Grassi",
+      "party": "PMB"
+    },
+    "29": {
+      "to_lula": 1.0,
+      "to_bolso": 0.0,
+      "votes_total": 15019,
+      "votes_to_lula": 15019,
+      "votes_to_bolso": 0,
+      "name": "Rui Costa Pimenta",
+      "party": "PCO"
+    },
+    "brancos": {
+      "to_lula": 1.0,
+      "to_bolso": 0.0,
+      "votes_total": 870293,
+      "votes_to_lula": 870293,
+      "votes_to_bolso": 0
+    },
+    "nulos": {
+      "to_lula": 1.0,
+      "to_bolso": 0.0,
+      "votes_total": 945679,
+      "votes_to_lula": 945679,
+      "votes_to_bolso": 0
+    },
+    "novos_eleitores": {
+      "to_lula": 0.8927,
+      "to_bolso": 0.1073,
+      "votes_total": 2960756,
+      "votes_to_lula": 2643106,
+      "votes_to_bolso": 317650
+    }
+  },
+  "model_ei": {
+    "55": {
+      "to_lula": 0.5709,
+      "ci_low": 0.4362,
+      "ci_high": 0.8106,
+      "std": 0.1195,
+      "votes_total": 2605126,
+      "name": "Ronaldo Caiado",
+      "party": "PSD"
+    },
+    "70": {
+      "to_lula": 0.9984,
+      "ci_low": 1.0,
+      "ci_high": 1.0,
+      "std": 0.0123,
+      "votes_total": 3448521,
+      "name": "Augusto Cury",
+      "party": "Avante"
+    },
+    "14": {
+      "to_lula": 0.315,
+      "ci_low": 0.0,
+      "ci_high": 0.6839,
+      "std": 0.182,
+      "votes_total": 2675871,
+      "name": "Renan Santos",
+      "party": "Missão"
+    },
+    "28": {
+      "to_lula": 0.93,
+      "ci_low": 0.0,
+      "ci_high": 1.0,
+      "std": 0.2551,
+      "votes_total": 5246,
+      "name": "Pablo Marçal",
+      "party": "PRTB"
+    },
+    "30": {
+      "to_lula": 0.0002,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "std": 0.0026,
+      "votes_total": 326473,
+      "name": "Zema",
+      "party": "Novo"
+    },
+    "80": {
+      "to_lula": 0.7981,
+      "ci_low": 0.0,
+      "ci_high": 1.0,
+      "std": 0.3848,
+      "votes_total": 122911,
+      "name": "Samara",
+      "party": "UP"
+    },
+    "27": {
+      "to_lula": 1.0,
+      "ci_low": 1.0,
+      "ci_high": 1.0,
+      "std": 0.0,
+      "votes_total": 40041,
+      "name": "Clariana Barão",
+      "party": "DC"
+    },
+    "16": {
+      "to_lula": 0.7022,
+      "ci_low": 0.0,
+      "ci_high": 1.0,
+      "std": 0.4519,
+      "votes_total": 43103,
+      "name": "Hertz Dias",
+      "party": "PSTU"
+    },
+    "21": {
+      "to_lula": 0.98,
+      "ci_low": 1.0,
+      "ci_high": 1.0,
+      "std": 0.14,
+      "votes_total": 22690,
+      "name": "Edmilson Costa",
+      "party": "PCB"
+    },
+    "35": {
+      "to_lula": 0.9063,
+      "ci_low": 0.0,
+      "ci_high": 1.0,
+      "std": 0.2899,
+      "votes_total": 16881,
+      "name": "Wilson Grassi",
+      "party": "PMB"
+    },
+    "29": {
+      "to_lula": 0.9265,
+      "ci_low": 0.0,
+      "ci_high": 1.0,
+      "std": 0.2589,
+      "votes_total": 15019,
+      "name": "Rui Costa Pimenta",
+      "party": "PCO"
+    },
+    "brancos": {
+      "to_lula": 1.0,
+      "ci_low": 1.0,
+      "ci_high": 1.0,
+      "std": 0.0,
+      "votes_total": 870293
+    },
+    "nulos": {
+      "to_lula": 0.9898,
+      "ci_low": 0.8423,
+      "ci_high": 1.0,
+      "std": 0.0517,
+      "votes_total": 945679
+    },
+    "novos_eleitores": {
+      "to_lula": 0.8485,
+      "ci_low": 0.5645,
+      "ci_high": 1.0,
+      "std": 0.1277,
+      "votes_total": 2960756
+    }
+  },
+  "by_region": {
+    "Norte": {
+      "r_squared": 0.998683,
+      "n_municipalities": 450,
+      "coefficients": {
+        "55": {
+          "to_lula": 0.6477,
+          "to_bolso": 0.3523,
+          "votes_total": 137956,
+          "votes_to_lula": 89350,
+          "votes_to_bolso": 48606,
+          "name": "Ronaldo Caiado",
+          "party": "PSD"
+        },
+        "70": {
+          "to_lula": 0.9885,
+          "to_bolso": 0.0115,
+          "votes_total": 291576,
+          "votes_to_lula": 288220,
+          "votes_to_bolso": 3356,
+          "name": "Augusto Cury",
+          "party": "Avante"
+        },
+        "14": {
+          "to_lula": 0.6805,
+          "to_bolso": 0.3195,
+          "votes_total": 177691,
+          "votes_to_lula": 120926,
+          "votes_to_bolso": 56765,
+          "name": "Renan Santos",
+          "party": "Missão"
+        },
+        "28": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 413,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 413,
+          "name": "Pablo Marçal",
+          "party": "PRTB"
+        },
+        "30": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 8009,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 8009,
+          "name": "Zema",
+          "party": "Novo"
+        },
+        "80": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 8031,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 8031,
+          "name": "Samara",
+          "party": "UP"
+        },
+        "27": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 3361,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 3361,
+          "name": "Clariana Barão",
+          "party": "DC"
+        },
+        "16": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 2040,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 2040,
+          "name": "Hertz Dias",
+          "party": "PSTU"
+        },
+        "21": {
+          "to_lula": 0.8883,
+          "to_bolso": 0.1117,
+          "votes_total": 1460,
+          "votes_to_lula": 1297,
+          "votes_to_bolso": 163,
+          "name": "Edmilson Costa",
+          "party": "PCB"
+        },
+        "35": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 1026,
+          "votes_to_lula": 1026,
+          "votes_to_bolso": 0,
+          "name": "Wilson Grassi",
+          "party": "PMB"
+        },
+        "29": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 721,
+          "votes_to_lula": 721,
+          "votes_to_bolso": 0,
+          "name": "Rui Costa Pimenta",
+          "party": "PCO"
+        },
+        "brancos": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 27650,
+          "votes_to_lula": 27650,
+          "votes_to_bolso": 0
+        },
+        "nulos": {
+          "to_lula": 0.7995,
+          "to_bolso": 0.2005,
+          "votes_total": 66083,
+          "votes_to_lula": 52832,
+          "votes_to_bolso": 13251
+        },
+        "novos_eleitores": {
+          "to_lula": 0.5022,
+          "to_bolso": 0.4978,
+          "votes_total": -237883,
+          "votes_to_lula": -119461,
+          "votes_to_bolso": -118422
+        }
+      }
+    },
+    "Nordeste": {
+      "r_squared": 0.998188,
+      "n_municipalities": 1794,
+      "coefficients": {
+        "55": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 390036,
+          "votes_to_lula": 390036,
+          "votes_to_bolso": 0,
+          "name": "Ronaldo Caiado",
+          "party": "PSD"
+        },
+        "70": {
+          "to_lula": 0.857,
+          "to_bolso": 0.143,
+          "votes_total": 818977,
+          "votes_to_lula": 701894,
+          "votes_to_bolso": 117083,
+          "name": "Augusto Cury",
+          "party": "Avante"
+        },
+        "14": {
+          "to_lula": 0.6205,
+          "to_bolso": 0.3795,
+          "votes_total": 529395,
+          "votes_to_lula": 328496,
+          "votes_to_bolso": 200899,
+          "name": "Renan Santos",
+          "party": "Missão"
+        },
+        "28": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 1246,
+          "votes_to_lula": 1246,
+          "votes_to_bolso": 0,
+          "name": "Pablo Marçal",
+          "party": "PRTB"
+        },
+        "30": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 28647,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 28647,
+          "name": "Zema",
+          "party": "Novo"
+        },
+        "80": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 18439,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 18439,
+          "name": "Samara",
+          "party": "UP"
+        },
+        "27": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 7117,
+          "votes_to_lula": 7117,
+          "votes_to_bolso": 0,
+          "name": "Clariana Barão",
+          "party": "DC"
+        },
+        "16": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 8259,
+          "votes_to_lula": 8259,
+          "votes_to_bolso": 0,
+          "name": "Hertz Dias",
+          "party": "PSTU"
+        },
+        "21": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 4714,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 4714,
+          "name": "Edmilson Costa",
+          "party": "PCB"
+        },
+        "35": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 2853,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 2853,
+          "name": "Wilson Grassi",
+          "party": "PMB"
+        },
+        "29": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 2658,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 2658,
+          "name": "Rui Costa Pimenta",
+          "party": "PCO"
+        },
+        "brancos": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 257549,
+          "votes_to_lula": 257549,
+          "votes_to_bolso": 0
+        },
+        "nulos": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 456960,
+          "votes_to_lula": 456960,
+          "votes_to_bolso": 0
+        },
+        "novos_eleitores": {
+          "to_lula": 0.8417,
+          "to_bolso": 0.1583,
+          "votes_total": 826761,
+          "votes_to_lula": 695874,
+          "votes_to_bolso": 130887
+        }
+      }
+    },
+    "Centro-Oeste": {
+      "r_squared": 0.997915,
+      "n_municipalities": 468,
+      "coefficients": {
+        "55": {
+          "to_lula": 0.4616,
+          "to_bolso": 0.5384,
+          "votes_total": 613487,
+          "votes_to_lula": 283160,
+          "votes_to_bolso": 330327,
+          "name": "Ronaldo Caiado",
+          "party": "PSD"
+        },
+        "70": {
+          "to_lula": 0.595,
+          "to_bolso": 0.405,
+          "votes_total": 178995,
+          "votes_to_lula": 106499,
+          "votes_to_bolso": 72496,
+          "name": "Augusto Cury",
+          "party": "Avante"
+        },
+        "14": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 165836,
+          "votes_to_lula": 165836,
+          "votes_to_bolso": 0,
+          "name": "Renan Santos",
+          "party": "Missão"
+        },
+        "28": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 335,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 335,
+          "name": "Pablo Marçal",
+          "party": "PRTB"
+        },
+        "30": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 12803,
+          "votes_to_lula": 12803,
+          "votes_to_bolso": 0,
+          "name": "Zema",
+          "party": "Novo"
+        },
+        "80": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 7259,
+          "votes_to_lula": 7259,
+          "votes_to_bolso": 0,
+          "name": "Samara",
+          "party": "UP"
+        },
+        "27": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 3770,
+          "votes_to_lula": 3770,
+          "votes_to_bolso": 0,
+          "name": "Clariana Barão",
+          "party": "DC"
+        },
+        "16": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 2189,
+          "votes_to_lula": 2189,
+          "votes_to_bolso": 0,
+          "name": "Hertz Dias",
+          "party": "PSTU"
+        },
+        "21": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 1373,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 1373,
+          "name": "Edmilson Costa",
+          "party": "PCB"
+        },
+        "35": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 1051,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 1051,
+          "name": "Wilson Grassi",
+          "party": "PMB"
+        },
+        "29": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 955,
+          "votes_to_lula": 955,
+          "votes_to_bolso": 0,
+          "name": "Rui Costa Pimenta",
+          "party": "PCO"
+        },
+        "brancos": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 17042,
+          "votes_to_lula": 17042,
+          "votes_to_bolso": 0
+        },
+        "nulos": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 37194,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 37194
+        },
+        "novos_eleitores": {
+          "to_lula": 0.6212,
+          "to_bolso": 0.3788,
+          "votes_total": 199018,
+          "votes_to_lula": 123639,
+          "votes_to_bolso": 75379
+        }
+      }
+    },
+    "Sudeste": {
+      "r_squared": 0.999433,
+      "n_municipalities": 1668,
+      "coefficients": {
+        "55": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 1048924,
+          "votes_to_lula": 1048924,
+          "votes_to_bolso": 0,
+          "name": "Ronaldo Caiado",
+          "party": "PSD"
+        },
+        "70": {
+          "to_lula": 0.8232,
+          "to_bolso": 0.1768,
+          "votes_total": 1614602,
+          "votes_to_lula": 1329216,
+          "votes_to_bolso": 285386,
+          "name": "Augusto Cury",
+          "party": "Avante"
+        },
+        "14": {
+          "to_lula": 0.1826,
+          "to_bolso": 0.8174,
+          "votes_total": 1316593,
+          "votes_to_lula": 240391,
+          "votes_to_bolso": 1076202,
+          "name": "Renan Santos",
+          "party": "Missão"
+        },
+        "28": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 2424,
+          "votes_to_lula": 2424,
+          "votes_to_bolso": 0,
+          "name": "Pablo Marçal",
+          "party": "PRTB"
+        },
+        "30": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 220816,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 220816,
+          "name": "Zema",
+          "party": "Novo"
+        },
+        "80": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 69717,
+          "votes_to_lula": 69717,
+          "votes_to_bolso": 0,
+          "name": "Samara",
+          "party": "UP"
+        },
+        "27": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 19030,
+          "votes_to_lula": 19030,
+          "votes_to_bolso": 0,
+          "name": "Clariana Barão",
+          "party": "DC"
+        },
+        "16": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 24537,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 24537,
+          "name": "Hertz Dias",
+          "party": "PSTU"
+        },
+        "21": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 11671,
+          "votes_to_lula": 11671,
+          "votes_to_bolso": 0,
+          "name": "Edmilson Costa",
+          "party": "PCB"
+        },
+        "35": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 9133,
+          "votes_to_lula": 9133,
+          "votes_to_bolso": 0,
+          "name": "Wilson Grassi",
+          "party": "PMB"
+        },
+        "29": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 7888,
+          "votes_to_lula": 7888,
+          "votes_to_bolso": 0,
+          "name": "Rui Costa Pimenta",
+          "party": "PCO"
+        },
+        "brancos": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 447771,
+          "votes_to_lula": 447771,
+          "votes_to_bolso": 0
+        },
+        "nulos": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 338130,
+          "votes_to_lula": 338130,
+          "votes_to_bolso": 0
+        },
+        "novos_eleitores": {
+          "to_lula": 0.8256,
+          "to_bolso": 0.1744,
+          "votes_total": 1614464,
+          "votes_to_lula": 1332870,
+          "votes_to_bolso": 281594
+        }
+      }
+    },
+    "Sul": {
+      "r_squared": 0.994782,
+      "n_municipalities": 1191,
+      "coefficients": {
+        "55": {
+          "to_lula": 0.4982,
+          "to_bolso": 0.5018,
+          "votes_total": 410026,
+          "votes_to_lula": 204279,
+          "votes_to_bolso": 205747,
+          "name": "Ronaldo Caiado",
+          "party": "PSD"
+        },
+        "70": {
+          "to_lula": 0.13,
+          "to_bolso": 0.87,
+          "votes_total": 534664,
+          "votes_to_lula": 69486,
+          "votes_to_bolso": 465178,
+          "name": "Augusto Cury",
+          "party": "Avante"
+        },
+        "14": {
+          "to_lula": 0.7757,
+          "to_bolso": 0.2243,
+          "votes_total": 477787,
+          "votes_to_lula": 370596,
+          "votes_to_bolso": 107191,
+          "name": "Renan Santos",
+          "party": "Missão"
+        },
+        "28": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 705,
+          "votes_to_lula": 705,
+          "votes_to_bolso": 0,
+          "name": "Pablo Marçal",
+          "party": "PRTB"
+        },
+        "30": {
+          "to_lula": 0.033,
+          "to_bolso": 0.967,
+          "votes_total": 52878,
+          "votes_to_lula": 1742,
+          "votes_to_bolso": 51136,
+          "name": "Zema",
+          "party": "Novo"
+        },
+        "80": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 18412,
+          "votes_to_lula": 18412,
+          "votes_to_bolso": 0,
+          "name": "Samara",
+          "party": "UP"
+        },
+        "27": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 5940,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 5940,
+          "name": "Clariana Barão",
+          "party": "DC"
+        },
+        "16": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 5705,
+          "votes_to_lula": 5705,
+          "votes_to_bolso": 0,
+          "name": "Hertz Dias",
+          "party": "PSTU"
+        },
+        "21": {
+          "to_lula": 0.0,
+          "to_bolso": 1.0,
+          "votes_total": 3054,
+          "votes_to_lula": 0,
+          "votes_to_bolso": 3054,
+          "name": "Edmilson Costa",
+          "party": "PCB"
+        },
+        "35": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 2445,
+          "votes_to_lula": 2445,
+          "votes_to_bolso": 0,
+          "name": "Wilson Grassi",
+          "party": "PMB"
+        },
+        "29": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 2603,
+          "votes_to_lula": 2603,
+          "votes_to_bolso": 0,
+          "name": "Rui Costa Pimenta",
+          "party": "PCO"
+        },
+        "brancos": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 119136,
+          "votes_to_lula": 119136,
+          "votes_to_bolso": 0
+        },
+        "nulos": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 47475,
+          "votes_to_lula": 47475,
+          "votes_to_bolso": 0
+        },
+        "novos_eleitores": {
+          "to_lula": 1.0,
+          "to_bolso": 0.0,
+          "votes_total": 518761,
+          "votes_to_lula": 518761,
+          "votes_to_bolso": 0
+        }
+      }
+    }
+  },
+  "meta": {
+    "r_squared": 0.997461,
+    "n_municipalities": 5688,
+    "n_bootstrap": 200,
+    "description": "Ecological regression: fraction of each source's votes that went to Lula in 2T"
+  }
+}

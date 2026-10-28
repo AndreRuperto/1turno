@@ -68,3 +68,10 @@ function makeSortable(table){
     document.querySelectorAll('section[id]').forEach(function(s){navIO.observe(s)});
   }
 }()
+
+// Help tips toggle
+document.addEventListener('click',function(e){
+  var tip=e.target.closest('.help-tip');
+  document.querySelectorAll('.help-tip.active').forEach(function(t){if(t!==tip)t.classList.remove('active')});
+  if(tip)tip.classList.toggle('active');
+});
