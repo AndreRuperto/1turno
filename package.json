@@ -2,7 +2,12 @@
   "name": "turnos",
   "private": true,
   "scripts": {
-    "start": "npx http-server . -o -c-1"
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "pg": "^8.13.0"
   },
   "devDependencies": {
     "@svg-maps/brazil": "^2.0.0"

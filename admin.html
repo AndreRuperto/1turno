@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — turnos</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<style>
+:root{--bg:#1d1b17;--surface:#2a2722;--fg:#f6f3ec;--muted:#a09888;--accent:#8a6d1c;--line:#333;--lula:#cc4a43;--flavio:#4a74c6;--serif:'Source Serif 4',Georgia,serif;--sans:'IBM Plex Sans',system-ui,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:14px;padding:32px}
+.container{max-width:1100px;margin:0 auto}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;border-bottom:1px solid var(--line);padding-bottom:20px}
+h1{font-family:var(--serif);font-size:28px}
+.range-btns{display:flex;gap:6px}
+.range-btns button{background:var(--surface);border:1px solid var(--line);color:var(--muted);padding:6px 14px;border-radius:6px;cursor:pointer;font-family:var(--sans);font-size:13px}
+.range-btns button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+h2{font-family:var(--serif);font-size:20px;margin:32px 0 16px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.card{background:var(--surface);border-radius:12px;padding:20px}
+.card .label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.card .value{font-family:var(--serif);font-size:36px;font-weight:700}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+table{width:100%;border-collapse:collapse;background:var(--surface);border-radius:12px;overflow:hidden}
+th{text-align:left;padding:10px 14px;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--line)}
+td{padding:10px 14px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:none}
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.bar-row .name{width:120px;font-size:13px;color:var(--muted);text-align:right;flex:none}
+.bar-row .bar{height:24px;border-radius:4px;background:var(--accent);min-width:2px;display:flex;align-items:center;padding:0 8px;font-size:12px;font-weight:600;color:#fff;white-space:nowrap}
+.live{background:var(--surface);border-radius:12px;padding:16px;max-height:400px;overflow-y:auto;font-size:13px;font-family:'IBM Plex Sans',monospace}
+.live .ev{padding:4px 0;border-bottom:1px solid var(--line);display:flex;gap:12px}
+.live .ev:last-child{border-bottom:none}
+.live .time{color:var(--muted);width:60px;flex:none}
+.live .type{color:var(--accent);width:80px;flex:none;font-weight:600}
+.funnel .row{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.funnel .row .sect{width:180px;font-size:13px;text-align:right;flex:none}
+.funnel .row .fbar{height:28px;border-radius:4px;background:var(--flavio);display:flex;align-items:center;padding:0 10px;font-size:12px;font-weight:600;color:#fff}
+@media(max-width:768px){.cards{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>turnos · admin</h1>
+    <div class="range-btns">
+      <button data-range="24h" class="active">24h</button>
+      <button data-range="7d">7d</button>
+      <button data-range="30d">30d</button>
+      <button data-range="all">Tudo</button>
+    </div>
+  </header>
+
+  <div class="cards">
+    <div class="card"><div class="label">Visitantes</div><div class="value" id="vVisitors">—</div></div>
+    <div class="card"><div class="label">Pageviews</div><div class="value" id="vPageviews">—</div></div>
+    <div class="card"><div class="label">Tempo médio</div><div class="value" id="vTime">—</div></div>
+    <div class="card"><div class="label">Bounce rate</div><div class="value" id="vBounce">—</div></div>
+  </div>
+
+  <h2>De onde vêm</h2>
+  <div class="grid2">
+    <div>
+      <h3 style="font-size:14px;color:var(--muted);margin-bottom:12px">UTM Source</h3>
+      <div id="utmBars"></div>
+    </div>
+    <div>
+      <h3 style="font-size:14px;color:var(--muted);margin-bottom:12px">Dispositivo</h3>
+      <div id="deviceBars"></div>
+    </div>
+  </div>
+  <h3 style="font-size:14px;color:var(--muted);margin:20px 0 12px">Top referrers</h3>
+  <table><thead><tr><th>Origem</th><th>Visitas</th><th>Sessões</th></tr></thead><tbody id="refTable"></tbody></table>
+
+  <h2>O que acessam</h2>
+  <div class="grid2">
+    <div>
+      <h3 style="font-size:14px;color:var(--muted);margin-bottom:12px">Pageviews por página</h3>
+      <div id="pageBars"></div>
+    </div>
+    <div>
+      <h3 style="font-size:14px;color:var(--muted);margin-bottom:12px">Scroll depth</h3>
+      <div id="scrollBars"></div>
+    </div>
+  </div>
+
+  <h2>Onde clicam</h2>
+  <table><thead><tr><th>Elemento</th><th>Cliques</th></tr></thead><tbody id="clickTable"></tbody></table>
+
+  <h2>Tempo por seção (funil)</h2>
+  <div class="funnel" id="funnel"></div>
+
+  <h2>Tempo real</h2>
+  <div class="live" id="live"><em style="color:var(--muted)">Carregando...</em></div>
+</div>
+
+<script>
+!function(){
+  var range = '24h';
+  var fmtN = function(n) { return Number(n).toLocaleString('pt-BR'); };
+
+  function api(path) {
+    return fetch('/admin/api/' + path + '?range=' + range).then(function(r) {
+      if (r.status === 401) { location.reload(); throw new Error('auth'); }
+      return r.json();
+    });
+  }
+
+  function makeBars(container, data, nameKey, valKey, color) {
+    var el = document.getElementById(container);
+    var max = Math.max.apply(null, data.map(function(d) { return Number(d[valKey]); })) || 1;
+    el.innerHTML = data.slice(0, 8).map(function(d) {
+      var pct = Math.max(2, (Number(d[valKey]) / max) * 100);
+      return '<div class="bar-row"><span class="name">' + d[nameKey] + '</span><div class="bar" style="width:' + pct + '%;background:' + (color || 'var(--accent)') + '">' + fmtN(d[valKey]) + '</div></div>';
+    }).join('');
+  }
+
+  function load() {
+    api('summary').then(function(d) {
+      document.getElementById('vVisitors').textContent = fmtN(d.visitors);
+      document.getElementById('vPageviews').textContent = fmtN(d.pageviews);
+      document.getElementById('vTime').textContent = d.avg_time + 's';
+      document.getElementById('vBounce').textContent = d.bounce_rate + '%';
+    });
+
+    api('referrers').then(function(rows) {
+      document.getElementById('refTable').innerHTML = rows.map(function(r) {
+        return '<tr><td>' + r.source + '</td><td>' + fmtN(r.visits) + '</td><td>' + fmtN(r.sessions) + '</td></tr>';
+      }).join('');
+    });
+
+    api('utm').then(function(rows) { makeBars('utmBars', rows, 'source', 'sessions'); });
+    api('devices').then(function(rows) { makeBars('deviceBars', rows, 'device', 'sessions', 'var(--flavio)'); });
+    api('pages').then(function(rows) { makeBars('pageBars', rows, 'page', 'views', 'var(--lula)'); });
+
+    api('scroll').then(function(rows) {
+      var pages = {};
+      rows.forEach(function(r) { if (!pages[r.page]) pages[r.page] = {}; pages[r.page][r.depth] = Number(r.n); });
+      var el = document.getElementById('scrollBars');
+      el.innerHTML = Object.keys(pages).map(function(p) {
+        var d = pages[p];
+        return '<div style="margin-bottom:8px"><span style="font-size:13px;color:var(--muted)">' + p + '</span>' +
+          [25,50,75,100].map(function(depth) {
+            return '<span style="display:inline-block;margin-left:8px;font-size:12px;color:var(--fg)">' + depth + '%: ' + (d[depth] || 0) + '</span>';
+          }).join('') + '</div>';
+      }).join('');
+    });
+
+    api('clicks').then(function(rows) {
+      document.getElementById('clickTable').innerHTML = rows.map(function(r) {
+        return '<tr><td>' + r.target + '</td><td>' + fmtN(r.clicks) + '</td></tr>';
+      }).join('');
+    });
+
+    api('sections').then(function(rows) {
+      var max = Math.max.apply(null, rows.map(function(r) { return Number(r.visitors); })) || 1;
+      document.getElementById('funnel').innerHTML = rows.map(function(r) {
+        var pct = Math.max(5, (Number(r.visitors) / max) * 100);
+        return '<div class="row"><span class="sect">' + r.section + '</span><div class="fbar" style="width:' + pct + '%">' + r.avg_time + 's · ' + fmtN(r.visitors) + ' vis</div></div>';
+      }).join('');
+    });
+  }
+
+  function loadLive() {
+    api('live').then(function(rows) {
+      document.getElementById('live').innerHTML = rows.map(function(r) {
+        var d = new Date(r.created_at);
+        var time = d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        return '<div class="ev"><span class="time">' + time + '</span><span class="type">' + r.type + '</span><span>' + (r.target || r.page || '') + '</span></div>';
+      }).join('');
+    });
+  }
+
+  document.querySelectorAll('.range-btns button').forEach(function(btn) {
+    btn.onclick = function() {
+      document.querySelector('.range-btns .active').classList.remove('active');
+      btn.classList.add('active');
+      range = btn.dataset.range;
+      load();
+    };
+  });
+
+  load();
+  loadLive();
+  setInterval(loadLive, 10000);
+}();
+</script>
+</body>
+</html>
