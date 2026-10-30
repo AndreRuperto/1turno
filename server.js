@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const crypto = require('crypto');
@@ -9,34 +10,35 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'changeme';
 const SECRET = process.env.SECRET || crypto.randomBytes(32).toString('hex');
 
 // Postgres
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-});
+const pool = process.env.DATABASE_URL
+  ? new Pool({ connectionString: process.env.DATABASE_URL, ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false })
+  : null;
 
 // Init DB
-pool.query(`
-  CREATE TABLE IF NOT EXISTS events (
-    id SERIAL PRIMARY KEY,
-    type TEXT NOT NULL,
-    page TEXT,
-    target TEXT,
-    referrer TEXT,
-    utm_source TEXT,
-    device TEXT,
-    session_id TEXT,
-    value JSONB,
-    created_at TIMESTAMPTZ DEFAULT NOW()
-  )
-`).catch(err => console.error('DB init error:', err));
-
-// Create indexes for common queries
-pool.query(`
-  CREATE INDEX IF NOT EXISTS idx_events_type ON events(type);
-  CREATE INDEX IF NOT EXISTS idx_events_created ON events(created_at);
-  CREATE INDEX IF NOT EXISTS idx_events_session ON events(session_id);
-  CREATE INDEX IF NOT EXISTS idx_events_page ON events(page);
-`).catch(() => {});
+if (pool) {
+  pool.query(`
+    CREATE TABLE IF NOT EXISTS events (
+      id SERIAL PRIMARY KEY,
+      type TEXT NOT NULL,
+      page TEXT,
+      target TEXT,
+      referrer TEXT,
+      utm_source TEXT,
+      device TEXT,
+      session_id TEXT,
+      value JSONB,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `).catch(err => console.error('DB init error:', err));
+  pool.query(`
+    CREATE INDEX IF NOT EXISTS idx_events_type ON events(type);
+    CREATE INDEX IF NOT EXISTS idx_events_created ON events(created_at);
+    CREATE INDEX IF NOT EXISTS idx_events_session ON events(session_id);
+    CREATE INDEX IF NOT EXISTS idx_events_page ON events(page);
+  `).catch(() => {});
+} else {
+  console.log('No DATABASE_URL — tracking disabled');
+}
 
 app.use(express.json({ limit: '10kb' }));
 
